@@ -2,6 +2,9 @@ library(ggplot2)
 library(ggrepel)
 library(pheatmap)
 library(grDevices)
+library(gprofiler2)
+library(htmlwidgets)
+library(forcats)
 #要记得这里的padj和logFC要和前面filterDiffGene保持一致！！！
 
 visDeAnaly <- function(labelGenes,
@@ -10,7 +13,8 @@ visDeAnaly <- function(labelGenes,
                        maxOverlap = 15,
                        filePath = "./DE_volvano_plot.png") {
 
-  geneToLabel <- subset(labelGenes, padj < padjT & abs(labelGenes$log2FoldChange) >= logFCT)
+  geneToLabel <- subset(labelGenes, padj < padjT
+                        & abs(labelGenes$log2FoldChange) >= logFCT)
   volcanoPlot <- ggplot2::ggplot(labelGenes,
                                  ggplot2::aes(x = log2FoldChange, y = -log10(padj),
                                  color = group)) +
@@ -33,6 +37,7 @@ visDeAnaly <- function(labelGenes,
   ggplot2::ggsave(filePath,
          plot = volcanoPlot,
          dpi = 300)
+  return(invisible(NULL))
 }
 
 visCorrelationAnaly <- function(corMatrix,
@@ -46,10 +51,50 @@ visCorrelationAnaly <- function(corMatrix,
                                 color = colorPalette,
                                 border_color = NA,
                                 filename = filePath)
-
+  return(invisible(NULL))
 }
 
 
-visEnrichAnaly <- function() {
+visEnrichAnaly <- function(enrichOutputList,
+                           interactive = TRUE,
+                           filePath = filePath) {
 
+  gProfilerResult <- enrichOutputList$gProfilerResult
+
+  plot <- gprofiler2::gostplot(gProfilerResult, interactive = interactive)
+  if (interactive == TRUE) {
+    htmlwidgets::saveWidget(plot,
+                            file = file.path(filePath, "enrich_analysis_vis.html"))
+  } else {
+    ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis.png"),
+                    plot = plot,
+                    dpi = 300)
+  }
+  return(invisible(NULL))
 }
+
+
+visEnrichAnalyLollipop <- function(enrichOutputList,
+                                   filePath = filePath) {
+  enrichMap <- enrichOutputList$enrichmentMap
+  enrichDf <- as.data.frame(enrichMap)
+  enrichDf2 <- enrichDf[order(enrichDf$geneRatio), ]
+  rownames(enrichDf2) <- 1:nrow(enrichDf2)
+  lollipopPlot <- ggplot2::ggplot(enrichDf2[1:10, ],
+                                  ggplot2::aes(x = geneRatio,
+                                               y = Description)) +
+    ggplot2::geom_segment(ggplot2::aes(xend = 0, yend = Description)) +
+    ggplot2::geom_point(ggplot2::aes(color = p.Val, size = intersectSize)) +
+    ggplot2::scale_color_viridis_b() +
+    ggplot2::scale_size_continuous(range = c(2, 10)) +
+    ggplot2::theme_minimal() +
+    ylab(NULL)
+  ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis_Lollipop.png"),
+                  plot = lollipopPlot,
+                  dpi = 300)
+}
+
+
+
+
+
