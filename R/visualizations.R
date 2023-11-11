@@ -13,8 +13,8 @@ visDeAnaly <- function(labelGenes,
                        maxOverlap = 15,
                        filePath = "./DE_volvano_plot.png") {
 
-  geneToLabel <- subset(labelGenes, padj < padjT
-                        & abs(labelGenes$log2FoldChange) >= logFCT)
+  geneToLabel <- labelGenes[labelGenes$padj < padjT
+                            & abs(labelGenes$log2FoldChange) >= logFCT, , drop = FALSE]
   volcanoPlot <- ggplot2::ggplot(labelGenes,
                                  ggplot2::aes(x = log2FoldChange, y = -log10(padj),
                                  color = group)) +

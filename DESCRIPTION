@@ -1,6 +1,8 @@
 Package: GEAnaly
 Type: Package
-Title: Analyze gene expression matrix data within a pipeline
+Title: Analyze gene expression matrix data within a well-constructed pipeline, 
+    integrating differential enpression analysis, 
+    enrichment analysis and gene correlation analysis into a single command.
 Version: 0.1.0
 Author: person("Gen", "Li", email = "reaganree.li@mail.utoronto.ca", role = c("aut", "cre"))
 Maintainer: Gen Li <reaganree.li@mail.utoronto.ca>
@@ -8,7 +10,8 @@ Description: GEAnaly is an R package that implements a pipeline,
     which integrates gene differential expression analysis, 
     gene enrichment analysis and gene correlation analysis, 
     for the analysis of gene expression matrix data and visualization of 
-    the results of each analysis in the pipeline. 
+    the results of each analysis in the pipeline. The whole analysis pipeine
+    can be executed in a single command efficiently.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -19,6 +22,7 @@ Imports:
     ggrepel,
     gprofiler2,
     grDevices,
+    htmlwidgets,
     org.Hs.eg.db,
     pheatmap
 Roxygen: list(markdown = TRUE)
