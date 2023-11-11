@@ -82,13 +82,18 @@ visEnrichAnalyLollipop <- function(enrichOutputList,
   rownames(enrichDf2) <- 1:nrow(enrichDf2)
   lollipopPlot <- ggplot2::ggplot(enrichDf2[1:10, ],
                                   ggplot2::aes(x = geneRatio,
-                                               y = Description)) +
-    ggplot2::geom_segment(ggplot2::aes(xend = 0, yend = Description)) +
+                                               y = c(1:10))) +
+    ggplot2::geom_segment(ggplot2::aes(xend = 0, yend = c(1:10))) +
     ggplot2::geom_point(ggplot2::aes(color = p.Val, size = intersectSize)) +
     ggplot2::scale_color_viridis_b() +
     ggplot2::scale_size_continuous(range = c(2, 10)) +
-    ggplot2::theme_minimal() +
-    ylab(NULL)
+    ggplot2::theme_bw() +
+    ylab(NULL) +
+    theme(axis.text.y = element_text(color="black",
+                                     size=14)) +
+    ggplot2::scale_y_continuous(breaks = seq(1, 10),
+                                label = enrichDf2[1:10, ]$Description)
+
   ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis_Lollipop.png"),
                   plot = lollipopPlot,
                   dpi = 300)
