@@ -11,13 +11,14 @@ visDeAnaly <- function(labelGenes,
                        logFCT = 2,
                        padjT = 0.05,
                        maxOverlap = 15,
-                       filePath = "./DE_volvano_plot.png") {
+                       filePath = ".") {
 
   geneToLabel <- labelGenes[labelGenes$padj < padjT
                             & abs(labelGenes$log2FoldChange) >= logFCT, , drop = FALSE]
   volcanoPlot <- ggplot2::ggplot(labelGenes,
-                                 ggplot2::aes(x = log2FoldChange, y = -log10(padj),
-                                 color = group)) +
+                                 ggplot2::aes(x = log2FoldChange,
+                                              y = -log10(padj),
+                                              color = group)) +
     ggplot2::geom_point(alpha = 0.4, size = 2, na.rm = TRUE) +  # 设置点的透明度和大小
     ggplot2::theme_bw(base_size = 12) +  #设置一个主题背景
     ggplot2::xlab("Log2(Fold change)") + # x轴名字
@@ -34,15 +35,17 @@ visDeAnaly <- function(labelGenes,
                               show.legend = FALSE,
                               max.overlaps = maxOverlap,
                               na.rm = TRUE)
-  ggplot2::ggsave(filePath,
-         plot = volcanoPlot,
-         dpi = 300)
+  ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
+                  plot = volcanoPlot,
+                  dpi = 300)
   return(invisible(NULL))
 }
 
 visCorrelationAnaly <- function(corMatrix,
-                                filePath = "./Correlation_heatmap.png",
+                                filePath = ".",
                                 colors = c("steelblue","white","brown")) {
+
+  savePath <- file.path(filePath, "correlation_analysis_vis.png")
   colorPalette <- grDevices::colorRampPalette(colors)(100)
   heatmap <- pheatmap::pheatmap(corMatrix,
                                 cluster_rows = FALSE,
@@ -50,21 +53,22 @@ visCorrelationAnaly <- function(corMatrix,
                                 fontsize_col = 5,
                                 color = colorPalette,
                                 border_color = NA,
-                                filename = filePath)
+                                filename = savePath)
   return(invisible(NULL))
 }
 
 
 visEnrichAnaly <- function(enrichOutputList,
                            interactive = TRUE,
-                           filePath = filePath) {
+                           filePath = ".") {
 
   gProfilerResult <- enrichOutputList$gProfilerResult
 
   plot <- gprofiler2::gostplot(gProfilerResult, interactive = interactive)
   if (interactive == TRUE) {
     htmlwidgets::saveWidget(plot,
-                            file = file.path(filePath, "enrich_analysis_vis.html"))
+                            file = file.path(filePath,
+                                             "enrich_analysis_vis.html"))
   } else {
     ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis.png"),
                     plot = plot,
@@ -76,6 +80,7 @@ visEnrichAnaly <- function(enrichOutputList,
 
 visEnrichAnalyLollipop <- function(enrichOutputList,
                                    filePath = filePath) {
+
   enrichMap <- enrichOutputList$enrichmentMap
   enrichDf <- as.data.frame(enrichMap)
   enrichDf2 <- enrichDf[order(enrichDf$geneRatio), ]

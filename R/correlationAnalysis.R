@@ -1,6 +1,5 @@
 library(stats)
 corrAnalysis <- function(geneCounts,
-                         filePath = "./correlation_analysis.csv",
                          method = "pearson") {
 
   geneCountsRemoved <- geneCounts[rowSums(geneCounts[])>0,]
@@ -9,6 +8,5 @@ corrAnalysis <- function(geneCounts,
   geneCor <- stats::cor(geneCountsLog,
                         method = method)
   diag(geneCor) <- 0
-  write.csv(geneCor, file = filePath, quote = FALSE)
   return(geneCor)
 }
