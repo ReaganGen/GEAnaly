@@ -1,11 +1,12 @@
-bibentry(
-  bibtype  = "Article",
-  title    = ,
-  author   = ,
-  journal  = ,
-  year     = ,
-  volume   = ,
-  number   = ,
-  pages    = ,
-  doi      =
+citHeader("To cite GEAnaly in publications use:")
+
+citEntry(entry = "Unpublished",
+  title        = "GEAnaly: An R Package For Analysis Of Gene Expression Matrix.",
+  author       = "Gen Li",
+  note         = "Unpublished",
+  year         = "2023",
+
+  textVersion  =
+  paste("Li, G. (2023) GEAnaly: An R Package For Analysis Of Gene Expression Matrix.
+        Unpublished. URL https://github.com/ReaganGen/GEAnaly.")
 )
