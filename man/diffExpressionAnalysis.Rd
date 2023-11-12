@@ -49,4 +49,8 @@ dim(GeneCounts) # a n = 30 by d = 3 dataset
 Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold
 change and dispersion for RNA-seq data with deseq2. \emph{Genome Biology}, 15(12).
 \href{https://doi.org/10.1186/s13059-014-0550-8}{link}
+
+Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+seamless navigation through combined results of set- & network-based
+enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 }

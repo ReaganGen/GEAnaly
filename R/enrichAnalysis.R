@@ -1,12 +1,94 @@
-library(gprofiler2)
-enrichAnalysis <- function(significantGenes,
+#' Perform genes' functional enrichment analysis based on the functions provided
+#' by gprofiler2, which is the procedure of identifying functions that are over-
+#' or under-represented among a set of genes.
+#'
+#' This is a function that can conduct functional enrichment analysis to identify
+#' functions that are over- or under-represented among the genes inputted. The
+#' function is based on the "gprofiler2" package. The function uses pathways
+#' databases including GO, KEGG, REAC, TF, MIRNA, CORUM, HP, HPA, WP as data
+#' sources for the enrichment analysis.
+#'
+#' @param significantGenes A data frame, using the genes names as row names of
+#'    the data frame. It does not matter what other contents are. Make sure that
+#'    row.names(significantGenes) is the vector that contains the genes for the
+#'    enrichment analysis.
+#' @param pvalueCutoff A positive double, which is the threshold set by the
+#'    users used to decide if the enrichment of a pathway is significant.
+#'    Only pathways with smaller p-value are tagged as significant. Default
+#'    value is 0.05. The pvalueCutoff should be a value between 0 and 1.
+#' @param correctionMethod A character string indicating the algorithm used for
+#'    multiple testing correction, one of "g_SCS" (default), "fdr", "bonferroni". If you
+#'    are not sure choose which one, just use g_SCS
+#' @param filePath A character string path to the directory that the user want
+#'    to store the enrichment analysis result. It is recommended to create a
+#'    new directory to store the output .tsv file. Default value is NULL.
+#'    Should in the format: "/Path/to/the/directory/".
+#'
+#' @return A named list containing the named list of results from
+#'    gprofiler2 and a processed data frame based on the results from
+#'    gprofiler2 for visualization.
+#' \itemize{
+#'   \item gProfilerResult - A named list where 'result' contains a data frame
+#'    with the enrichment analysis results and 'meta' contains metadata needed
+#'    for visualization.
+#'   \item enrichmentVis - A processed data frame, which is a subset of the
+#'    original enrichment analysis results, and also the geneRatio of different
+#'    pathways are calculated and added.
+#' }
+#'
+#' @examples
+#' # Example 1:
+#' # Using GeneCounts dataset available with package
+#' dim(GeneCounts) # a n = 30 by d = 3 dataset
+#'
+#' # Example 2:
+#'
+#' # Example 3:
+#'
+#' @references
+#' R Core Team (2023). R: A Language and Environment for Statistical Computing.
+#' R Foundation for Statistical Computing, Vienna, Austria.
+#' \href{https://www.R-project.org/}{link}.
+#'
+#' Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
+#' gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
+#' _F1000Research_, *9 (ELIXIR)*(709). R package version 0.2.2.
+#'
+#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+#' seamless navigation through combined results of set- & network-based
+#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+#'
+#' @export
+#' @import utils
+#' @import gprofiler2
+
+enrichAnalysis <- function(significantGenes = NULL,
                            pvalueCutoff = 0.05,
                            correctionMethod = "g_SCS",
-                           filePath = ".") {
+                           filePath = NULL) {
 
+  # Performing checks of user input
+  if (is.null(filePath) == TRUE) {
+    stop("Please input a file path to store the output files.")
+  } else {
+    ;
+  }
+
+  if (is.null(significantGenes) == TRUE) {
+    stop("Please input a  data frame, using the genes names as row names of
+    the data frame. Make sure that row.names(significantGenes)
+    is the vector that contains the genes for the enrichment analysis,
+    which could be the output of function 'extractSignificantGene'")
+  } else {
+    ;
+  }
+
+  # Extract the gene names for enrichment analysis
+  message("Performing enrichment analysis")
   geneList <- row.names(significantGenes)
+
+  # Perform enrichment analysis according to the input p value and correction methods
   enrichOutput <- gprofiler2::gost(query = geneList,
-                                   organism = "hsapiens",
                                    user_threshold = pvalueCutoff,
                                    correction_method = correctionMethod,
                                    highlight = TRUE,
@@ -27,13 +109,16 @@ enrichAnalysis <- function(significantGenes,
                      "intersectSize",
                      "Description")
 
-  gem$FDR <- gem$p.Val
-  gem$Phenotype <- "+1"
+  # Calculate the gene ratio for visualization
   gem$geneRatio <- gem$intersectSize / gem$querySize
 
+  # Save the enrichment analysis result and return the result for visualization
   filePathCombined <- file.path(filePath, "enrich_analysis_result.tsv")
   write.table(gem, file = filePathCombined, sep="\t", quote = F, row.names=FALSE)
   enrichOutputList <- list(gProfilerResult = enrichOutput,
-                           enrichmentMap = gem)
+                           enrichmentVis = gem)
+
   return(enrichOutputList)
 }
+
+# [END]

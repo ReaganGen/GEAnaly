@@ -1,4 +1,4 @@
-#' Filter out the genes that significantly have different expression levels by
+#' Filter out the genes that have significantly different expression levels by
 #' the user-customized threshold
 #'
 #' This is a function that select genes that have significantly different
@@ -14,21 +14,23 @@
 #'    log2FoldChange, lfcSE, stat, pvalue and padj, and also includes
 #'    metadata columns of variable information. This input is the output
 #'    of function diffExpressionAnalysis. Default value is NULL.
-#' @param filePath A path to the directory that the user want to store the
-#'    significant genes selected by the p value and fold change threshold.
-#'    It is recommended to create a new directory to store the output .csv file.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
-#' @param pValue A threshold set by the users used to filter genes that are
-#'    differentially expressed in different samples. Only genes that has
-#'    smaller p values than the threshold would be regarded as significant genes.
-#'    Default value is 0.1. pValue is used to measure if a difference is
-#'    significant. The pValue should be a value between 0 and 1.
-#' @param foldChange A threshold set by the users used to filter genes that are
-#'    differentially expressed in different samples. Only genes that has
-#'    larger absolute values of fold change than the threshold would be regarded
-#'    as genes express differently. Default value is 1. Fold change is a measure
-#'    describing how much the expression levels of genes change between
-#'    different samples. The value of foldChange should be a positive integer.
+#' @param filePath A character string path to the directory that the user want
+#'    to store the significant genes selected by the p value and fold change
+#'    threshold. It is recommended to create a new directory to store the output
+#'    .csv file. Default value is NULL. Should in the format:
+#'    "/Path/to/the/directory/".
+#' @param pValue A positive double, which is the threshold set by the
+#'    users used to filter genes that are differentially expressed in different
+#'    samples. Only genes that has smaller p values than the threshold would be
+#'    regarded as significant genes. Default value is 0.1. pValue is used to
+#'    measure if a difference is significant. The pValue should be a value
+#'    between 0 and 1.
+#' @param foldChange A positive integer, which is the threshold set by the users
+#'    used to filter genes that are differentially expressed in different
+#'    samples. Only genes that has larger absolute values of fold change than
+#'    the threshold would be regarded as genes express differently. Default
+#'    value is 1. Fold change is a measure describing how much the expression
+#'    levels of genes change between different samples.
 #'
 #' @return Returns a data frame, which is a subset of the input dataframe
 #'    "diffExpressionResult", containing the genes that have significantly
@@ -39,20 +41,18 @@
 #'
 #' @examples
 #' # Example 1:
-#' # Using GeneCounts dataset available with package
-#' dim(GeneCounts) # a n = 30 by d = 3 dataset
-#'
-#' # Example 2:
-#'
-#' # Example 3:
 #'
 #' @references
 #' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
 #' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
 #' \href{https://CRAN.R-project.org/package=dplyr}{link}.
 #'
-#' #' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
+#' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
 #' for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
+#'
+#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+#' seamless navigation through combined results of set- & network-based
+#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' @export
 #' @import dplyr
@@ -77,6 +77,8 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
     ;
   }
 
+  message("Extracting sinificant genes")
+
   # Convert the differential expression input as a dataframe
   diffExpressionResult <- data.frame(diffExpressionResult)
 
@@ -86,13 +88,11 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
     dplyr::filter(padj < pValue & abs(log2FoldChange) > foldChange)
 
   # Save the output as a file and return the output
-    utils::write.csv(significantGenes,
-                     file = file.path(filePath, "significant_de_genes.csv"),
-                     quote = FALSE)
-    return(significantGenes)
+  utils::write.csv(significantGenes,
+                   file = file.path(filePath, "significant_de_genes.csv"),
+                   quote = FALSE)
+  return(significantGenes)
 }
-
-
 
 #' Label genes with "UP", "DOWN" and "NOCHANGE" according to the pValue and
 #' foldChange thresholds.
@@ -113,20 +113,21 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #'    log2FoldChange, lfcSE, stat, pvalue and padj, and also includes
 #'    metadata columns of variable information. This input is the output
 #'    of function diffExpressionAnalysis. Default value is NULL.
-#' @param filePath A path to the directory that the user want to store the
-#'    labelled genes based on the p value and fold change threshold.
+#' @param filePath A character string path to the directory that the user want
+#'    to store the labelled genes based on the p value and fold change threshold.
 #'    It is recommended to create a new directory to store the output .csv file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
-#' @param pValue A threshold set by the users used to decide if the gene UP or
-#'    DOWN expressed in different samples. Only genes that has smaller p values
-#'    than the threshold would be regarded as significant genes (significantly
-#'    up expressed or significantly down expressed). Default value is 0.05.
-#'    pValue is used to measure if a difference is significant. The pValue
-#'    should be a value between 0 and 1.
-#' @param foldChange A threshold set by the users used to decide how the
-#'    expression levels of a gene change in different samples. Only genes that
-#'    has larger absolute value of fold change than the threshold would be
-#'    regarded as genes who expressed differently. Default value is 2.
+#' @param pValue A positive double, which is the threshold set by the users used
+#'    to decide if the gene UP or DOWN expressed in different samples. Only
+#'    genes that has smaller p values than the threshold would be regarded as
+#'    significant genes (significantly up expressed or significantly down
+#'    expressed). Default value is 0.05. p Value is used to measure if a
+#'    difference is significant. The pValue should be a value between 0 and 1.
+#' @param foldChange A positive integer, which is the threshold set by the users
+#'    used to decide how the expression levels of a gene change in different
+#'    samples. Only genes that has larger absolute value of fold change than
+#'    the threshold would be regarded as genes who expressed differently.
+#'    Default value is 2.
 #'    Fold change is a measure describing how much the expression levels of
 #'    genes change between different samples. The value of foldChange should
 #'    be a positive integer.
@@ -141,12 +142,6 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #'
 #' @examples
 #' # Example 1:
-#' # Using GeneCounts dataset available with package
-#' dim(GeneCounts) # a n = 30 by d = 3 dataset
-#'
-#' # Example 2:
-#'
-#' # Example 3:
 #'
 #' @references
 #' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
@@ -159,11 +154,27 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' @export
 #' @import dplyr
 #' @import utils
-
+#'
 labelGenes <- function(diffExpressionResult = NULL,
                        filePath = NULL,
                        pValue = 0.05,
                        foldChange = 2) {
+
+  # Performing checks of user input
+  if (is.null(filePath) == TRUE) {
+    stop("Please input a file path to store the output files.")
+  } else {
+    ;
+  }
+
+  if (is.null(diffExpressionResult) == TRUE) {
+    stop("Please input a differential expression analysis result as the input,
+         which should be the output of function \"diffExpressionAnalysis\"")
+  } else {
+    ;
+  }
+
+  message("Labeling genes")
 
   # Convert the differential expression output to a data frame
   diffExpressionResult <- data.frame(diffExpressionResult)
@@ -174,13 +185,13 @@ labelGenes <- function(diffExpressionResult = NULL,
       log2FoldChange >= foldChange & padj <= pValue ~ "UP",
       log2FoldChange <= -foldChange & padj <= pValue ~ "DOWN",
       TRUE ~ "NOCHANGE"
-      ))
+    ))
 
   # Save the output as a file or return the output
-    utils::write.csv(differentialExpressionResultlabel,
-                     file = file.path(filePath, "de_genes_with_label.csv"),
-                     quote = FALSE)
-    return(differentialExpressionResultlabel)
+  utils::write.csv(differentialExpressionResultlabel,
+                   file = file.path(filePath, "de_genes_with_label.csv"),
+                   quote = FALSE)
+  return(differentialExpressionResultlabel)
 
 }
 
