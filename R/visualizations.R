@@ -64,8 +64,7 @@ visDeAnaly <- function(genes = NULL,
   }
 
   # Select genes that have significantly different expression for labelling
-  message("Plotting and saving Differential Expression analysis
-          result to ", filePath)
+  message("Plotting and saving Differential Expression analysis result to ", filePath)
 
   geneToLabel <- genes[genes$padj < padjT
                             & abs(genes$log2FoldChange) >= logFCT, , drop = FALSE]
@@ -84,13 +83,13 @@ visDeAnaly <- function(genes = NULL,
     ggplot2::geom_hline(yintercept = -log10(padjT), linetype = "dotdash") +
     ggplot2::geom_vline(xintercept = c(-logFCT, logFCT), linetype = "dotdash") +
     ggplot2::labs(title = "Volcano Plot For Differential Expression Analysis") +
-    ggrepel::geom_label_repel(data = geneToLabel,
+    suppressWarnings(ggrepel::geom_label_repel(data = geneToLabel,
                               ggplot2::aes(label = row.names(geneToLabel)),
                               size = 3,
                               segment.color = "black",
                               show.legend = FALSE,
                               max.overlaps = maxOverlap,
-                              na.rm = TRUE)
+                              na.rm = TRUE))
 
   # Save the volcano plot
   ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
