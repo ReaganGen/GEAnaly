@@ -138,7 +138,7 @@ significantGenesE <- extractSignificantGene(deResult,
                                             filePath = outPath,
                                             pValue = 0.05,
                                             foldChange = 2)
-significantGenesE
+head(significantGenesE)
 
 # Using differential expression analysis result label genes based on the input threshold
 # This creates a de_genes_with_label.csv file stores the result
@@ -149,7 +149,7 @@ labelGenesE <- labelGenes(deResult,
                           filePath = outPath,
                           pValue = 0.05,
                           foldChange = 2)
-labelGenesE
+head(labelGenesE)
 # Genes with labels are used for visualization of the differential expression analysis
 
 ```
