@@ -18,7 +18,7 @@ Default as TRUE.}
 \item{filePath}{A character string path to the directory that the user want
 to store the visualization of the enrichment analysis result.
 It is recommended to create a new directory to store the output .png/.html
-file. Default value is NULL. Should in the format: "/Path/to/the/directory/".}
+file. Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
 A NULL, save the output visualization plot to "filePath"
@@ -31,21 +31,34 @@ the more the pathway is enriched in genes from the query gene list.
 }
 \examples{
 # Example 1:
+# Using enrichment analysis output (enrichOutputList) available with the
+# package
+\dontrun{
+enrichOutputList$gProfilerResult
+enrichOutputList$enrichmentVis
+
+# Plot a Manhattan plot for the enrichment analysis results
+visEnrichAnaly(enrichOutputList, filePath = getwd())
+
+# You should see visualizations saved in the current working directory,
+# which is the path from getwd()
+}
 
 }
 \references{
+Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
+gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
+\emph{F1000Research}, \emph{9 (ELIXIR)}(709). R package version 0.2.2.
+
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
 \href{https://www.R-project.org/}{link}.
 
+Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
+Widgets for R. R package version 1.6.2,
+\href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
+
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
 \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
-
-Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
-Widgets for R. R package version 1.6.2, \href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
-
-Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
-gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
-\emph{F1000Research}, \emph{9 (ELIXIR)}(709). R package version 0.2.2.
 }

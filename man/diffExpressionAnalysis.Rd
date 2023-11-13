@@ -9,7 +9,7 @@ diffExpressionAnalysis(geneCounts = NULL, sampleInfor = NULL)
 \arguments{
 \item{geneCounts}{A data frame containing the matrix of un-normalized read
 counts of gene expression data, normally obtained from RNA-seq or other
-sequencing experiments. The count number in the matrix should be
+sequencing experiments. The count numbers in the matrix should be
 non-negative integers. The row names of the matrix should be the genes,
 and the column names should be the sample IDs. Default value is NULL.}
 
@@ -32,25 +32,30 @@ a two-tailed pvalue.
 This is a function that perform the automatic gene differential expression
 analysis given gene expression matrix and sample information about the
 samples found in the gene expression matrix. This function perform
-differential expression to identify difference in gene expressions in
+differential expression to identify difference in gene expression in
 different samples.
 }
 \examples{
 # Example 1:
-# Using GeneCounts dataset available with package
-dim(GeneCounts) # a n = 30 by d = 3 dataset
+# Using gene counts matrix (geneCountsDiffExpression) and the sample
+# information (sampleInforDiffExpression) available with the package
+\dontrun{
+dim(geneCountsDiffExpression) # 11000 rows, 126 columns
+dim(sampleInforDiffExpression) # 126 rows, 2 columns
 
-# Example 2:
-
-# Example 3:
+# Perform differential expression analysis on the input gene counts matrix
+deResult <- diffExpressionAnalysis(geneCountsDiffExpression,
+                                   sampleInforDiffExpression)
+deResult
+}
 
 }
 \references{
-Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold
-change and dispersion for RNA-seq data with deseq2. \emph{Genome Biology}, 15(12).
-\href{https://doi.org/10.1186/s13059-014-0550-8}{link}
-
 Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
 seamless navigation through combined results of set- & network-based
 enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+
+Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold
+change and dispersion for RNA-seq data with deseq2. \emph{Genome Biology}, 15(12).
+\href{https://doi.org/10.1186/s13059-014-0550-8}{link}
 }

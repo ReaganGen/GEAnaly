@@ -8,7 +8,7 @@ visDeAnaly(
   genes = NULL,
   logFCT = 2,
   padjT = 0.05,
-  maxOverlap = 15,
+  maxOverlap = 8,
   filePath = NULL
 )
 }
@@ -25,12 +25,12 @@ Default value is 2.}
 significant differences in expression levels. Default value is 0.05.}
 
 \item{maxOverlap}{The max number of labels of genes in the figure that can
-overlap. Exclude text labels that overlap too many things. Defaults to 15.}
+overlap. Exclude text labels that overlap too many things. Defaults to 8.}
 
 \item{filePath}{A character string path to the directory that the user want
 to store the visualization of the differential expression analysis result.
 It is recommended to create a new directory to store the output .png file.
-Default value is NULL. Should in the format: "/Path/to/the/directory/".}
+Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
 A NULL, save the output visualization plot to "filePath"
@@ -44,6 +44,16 @@ expression differences between samples are.
 }
 \examples{
 # Example 1:
+# Using labelled genes (labelledGenes) available with the package
+\dontrun{
+dim(labelledGenes) # 18309 rows, 7 columns
+
+# Plot a volcano plot for the differential expression analysis results
+visDeAnaly(labelledGenes, filePath = getwd())
+
+# You should see visualizations saved in the current working directory,
+# which is the path from getwd()
+}
 
 }
 \references{
@@ -54,7 +64,4 @@ R Foundation for Statistical Computing, Vienna, Austria.
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
 \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
-
-Slowikowski K (2023). \emph{ggrepel: Automatically Position Non-Overlapping Text Labels with
-ggplot2'}. R package version 0.9.4, \href{https://CRAN.R-project.org/package=ggrepel}{link}.
 }

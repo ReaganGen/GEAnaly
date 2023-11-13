@@ -22,7 +22,7 @@ coefficient}}
 \item{filePath}{A character string path to the directory that the user want
 to store the correlation analysis result. It is recommended to create a
 new directory to store the output .csv file. Default value is NULL.
-Should in the format: "/Path/to/the/directory/".}
+Should in the format: "/Path/to/the/directory".}
 }
 \value{
 A correlation coefficient matrix that has n * n dimensions (n is the
@@ -38,20 +38,45 @@ are provided.
 }
 \examples{
 # Example 1:
-# Using GeneCounts dataset available with package
-dim(GeneCounts) # a n = 30 by d = 3 dataset
+# Using gene counts matrix (geneCountsCorrelation) available with the package
+\dontrun{
+dim(geneCountsCorrelation) # 1000 rows, 41 columns
+
+# Perform gene correlation analysis on the input gene counts matrix
+# This creates a correlation_analysis_result.csv file stores the result
+# in the current working directory
+corrResult <- corrAnalysis(geneCountsCorrelation,
+                           filePath = getwd(),
+                           method = "pearson")
+corrResult[1:5, 1:5]
+}
 
 # Example 2:
+# Use a different correlation coefficient
+\dontrun{
+corrResult2 <- corrAnalysis(geneCountsCorrelation,
+                           filePath = getwd(),
+                           method = "kendall")
+corrResult2[1:5, 1:5]
+}
 
 # Example 3:
+# Use a different correlation coefficient
+\dontrun{
+corrResult3 <- corrAnalysis(geneCountsCorrelation,
+                           filePath = getwd(),
+                           method = "spearman")
+corrResult3[1:5, 1:5]
+}
 
 }
 \references{
+Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+seamless navigation through combined results of set- & network-based
+enrichment analysis.” BMC Bioinformatics, 17, 45.
+doi:10.1186/s12859-016-0884-1.
+
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
 \href{https://www.R-project.org/}{link}.
-
-Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
-seamless navigation through combined results of set- & network-based
-enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 }

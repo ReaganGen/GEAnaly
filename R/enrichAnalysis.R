@@ -17,12 +17,12 @@
 #'    Only pathways with smaller p-value are tagged as significant. Default
 #'    value is 0.05. The pvalueCutoff should be a value between 0 and 1.
 #' @param correctionMethod A character string indicating the algorithm used for
-#'    multiple testing correction, one of "g_SCS" (default), "fdr", "bonferroni". If you
-#'    are not sure choose which one, just use g_SCS
+#'    multiple testing correction, one of "g_SCS" (default), "fdr", "bonferroni".
+#'    If you are not sure choose which one, just use g_SCS
 #' @param filePath A character string path to the directory that the user want
 #'    to store the enrichment analysis result. It is recommended to create a
 #'    new directory to store the output .tsv file. Default value is NULL.
-#'    Should in the format: "/Path/to/the/directory/".
+#'    Should in the format: "/Path/to/the/directory".
 #'
 #' @return A named list containing the named list of results from
 #'    gprofiler2 and a processed data frame based on the results from
@@ -33,30 +33,54 @@
 #'    for visualization.
 #'   \item enrichmentVis - A processed data frame, which is a subset of the
 #'    original enrichment analysis results, and also the geneRatio of different
-#'    pathways are calculated and added.
+#'    pathways are calculated and added for visualizations.
 #' }
 #'
 #' @examples
 #' # Example 1:
-#' # Using GeneCounts dataset available with package
-#' dim(GeneCounts) # a n = 30 by d = 3 dataset
+#' # Use the significant gene list available with the package
+#' \dontrun{
+#' dim(significantGenes) # 1299 rows, 6 columns
+#'
+#' # Perform enrichment analysis and save the output as a .tsv file in the
+#' # current working directory (enrich_analysis_result.tsv)
+#' enrichOutputListE <- enrichAnalysis(significantGenes,
+#'                                    pvalueCutoff = 0.05,
+#'                                    correctionMethod = "g_SCS",
+#'                                    filePath = getwd())
+#'
+#' # Access the results stored in the list returned
+#' enrichOutputListE$gProfilerResult
+#' enrichOutputListE$enrichmentVis
+#' }
 #'
 #' # Example 2:
+#' # P value can be adjusted and correction method can also be changed
+#' \dontrun{
+#' # Perform enrichment analysis and save the output as a .tsv file in the
+#' # current working directory (enrich_analysis_result.tsv)
+#' enrichOutputListE2 <- enrichAnalysis(significantGenes,
+#'                                    pvalueCutoff = 0.1,
+#'                                    correctionMethod = "fdr",
+#'                                    filePath = getwd())
 #'
-#' # Example 3:
+#' # Access the results stored in the list returned
+#' enrichOutputListE2$gProfilerResult
+#' enrichOutputListE2$enrichmentVis
+#' }
 #'
 #' @references
-#' R Core Team (2023). R: A Language and Environment for Statistical Computing.
-#' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
+#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+#' seamless navigation through combined results of set- & network-based
+#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
 #' gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
 #' _F1000Research_, *9 (ELIXIR)*(709). R package version 0.2.2.
 #'
-#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
-#' seamless navigation through combined results of set- & network-based
-#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+#' R Core Team (2023). R: A Language and Environment for Statistical Computing.
+#' R Foundation for Statistical Computing, Vienna, Austria.
+#' \href{https://www.R-project.org/}{link}.
 #'
 #' @export
 #' @import utils
@@ -79,6 +103,24 @@ enrichAnalysis <- function(significantGenes = NULL,
     the data frame. Make sure that row.names(significantGenes)
     is the vector that contains the genes for the enrichment analysis,
     which could be the output of function 'extractSignificantGene'")
+  } else {
+    ;
+  }
+
+  if (typeof(pvalueCutoff) != "double") {
+    stop("Please input a p value which is a double type number.")
+  } else {
+    ;
+  }
+
+  if (typeof(filePath) != "character") {
+    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+  } else {
+    ;
+  }
+
+  if (pvalueCutoff >= 1 | pvalueCutoff <= 0) {
+    stop("Please input a p value which is between 0 and 1.")
   } else {
     ;
   }

@@ -7,7 +7,7 @@
 #' used for the visualization of the differential expression analysis. Subsequently,
 #' those selected significant genes are sent for an enrichment analysis. Then
 #' a Manhattan plot and a Lollipop plot are generated for the visualization of
-#' enrichment analysis.
+#' enrichment analysis. All steps are run by default settings.
 #'
 #' @param geneCounts A data frame containing the matrix of un-normalized read
 #'    counts of gene expression data, normally obtained from RNA-seq or other
@@ -21,12 +21,26 @@
 #'    "sample", second column name should be "condition". Default value is NULL.
 #' @param filePath A character string path to the directory that the user want
 #'    to store the output files. It is recommended to create a new directory.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
 #' @return A NULL, save the output files to "filePath"
 #'
 #' @examples
 #' # Example 1:
+#' # Using gene counts matrix (geneCountsDiffExpression) and the sample
+#' # information (sampleInforDiffExpression) available with the package
+#' \dontrun{
+#' dim(geneCountsDiffExpression) # 11000 rows, 126 columns
+#' dim(sampleInforDiffExpression) # 126 rows, 2 columns
+#'
+#' # Perform the whole gene expression analysis pipeline on the input gene
+#' # counts matrix
+#' runGEAnaly(geneCountsDiffExpression,
+#'            sampleInforDiffExpression,
+#'            filePath = getwd())
+#' # You should see all visualizations and all results from each stage of the
+#' # pipeline in the current working directory, which is the path from getwd()
+#' }
 #'
 #' @export
 
@@ -49,6 +63,12 @@ runGEAnaly <- function(geneCounts = NULL,
 
   if (is.null(sampleInfor) == TRUE) {
     stop("Please input a sample information table as the input.")
+  } else {
+    ;
+  }
+
+  if (typeof(filePath) != "character") {
+    stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
   }
@@ -97,8 +117,9 @@ runGEAnaly <- function(geneCounts = NULL,
 #' Execute the gene correlation analysis pipeline in a single call of a function
 #'
 #' This is a function that can perform gene correlation analysis and visualize
-#' the result. It accept a gene counts matrix, and perform gene correlation
-#' analysis, after that, the result is visualized by a heatmap.
+#' the result. It accepts a gene counts matrix, and perform gene correlation
+#' analysis, after that, the result is visualized by a heatmap. All steps are
+#' dun by default settings.
 #'
 #' @param geneCounts A data frame containing the matrix of gene expression data,
 #'    normally obtained from RNA-seq or other sequencing experiments.
@@ -106,12 +127,23 @@ runGEAnaly <- function(geneCounts = NULL,
 #'    should be the sample IDs. Default value is NULL.
 #' @param filePath A character string path to the directory that the user want
 #'    to store the output files. It is recommended to create a new directory.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
 #' @return A NULL, save the output files to "filePath"
 #'
 #' @examples
 #' # Example 1:
+#' # Using gene counts matrix (geneCountsCorrelation) available with the package
+#' \dontrun{
+#' dim(geneCountsCorrelation) # 1000 rows, 41 columns
+#'
+#' # Perform the gene correlation analysis pipeline on the input gene
+#' # counts matrix
+#' runGEAnalyCor(geneCountsCorrelation,
+#'               filePath = getwd())
+#' # You should see visualizations and results from each stage of the
+#' # pipeline in the current working directory, which is the path from getwd()
+#' }
 #'
 #' @export
 
@@ -127,6 +159,12 @@ runGEAnalyCor <- function(geneCounts = NULL,
 
   if (is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
+  } else {
+    ;
+  }
+
+  if (typeof(filePath) != "character") {
+    stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
   }

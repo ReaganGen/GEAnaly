@@ -28,6 +28,18 @@ the more genes enrich in the pathway.
 }
 \examples{
 # Example 1:
+# Using enrichment analysis output (enrichOutputList) available with the
+# package
+\dontrun{
+enrichOutputList$gProfilerResult
+enrichOutputList$enrichmentVis
+
+# Plot a Lollipop plot for the enrichment analysis results
+visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
+
+# You should see visualizations saved in the current working directory,
+# which is the path from getwd()
+}
 
 }
 \references{

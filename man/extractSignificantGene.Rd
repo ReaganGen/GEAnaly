@@ -8,8 +8,8 @@ the user-customized threshold}
 extractSignificantGene(
   diffExpressionResult = NULL,
   filePath = NULL,
-  pValue = 0.1,
-  foldChange = 1
+  pValue = 0.05,
+  foldChange = 2
 )
 }
 \arguments{
@@ -23,12 +23,12 @@ of function diffExpressionAnalysis. Default value is NULL.}
 to store the significant genes selected by the p value and fold change
 threshold. It is recommended to create a new directory to store the output
 .csv file. Default value is NULL. Should in the format:
-"/Path/to/the/directory/".}
+"/Path/to/the/directory".}
 
 \item{pValue}{A positive double, which is the threshold set by the
 users used to filter genes that are differentially expressed in different
 samples. Only genes that has smaller p values than the threshold would be
-regarded as significant genes. Default value is 0.1. pValue is used to
+regarded as significant genes. Default value is 0.05. pValue is used to
 measure if a difference is significant. The pValue should be a value
 between 0 and 1.}
 
@@ -36,7 +36,7 @@ between 0 and 1.}
 used to filter genes that are differentially expressed in different
 samples. Only genes that has larger absolute values of fold change than
 the threshold would be regarded as genes express differently. Default
-value is 1. Fold change is a measure describing how much the expression
+value is 2. Fold change is a measure describing how much the expression
 levels of genes change between different samples.}
 }
 \value{
@@ -53,22 +53,36 @@ expression levels in different samples according to the p value and
 fold change provided by the users. As long as the gene has smaller p value
 than the p value threshold and has larger fold change value than the
 fold change threshold inputted by the users, these genes are regarded as
-genes have significantly different expression level in different samples.
-The function save these significant genes into a csv file.
+genes with significantly different expression levels in different samples.
+The function save these significant genes into a .csv file.
 }
 \examples{
 # Example 1:
+# Using example differential expression analysis result
+# (diffExpressionResult) available with the package
+\dontrun{
+dim(diffExpressionResult) # 18309 rows, 6 columns
+
+# Filter out genes with significantly different expression levels
+# This creates a significant_de_genes.csv file stores the result
+# in the current working directory
+significantGenesE <- extractSignificantGene(diffExpressionResult,
+                                            filePath = getwd(),
+                                            pValue = 0.05,
+                                            foldChange = 2)
+significantGenesE
+}
 
 }
 \references{
-Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-\emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-\href{https://CRAN.R-project.org/package=dplyr}{link}.
+Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+seamless navigation through combined results of set- & network-based
+enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 
 R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
 for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
 
-Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
-seamless navigation through combined results of set- & network-based
-enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
+\emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+\href{https://CRAN.R-project.org/package=dplyr}{link}.
 }

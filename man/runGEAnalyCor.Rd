@@ -14,17 +14,29 @@ should be the sample IDs. Default value is NULL.}
 
 \item{filePath}{A character string path to the directory that the user want
 to store the output files. It is recommended to create a new directory.
-Default value is NULL. Should in the format: "/Path/to/the/directory/".}
+Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
 A NULL, save the output files to "filePath"
 }
 \description{
 This is a function that can perform gene correlation analysis and visualize
-the result. It accept a gene counts matrix, and perform gene correlation
-analysis, after that, the result is visualized by a heatmap.
+the result. It accepts a gene counts matrix, and perform gene correlation
+analysis, after that, the result is visualized by a heatmap. All steps are
+dun by default settings.
 }
 \examples{
 # Example 1:
+# Using gene counts matrix (geneCountsCorrelation) available with the package
+\dontrun{
+dim(geneCountsCorrelation) # 1000 rows, 41 columns
+
+# Perform the gene correlation analysis pipeline on the input gene
+# counts matrix
+runGEAnalyCor(geneCountsCorrelation,
+              filePath = getwd())
+# You should see visualizations and results from each stage of the
+# pipeline in the current working directory, which is the path from getwd()
+}
 
 }

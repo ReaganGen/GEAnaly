@@ -22,7 +22,7 @@ of function diffExpressionAnalysis. Default value is NULL.}
 \item{filePath}{A character string path to the directory that the user want
 to store the labelled genes based on the p value and fold change threshold.
 It is recommended to create a new directory to store the output .csv file.
-Default value is NULL. Should in the format: "/Path/to/the/directory/".}
+Default value is NULL. Should in the format: "/Path/to/the/directory".}
 
 \item{pValue}{A positive double, which is the threshold set by the users used
 to decide if the gene UP or DOWN expressed in different samples. Only
@@ -33,7 +33,7 @@ difference is significant. The pValue should be a value between 0 and 1.}
 
 \item{foldChange}{A positive integer, which is the threshold set by the users
 used to decide how the expression levels of a gene change in different
-samples. Only genes that has larger absolute value of fold change than
+samples. Only genes that has larger absolute values of fold change than
 the threshold would be regarded as genes who expressed differently.
 Default value is 2.
 Fold change is a measure describing how much the expression levels of
@@ -41,13 +41,12 @@ genes change between different samples. The value of foldChange should
 be a positive integer.}
 }
 \value{
-Returns a data frame , which has an additional column called
+Returns a data frame, which has an additional column called
 "group" compared to the input data frame "diffExpressionResult",
 It also contains the columns: baseMean, log2FoldChange,
-lfcSE, stat, pvalue and padj, and also includes
-metadata columns of variable information. Genes are labelled as
-up-expressed or down-expressed or no significant change on expression
-levles.
+lfcSE, stat, pvalue and padj, and also includes metadata columns of
+variable information. Genes are labelled as up-expressed or down-expressed
+or no significant change on expression levles.
 }
 \description{
 This is a function that create a new column called "group" to the original
@@ -63,13 +62,31 @@ thresholds set by users. The rest of genes are labelled as "NOCHANGE".
 }
 \examples{
 # Example 1:
+# Using example differential expression analysis result
+# (diffExpressionResult) available with the package
+\dontrun{
+dim(diffExpressionResult) # 18309 rows, 6 columns
+
+# label genes based on the input threshold
+# This creates a de_genes_with_label.csv file stores the result
+# in the current working directory
+labelGenesE <- labelGenes(diffExpressionResult,
+                          filePath = getwd(),
+                          pValue = 0.05,
+                          foldChange = 2)
+labelGenesE
+}
 
 }
 \references{
-Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-\emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-\href{https://CRAN.R-project.org/package=dplyr}{link}.
+Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+seamless navigation through combined results of set- & network-based
+enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 
 R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
 for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
+
+Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
+\emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+\href{https://CRAN.R-project.org/package=dplyr}{link}.
 }

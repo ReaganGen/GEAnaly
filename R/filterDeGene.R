@@ -6,8 +6,8 @@
 #' fold change provided by the users. As long as the gene has smaller p value
 #' than the p value threshold and has larger fold change value than the
 #' fold change threshold inputted by the users, these genes are regarded as
-#' genes have significantly different expression level in different samples.
-#' The function save these significant genes into a csv file.
+#' genes with significantly different expression levels in different samples.
+#' The function save these significant genes into a .csv file.
 #'
 #' @param diffExpressionResult A DESeqResults object, a simple subclass of
 #'    DataFrame defined by DESeq2. It contains the columns: baseMean,
@@ -18,18 +18,18 @@
 #'    to store the significant genes selected by the p value and fold change
 #'    threshold. It is recommended to create a new directory to store the output
 #'    .csv file. Default value is NULL. Should in the format:
-#'    "/Path/to/the/directory/".
+#'    "/Path/to/the/directory".
 #' @param pValue A positive double, which is the threshold set by the
 #'    users used to filter genes that are differentially expressed in different
 #'    samples. Only genes that has smaller p values than the threshold would be
-#'    regarded as significant genes. Default value is 0.1. pValue is used to
+#'    regarded as significant genes. Default value is 0.05. pValue is used to
 #'    measure if a difference is significant. The pValue should be a value
 #'    between 0 and 1.
 #' @param foldChange A positive integer, which is the threshold set by the users
 #'    used to filter genes that are differentially expressed in different
 #'    samples. Only genes that has larger absolute values of fold change than
 #'    the threshold would be regarded as genes express differently. Default
-#'    value is 1. Fold change is a measure describing how much the expression
+#'    value is 2. Fold change is a measure describing how much the expression
 #'    levels of genes change between different samples.
 #'
 #' @return Returns a data frame, which is a subset of the input dataframe
@@ -41,18 +41,32 @@
 #'
 #' @examples
 #' # Example 1:
+#' # Using example differential expression analysis result
+#' # (diffExpressionResult) available with the package
+#' \dontrun{
+#' dim(diffExpressionResult) # 18309 rows, 6 columns
+#'
+#' # Filter out genes with significantly different expression levels
+#' # This creates a significant_de_genes.csv file stores the result
+#' # in the current working directory
+#' significantGenesE <- extractSignificantGene(diffExpressionResult,
+#'                                             filePath = getwd(),
+#'                                             pValue = 0.05,
+#'                                             foldChange = 2)
+#' significantGenesE
+#' }
 #'
 #' @references
-#' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
+#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+#' seamless navigation through combined results of set- & network-based
+#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
 #' for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
 #'
-#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
-#' seamless navigation through combined results of set- & network-based
-#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+#' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
+#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
 #'
 #' @export
 #' @import dplyr
@@ -60,8 +74,8 @@
 
 extractSignificantGene <- function(diffExpressionResult = NULL,
                                    filePath = NULL,
-                                   pValue = 0.1,
-                                   foldChange = 1) {
+                                   pValue = 0.05,
+                                   foldChange = 2) {
 
   # Performing checks of user input
   if (is.null(filePath) == TRUE) {
@@ -73,6 +87,36 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
   if (is.null(diffExpressionResult) == TRUE) {
     stop("Please input a differential expression analysis result as the input,
          which should be the output of function \"diffExpressionAnalysis\"")
+  } else {
+    ;
+  }
+
+  if (typeof(pValue) != "double") {
+    stop("Please input a p value which is a double type number.")
+  } else {
+    ;
+  }
+
+  if (typeof(foldChange) != "double") {
+    stop("Please input a foldChange which is a double type number.")
+  } else {
+    ;
+  }
+
+  if (typeof(filePath) != "character") {
+    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+  } else {
+    ;
+  }
+
+  if (foldChange <= 0) {
+    stop("Please input a positive foldChange.")
+  } else {
+    ;
+  }
+
+  if (pValue >= 1 | pValue <= 0) {
+    stop("Please input a p value which is between 0 and 1.")
   } else {
     ;
   }
@@ -116,7 +160,7 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' @param filePath A character string path to the directory that the user want
 #'    to store the labelled genes based on the p value and fold change threshold.
 #'    It is recommended to create a new directory to store the output .csv file.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #' @param pValue A positive double, which is the threshold set by the users used
 #'    to decide if the gene UP or DOWN expressed in different samples. Only
 #'    genes that has smaller p values than the threshold would be regarded as
@@ -125,31 +169,48 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #'    difference is significant. The pValue should be a value between 0 and 1.
 #' @param foldChange A positive integer, which is the threshold set by the users
 #'    used to decide how the expression levels of a gene change in different
-#'    samples. Only genes that has larger absolute value of fold change than
+#'    samples. Only genes that has larger absolute values of fold change than
 #'    the threshold would be regarded as genes who expressed differently.
 #'    Default value is 2.
 #'    Fold change is a measure describing how much the expression levels of
 #'    genes change between different samples. The value of foldChange should
 #'    be a positive integer.
 #'
-#' @return Returns a data frame , which has an additional column called
+#' @return Returns a data frame, which has an additional column called
 #'    "group" compared to the input data frame "diffExpressionResult",
 #'    It also contains the columns: baseMean, log2FoldChange,
-#'    lfcSE, stat, pvalue and padj, and also includes
-#'    metadata columns of variable information. Genes are labelled as
-#'    up-expressed or down-expressed or no significant change on expression
-#'    levles.
+#'    lfcSE, stat, pvalue and padj, and also includes metadata columns of
+#'    variable information. Genes are labelled as up-expressed or down-expressed
+#'    or no significant change on expression levles.
 #'
 #' @examples
 #' # Example 1:
+#' # Using example differential expression analysis result
+#' # (diffExpressionResult) available with the package
+#' \dontrun{
+#' dim(diffExpressionResult) # 18309 rows, 6 columns
+#'
+#' # label genes based on the input threshold
+#' # This creates a de_genes_with_label.csv file stores the result
+#' # in the current working directory
+#' labelGenesE <- labelGenes(diffExpressionResult,
+#'                           filePath = getwd(),
+#'                           pValue = 0.05,
+#'                           foldChange = 2)
+#' labelGenesE
+#' }
 #'
 #' @references
-#' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
+#' Geistlinger L, Csaba G, Zimmer R (2016). “Bioconductor's EnrichmentBrowser:
+#' seamless navigation through combined results of set- & network-based
+#' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
 #' for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
+#'
+#' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
+#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
 #'
 #' @export
 #' @import dplyr
@@ -170,6 +231,36 @@ labelGenes <- function(diffExpressionResult = NULL,
   if (is.null(diffExpressionResult) == TRUE) {
     stop("Please input a differential expression analysis result as the input,
          which should be the output of function \"diffExpressionAnalysis\"")
+  } else {
+    ;
+  }
+
+  if (typeof(pValue) != "double") {
+    stop("Please input a p value which is a double type number.")
+  } else {
+    ;
+  }
+
+  if (typeof(foldChange) != "double") {
+    stop("Please input a foldChange which is a double type number.")
+  } else {
+    ;
+  }
+
+  if (typeof(filePath) != "character") {
+    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+  } else {
+    ;
+  }
+
+  if (foldChange <= 0) {
+    stop("Please input a positive foldChange.")
+  } else {
+    ;
+  }
+
+  if (pValue >= 1 | pValue <= 0) {
+    stop("Please input a p value which is between 0 and 1.")
   } else {
     ;
   }

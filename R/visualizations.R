@@ -15,16 +15,26 @@
 #' @param padjT  A positive double between 0 and 1, used to select genes with
 #'    significant differences in expression levels. Default value is 0.05.
 #' @param maxOverlap The max number of labels of genes in the figure that can
-#'    overlap. Exclude text labels that overlap too many things. Defaults to 15.
+#'    overlap. Exclude text labels that overlap too many things. Defaults to 8.
 #' @param filePath A character string path to the directory that the user want
 #'    to store the visualization of the differential expression analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
 #' @return A NULL, save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
+#' # Using labelled genes (labelledGenes) available with the package
+#' \dontrun{
+#' dim(labelledGenes) # 18309 rows, 7 columns
+#'
+#' # Plot a volcano plot for the differential expression analysis results
+#' visDeAnaly(labelledGenes, filePath = getwd())
+#'
+#' # You should see visualizations saved in the current working directory,
+#' # which is the path from getwd()
+#' }
 #'
 #' @references
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
@@ -35,17 +45,13 @@
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
 #' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
 #'
-#' Slowikowski K (2023). _ggrepel: Automatically Position Non-Overlapping Text Labels with
-#' ggplot2'_. R package version 0.9.4, \href{https://CRAN.R-project.org/package=ggrepel}{link}.
-#'
 #' @export
 #' @import ggplot2
-#' @import ggrepel
 
 visDeAnaly <- function(genes = NULL,
                        logFCT = 2,
                        padjT = 0.05,
-                       maxOverlap = 15,
+                       maxOverlap = 8,
                        filePath = NULL) {
 
   # Performing checks of user input
@@ -66,9 +72,6 @@ visDeAnaly <- function(genes = NULL,
   # Select genes that have significantly different expression for labelling
   message("Plotting and saving Differential Expression analysis result to ", filePath)
 
-  geneToLabel <- genes[genes$padj < padjT
-                            & abs(genes$log2FoldChange) >= logFCT, , drop = FALSE]
-
   # Create the volcano plot for differential expression analysis
   volcanoPlot <- ggplot2::ggplot(genes,
                                  ggplot2::aes(x = log2FoldChange,
@@ -82,14 +85,7 @@ visDeAnaly <- function(genes = NULL,
     ggplot2::scale_colour_manual(values = c('steelblue','gray','brown')) +
     ggplot2::geom_hline(yintercept = -log10(padjT), linetype = "dotdash") +
     ggplot2::geom_vline(xintercept = c(-logFCT, logFCT), linetype = "dotdash") +
-    ggplot2::labs(title = "Volcano Plot For Differential Expression Analysis") +
-    suppressWarnings(ggrepel::geom_label_repel(data = geneToLabel,
-                              ggplot2::aes(label = row.names(geneToLabel)),
-                              size = 3,
-                              segment.color = "black",
-                              show.legend = FALSE,
-                              max.overlaps = maxOverlap,
-                              na.rm = TRUE))
+    ggplot2::labs(title = "Volcano Plot For Differential Expression Analysis")
 
   # Save the volcano plot
   ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
@@ -110,32 +106,43 @@ visDeAnaly <- function(genes = NULL,
 #'    example.
 #' @param colors A vector that has three colors used. Default as
 #'    c("steelblue","white","brown"). For the default value, negative values are
-#'    marked with relatively "steelblue" color, positive value are marked with
+#'    marked with relatively "steelblue" color, positive values are marked with
 #'    relatively "brown" color. 0 is marked as "white".
 #' @param filePath A character string path to the directory that the user want
 #'    to store the visualization of the correlation analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
-#'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
 #' @return A NULL, save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
+#' # Using correlation matrix (geneCorResult) available with the package
+#' \dontrun{
+#' dim(geneCorResult) # 942 rows, 942 columns
+#'
+#' # Plot a heatmap for the correlation analysis results
+#' visCorrelationAnaly(geneCorResult, filePath = getwd())
+#'
+#' # You should see visualizations saved in the current working directory,
+#' # which is the path from getwd()
+#' }
 #'
 #' @references
+#' Kolde R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12,
+#' \href{https://CRAN.R-project.org/package=pheatmap}{link}.
+#'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
 #' \href{https://www.R-project.org/}{link}.
 #'
+#' Slowikowski K. (2023). ggrepel: Automatically Position Non-Overlapping Text Labels with
+#' ggplot2'. R package version 0.9.4,
+#' \href{https://CRAN.R-project.org/package=ggrepel}{link}.
+#'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
 #' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
-#'
-#' Slowikowski K. (2023). ggrepel: Automatically Position Non-Overlapping Text Labels with
-#' ggplot2'. R package version 0.9.4, \href{https://CRAN.R-project.org/package=ggrepel}{link}.
-#'
-#' Kolde R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12,
-#' \href{https://CRAN.R-project.org/package=pheatmap}{link}.
 #'
 #' @export
 #' @import ggplot2
@@ -197,28 +204,42 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #' @param filePath A character string path to the directory that the user want
 #'    to store the visualization of the enrichment analysis result.
 #'    It is recommended to create a new directory to store the output .png/.html
-#'    file. Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#'    file. Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
 #' @return A NULL, save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
+#' # Using enrichment analysis output (enrichOutputList) available with the
+#' # package
+#' \dontrun{
+#' enrichOutputList$gProfilerResult
+#' enrichOutputList$enrichmentVis
+#'
+#' # Plot a Manhattan plot for the enrichment analysis results
+#' visEnrichAnaly(enrichOutputList, filePath = getwd())
+#'
+#' # You should see visualizations saved in the current working directory,
+#' # which is the path from getwd()
+#' }
 #'
 #' @references
+#' Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
+#' gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
+#' _F1000Research_, *9 (ELIXIR)*(709). R package version 0.2.2.
+#'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
 #' \href{https://www.R-project.org/}{link}.
+#'
+#' Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
+#' Widgets for R. R package version 1.6.2,
+#' \href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
 #'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
 #' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
 #'
-#' Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
-#' Widgets for R. R package version 1.6.2, \href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
-#'
-#' Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
-#' gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
-#' _F1000Research_, *9 (ELIXIR)*(709). R package version 0.2.2.
 #'
 #' @export
 #' @import ggplot2
@@ -265,8 +286,6 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
   return(invisible(NULL))
 }
 
-
-
 #' Generate a Lollipop plot for the enrichment analysis result
 #'
 #' This is a function that can visualize the enrichment analysis
@@ -287,6 +306,18 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #'
 #' @examples
 #' # Example 1:
+#' # Using enrichment analysis output (enrichOutputList) available with the
+#' # package
+#' \dontrun{
+#' enrichOutputList$gProfilerResult
+#' enrichOutputList$enrichmentVis
+#'
+#' # Plot a Lollipop plot for the enrichment analysis results
+#' visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
+#'
+#' # You should see visualizations saved in the current working directory,
+#' # which is the path from getwd()
+#' }
 #'
 #' @references
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
