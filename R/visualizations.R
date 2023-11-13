@@ -16,6 +16,8 @@
 #'    significant differences in expression levels. Default value is 0.05.
 #' @param maxOverlap The max number of labels of genes in the figure that can
 #'    overlap. Exclude text labels that overlap too many things. Defaults to 8.
+#' @param colorBlindF A boolean indicating whther to use colorblind-friendly
+#'    colors. Default is FALSE.
 #' @param filePath A character string path to the directory that the user want
 #'    to store the visualization of the differential expression analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
@@ -52,6 +54,7 @@ visDeAnaly <- function(genes = NULL,
                        logFCT = 2,
                        padjT = 0.05,
                        maxOverlap = 8,
+                       colorBlindF = FALSE,
                        filePath = NULL) {
 
   # Performing checks of user input
@@ -72,6 +75,11 @@ visDeAnaly <- function(genes = NULL,
   # Select genes that have significantly different expression for labelling
   message("Plotting and saving Differential Expression analysis result to ", filePath)
 
+  if (colorBlindF == TRUE){
+    colors <- c("#56B4E9", "#999999", "#E69F00")
+  } else {
+    colors <- c('steelblue','gray','brown')
+  }
   # Create the volcano plot for differential expression analysis
   volcanoPlot <- ggplot2::ggplot(genes,
                                  ggplot2::aes(x = log2FoldChange,
@@ -82,7 +90,7 @@ visDeAnaly <- function(genes = NULL,
     ggplot2::xlab("Log2(Fold change)") +
     ggplot2::ylab("-Log10(P.adj)") +
     ggplot2::theme(plot.title = element_text(size = 15, hjust = 0.5)) +
-    ggplot2::scale_colour_manual(values = c('steelblue','gray','brown')) +
+    ggplot2::scale_colour_manual(values = colors) +
     ggplot2::geom_hline(yintercept = -log10(padjT), linetype = "dotdash") +
     ggplot2::geom_vline(xintercept = c(-logFCT, logFCT), linetype = "dotdash") +
     ggplot2::labs(title = "Volcano Plot For Differential Expression Analysis")

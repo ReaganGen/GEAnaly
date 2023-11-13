@@ -89,16 +89,18 @@ diffExpressionAnalysis <- function(geneCounts = NULL,
   sampleInfor$condition <- factor(sampleInfor$condition)
 
   # Remove genes that has no expression in all samples
-  geneCounts <- geneCounts[rowSums(geneCounts) != 0, ]
+  geneCounts <- geneCounts[rowSums(geneCounts) != 0, , drop = FALSE]
 
   # Perform differential expression analysis
-  deseqDataset <- DESeq2::DESeqDataSetFromMatrix(countData = geneCounts,
-                                         colData = sampleInfor,
-                                         design = ~condition)
+  dDa <- suppressMessages(DESeq2::DESeqDataSetFromMatrix(countData = geneCounts,
+                                                         colData = sampleInfor,
+                                                         design = ~condition))
+  deseqDataset <- suppressMessages(DESeq2::DESeq(dDa))
 
   # Access the analysis result and return
-  deseqDataset <- DESeq2::DESeq(deseqDataset)
   result <- DESeq2::results(deseqDataset)
+
+  message("Differential expression analysis finished!")
   return(result)
 }
 

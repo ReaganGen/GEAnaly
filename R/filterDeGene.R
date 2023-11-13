@@ -135,6 +135,9 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
   utils::write.csv(significantGenes,
                    file = file.path(filePath, "significant_de_genes.csv"),
                    quote = FALSE)
+
+  message("Extraction finished!")
+
   return(significantGenes)
 }
 
@@ -282,6 +285,9 @@ labelGenes <- function(diffExpressionResult = NULL,
   utils::write.csv(differentialExpressionResultlabel,
                    file = file.path(filePath, "de_genes_with_label.csv"),
                    quote = FALSE)
+
+  message("Labeling finished!")
+
   return(differentialExpressionResultlabel)
 
 }

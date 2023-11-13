@@ -1,0 +1,179 @@
+---
+title: "An introduction of GEAnaly"
+author: "Gen Li"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: false
+vignette: >
+  %\VignetteIndexEntry{An introduction of GEAnaly}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(fig.align = "center", 
+               out.width = "90%",
+               fig.width = 6, fig.height = 5.5,
+               dev.args=list(pointsize=10),
+               par = TRUE, # needed for setting hook 
+               collapse = TRUE, # collapse input & ouput code in chunks
+               warning = FALSE)
+knit_hooks$set(par = function(before, options, envir)
+  { if(before && options$fig.show != "none") 
+       par(family = "sans", mar=c(4.1,4.1,1.1,1.1), mgp=c(3,1,0), tcl=-0.5)
+})
+set.seed(1) # for exact reproducibility
+```
+
+## Introduction to the package
+Measuring gene expression levels in different samples and linking the expression of genes of interest to a biological pathway helps scientists understand gene functions, biological processes and the genes that play important roles in regulations. It is common to perform the gene expression analysis for scientific purposes.
+
+'GEAnaly' is an R package developed to GEAnaly is an R package that implements a pipeline, which integrates gene differential expression analysis, gene enrichment analysis and gene correlation analysis, for the analysis of gene expression matrix data and visualization of the results of each analysis in the pipeline. The whole analysis pipeine can be executed in a single command efficiently.
+
+The pipeline of the package is basically:
+Gene expression matrix data → Gene differential expression analysis → Select genes that are differentially expressed → Enrichment analysis for those differentially expressed genes, correlation analysis would be aplplied on Gene expression matrix data.
+
+The package aims to make the analysis of gene expression data as easy as possible without adjusting file formats between different packages. Also, this package provides a very simplified data analysis experience for biologists with no programming experiences, eliminating the manual construction of workflows. In addition, users can use very simple commands to visualize the analysis results, once again simplifying the analysis process, and improving analysis efficiency.
+
+This document gives a quick tour of GEAnaly. It was written in R Markdown, using the knitr package for production.
+Use `help(package = "GEAnaly")` for more information about the package and `citation("GEAnaly")` for how to cite the package. 
+
+To download **GEAnaly**, use the following commands:
+
+```{r}
+require("devtools")
+devtools::install_github("ReaganGen/GEAnaly", build_vignettes = TRUE)
+library("GEAnaly")
+```
+
+To list all available functions in the package, use the following command:
+
+```{r}
+ls("package:GEAnaly")
+```
+
+To list all example datasets available in the package:
+``` {r}
+data(package = "GEAnaly")
+```
+
+<br>
+
+## Quick start
+To perform all differential expression analysis, enrichment analysis and correlation analysis in a single call of function, the function `runGEAnaly` should be used, more information could be viewed in `?runGEAnaly`:
+```{r}
+# Using gene counts matrix (geneCountsDiffExpression) and the sample
+# information (sampleInforDiffExpression) available with the package
+# For more information about the data, use '?geneCountsDiffExpression' and 
+# '?sampleInforDiffExpression' to check
+
+dim(geneCountsDiffExpression) # 11000 rows, 126 columns
+dim(sampleInforDiffExpression) # 126 rows, 2 columns
+
+# Create a subdirectory to store the output of the pipeline
+subDir <- "tutorialOutput"
+if (file.exists(subDir)){ 
+  
+  outPath <- file.path(getwd(), subDir)
+  
+} else {  
+  
+  dir.create(file.path(getwd(), subDir))
+  outPath <- file.path(getwd(), subDir)
+  
+}
+
+# Perform the whole gene expression analysis pipeline on the input gene
+# counts matrix with default settings
+runGEAnaly(geneCountsDiffExpression,
+          sampleInforDiffExpression,
+          filePath = outPath)
+
+# You should see all visualizations and all results from each stage of the
+# pipeline in the outPath directory
+
+# The output of each single functions would be discussed later
+
+```
+Here are example outputs of visualizations for the whole pipeline, which should be the same as the visualizations produced by above codes:
+<div style="text-align:center"><img src="SILVA_A_A1.png" alt="SILVA_A_A1" width="500"/>
+
+<br>
+
+## Differential expression analysis
+Each step in the pipeline can be performed independently. To perform the differential expression analysis, function `diffExpressionAnalysis` should be used, more information could be viewed in `?diffExpressionAnalysis`:
+```{r}
+# Using gene counts matrix (geneCountsDiffExpression) and the sample
+# information (sampleInforDiffExpression) available with the package
+# For more information about the data, use '?geneCountsDiffExpression' and 
+# '?sampleInforDiffExpression' to check
+
+dim(geneCountsDiffExpression) # 11000 rows, 126 columns
+dim(sampleInforDiffExpression) # 126 rows, 2 columns
+
+# Perform differential expression analysis on the input gene counts matrix
+# The result of the differential expression is kept for further processed
+deResult <- diffExpressionAnalysis(geneCountsDiffExpression,
+                                   sampleInforDiffExpression)
+
+head(deResult)
+
+```
+
+<br>
+
+## Select genes show significantly different expression levels
+After performing the differential expression analysis, genes are up-expressed or down-expressed or have significant changes in expression. To select genes that has significantly different expression levels in different samples, `extractSignificantGene` should be used. To label genes with "UP", "DOWN" and "NOCHANGE" labels, `labelGenes` should be used. More information could be viewed in `?extractSignificantGene` and `?labelGenes`:
+```{r}
+# Using differential expression analysis result
+# Filter out genes with significantly different expression levels
+# This creates a significant_de_genes.csv file stores the result
+# in the outPath defined before
+# Can also use the example differential expression analysis result
+# (diffExpressionResult) available with the package
+significantGenesE <- extractSignificantGene(deResult,
+                                            filePath = outPath,
+                                            pValue = 0.05,
+                                            foldChange = 2)
+significantGenesE
+
+# Using differential expression analysis result label genes based on the input threshold
+# This creates a de_genes_with_label.csv file stores the result
+# in the outPath defined before
+# Can also use the example differential expression analysis result
+# (diffExpressionResult) available with the package
+labelGenesE <- labelGenes(deResult,
+                          filePath = outPath,
+                          pValue = 0.05,
+                          foldChange = 2)
+labelGenesE
+# Genes with labels are used for visualization of the differential expression analysis
+
+```
+
+<br>
+
+## Enrichment analysis
+After we got the genes with significantly different expression levels, they will be sent for an enrichment analysis to check if these genes enrich in the regulation of some pathways. To Perform the enrichment analysis, function `enrichAnalysis` should be used, More information could be viewed in `?enrichAnalysis`:
+```{r}
+# Perform enrichment analysis and save the output as a 
+# enrich_analysis_result.tsv file in the in the outPath defined before
+enrichOutputListE <- enrichAnalysis(significantGenesE,
+                                   pvalueCutoff = 0.05,
+                                   correctionMethod = "g_SCS",
+                                   filePath = outPath)
+
+# Access the results stored in the list returned
+enrichOutputListE$gProfilerResult
+print("===================================================")
+enrichOutputListE$enrichmentVis
+```
+
+## Gene correlation analysis 
+We can perform the correlation analysis at anytime as long as we have the gene expression matrix data.
+
+
+

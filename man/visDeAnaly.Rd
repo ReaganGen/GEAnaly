@@ -9,6 +9,7 @@ visDeAnaly(
   logFCT = 2,
   padjT = 0.05,
   maxOverlap = 8,
+  colorBlindF = FALSE,
   filePath = NULL
 )
 }
@@ -26,6 +27,9 @@ significant differences in expression levels. Default value is 0.05.}
 
 \item{maxOverlap}{The max number of labels of genes in the figure that can
 overlap. Exclude text labels that overlap too many things. Defaults to 8.}
+
+\item{colorBlindF}{A boolean indicating whther to use colorblind-friendly
+colors. Default is FALSE.}
 
 \item{filePath}{A character string path to the directory that the user want
 to store the visualization of the differential expression analysis result.

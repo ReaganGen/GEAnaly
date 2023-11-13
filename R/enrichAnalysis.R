@@ -142,7 +142,7 @@ enrichAnalysis <- function(significantGenes = NULL,
                                 "term_size",
                                 "query_size",
                                 "intersection_size",
-                                "term_name")]
+                                "term_name"), drop = FALSE]
 
   colnames(gem) <- c("GO.ID",
                      "p.Val",

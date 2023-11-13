@@ -96,7 +96,7 @@ corrAnalysis <- function(geneCounts = NULL,
   }
 
   # Remove genes that has no expression in all samples
-  geneCountsRemoved <- geneCounts[rowSums(geneCounts[])>0,]
+  geneCountsRemoved <- geneCounts[rowSums(geneCounts[])>0, , drop = FALSE]
 
   # Transpose the matrix and calculate the log value of gene counts and calculate
   # the correlation between genes
