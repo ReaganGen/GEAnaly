@@ -27,7 +27,7 @@ test_that("Check the function can perform correlation analysis properly with
 })
 
 test_that("Check the function can perform correlation analysis properly with
-          kendall correlation coefficient", {
+          spearman correlation coefficient", {
 
   corrResult <- corrAnalysis(geneCountsCorrelation,
                              filePath = getwd(),

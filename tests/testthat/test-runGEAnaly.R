@@ -1,6 +1,6 @@
 library(GEAnaly)
 
-test_that("The function works properly", {
+test_that("Chaeck if runGEAnaly works properly", {
 
   pipelineResult <- runGEAnaly(geneCountsDiffExpression,
                                sampleInforDiffExpression,
@@ -36,7 +36,7 @@ test_that("Checking for invalid input", {
                           sampleInforDiffExpression))
 })
 
-test_that("The function works properly", {
+test_that("Check if runGEAnalyCor works properly", {
 
   pipelineResultC <- runGEAnalyCor(geneCountsCorrelation,
                                    filePath = getwd())

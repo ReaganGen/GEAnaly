@@ -1,6 +1,6 @@
 library(GEAnaly)
 
-test_that("The function perform enrichment analysis properly", {
+test_that("The function perform enrichment analysis properly with g_SCS", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.05,
@@ -15,7 +15,7 @@ test_that("The function perform enrichment analysis properly", {
   expect_equal(length(enrichOutputListE$gProfilerResult), 2)
 })
 
-test_that("The function perform enrichment analysis properly", {
+test_that("The function perform enrichment analysis properly with fdr", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.1,
@@ -30,7 +30,7 @@ test_that("The function perform enrichment analysis properly", {
   expect_equal(length(enrichOutputListE$gProfilerResult), 2)
 })
 
-test_that("The function perform enrichment analysis properly", {
+test_that("The function perform enrichment analysis properly with bonferroni", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.1,
