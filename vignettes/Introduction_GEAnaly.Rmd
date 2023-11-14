@@ -44,12 +44,18 @@ Use `help(package = "GEAnaly")` for more information about the package and `cita
 To download **GEAnaly**, use the following commands:
 
 ```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# install DESeq2 manually
+BiocManager::install("DESeq2")
+
 require("devtools")
 devtools::install_github("ReaganGen/GEAnaly", build_vignettes = TRUE)
 library("GEAnaly")
 ```
 
-To list all available functions in the package, use the following command:
+To list all available functions and datasets in the package, use the following command:
 
 ```{r}
 ls("package:GEAnaly")
@@ -133,7 +139,7 @@ head(deResult)
 <br>
 
 ## Select genes that show significantly different expression levels
-After performing the differential expression analysis, genes are up-expressed or down-expressed or have significant changes in expression. To select genes that has significantly different expression levels in different samples, `extractSignificantGene` should be used. To label genes with "UP", "DOWN" and "NOCHANGE" labels, `labelGenes` should be used. More information could be viewed in `?extractSignificantGene` and `?labelGenes`:
+After performing the differential expression analysis, genes are up-expressed or down-expressed or have no significant changes in expression. To select genes that has significantly different expression levels in different samples, `extractSignificantGene` should be used. To label genes with "UP", "DOWN" and "NOCHANGE" labels, `labelGenes` should be used. More information could be viewed in `?extractSignificantGene` and `?labelGenes`:
 ```{r}
 # Using differential expression analysis result
 # Filter out genes with significantly different expression levels
@@ -249,6 +255,8 @@ visEnrichAnalyLollipop(enrichOutputList, filePath = outPath)
 # You should see visualizations saved in the outPath,
 # named as enrich_analysis_vis.html and enrich_analysis_vis.png
 ```
+<div style="text-align:center"><img src="enrich_analysis_vis_Lollipop.png" alt="enrich_analysis_vis_Lollipop" width="500"/>
+
 
 ### Visualization for correlation analysis
 For the correlation analysis, a heatmap is generated to show the correlation coefficient between pairs of genes. Function `visCorrelationAnaly` should be used, `?visCorrelationAnaly` for more information:
@@ -268,6 +276,8 @@ visCorrelationAnaly(corrResult,
 
 ```
 <div style="text-align:center"><img src="correlation_analysis_vis.png" alt="correlation_analysis_vis" width="500"/>
+
+
 ## Package References
 - Li, G. (2023) GEAnaly: An R Package For Analysis Of Gene Expression Matrix. Unpublished. URL
   https://github.com/ReaganGen/GEAnaly
