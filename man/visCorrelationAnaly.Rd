@@ -38,7 +38,7 @@ heatmap indicates the correlation coefficient of corresponding genes.
 # Example 1:
 # Using correlation matrix (geneCorResult) available with the package
 \dontrun{
-dim(geneCorResult) # 942 rows, 942 columns
+dim(geneCorResult) # 103 rows, 103 columns
 
 # Plot a heatmap for the correlation analysis results
 visCorrelationAnaly(geneCorResult, filePath = getwd())
