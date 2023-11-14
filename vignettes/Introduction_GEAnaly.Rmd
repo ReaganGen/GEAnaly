@@ -74,6 +74,7 @@ dim(geneCountsDiffExpression) # 11000 rows, 126 columns
 dim(sampleInforDiffExpression) # 126 rows, 2 columns
 
 # Create a subdirectory to store the output of the pipeline
+# All the files generated are stored in the outPath defined below
 subDir <- "tutorialOutput"
 if (file.exists(subDir)){ 
   
@@ -243,7 +244,7 @@ visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath)
 
 # Plot a Lollipop plot for the enrichment analysis results, the plot shows the 
 # top 10 pathways with top10 highest gene ratio. 
-visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
+visEnrichAnalyLollipop(enrichOutputList, filePath = outPath)
 
 # You should see visualizations saved in the outPath,
 # named as enrich_analysis_vis.html and enrich_analysis_vis.png
