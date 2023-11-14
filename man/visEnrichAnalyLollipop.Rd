@@ -24,7 +24,8 @@ A ggplot object, and save the output visualization plot to "filePath"
 This is a function that can visualize the enrichment analysis
 result as a Lollipop plot, whose x-axis is the gene ratio and
 y-axis is the name of the pathways. Basically, the larger the gene ratio is,
-the more genes enrich in the pathway.
+the more genes enrich in the pathway. The plot shows the top 10 pathways with
+top10 highest gene ratio.
 }
 \examples{
 # Example 1:

@@ -96,7 +96,7 @@ runGEAnaly(geneCountsDiffExpression,
 
 # Using gene counts matrix (geneCountsCorrelation) available with the package
 # For more information about the data, use '?geneCountsCorrelation' to check
-dim(geneCountsCorrelation) # 1000 rows, 41 columns
+dim(geneCountsCorrelation) # 105 rows, 41 columns
 
 # Perform the gene correlation analysis pipeline on geneCountsCorrelation
 # You should see visualizations and results for the corrrelation analysis in 
@@ -196,7 +196,7 @@ head(enrichOutputListE$enrichmentVis)
 We can perform the correlation analysis at anytime as long as we have the gene expression matrix data, which is in the same format as the input matrix for differential expression analysis. Function `corrAnalysis` should be used, more information could be viewed in `?corrAnalysis`:
 ```{r}
 # Use the gene expression data geneCountsCorrelation available with the package
-dim(geneCountsCorrelation) # 1000 rows, 41 columns
+dim(geneCountsCorrelation) # 105 rows, 41 columns
 
 # Perform gene correlation analysis on the input gene counts matrix 
 # This creates a correlation_analysis_result.csv file that stores the result
@@ -240,6 +240,10 @@ For the enrichment analysis, an interactive or non-interactive Manhattan plot an
 # (both interactive and non-interactive)
 visEnrichAnaly(enrichOutputListE, interactive = TRUE, filePath = outPath)
 visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath)
+
+# Plot a Lollipop plot for the enrichment analysis results, the plot shows the 
+# top 10 pathways with top10 highest gene ratio. 
+visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
 
 # You should see visualizations saved in the outPath,
 # named as enrich_analysis_vis.html and enrich_analysis_vis.png

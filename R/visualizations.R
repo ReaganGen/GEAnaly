@@ -298,7 +298,8 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #' This is a function that can visualize the enrichment analysis
 #' result as a Lollipop plot, whose x-axis is the gene ratio and
 #' y-axis is the name of the pathways. Basically, the larger the gene ratio is,
-#' the more genes enrich in the pathway.
+#' the more genes enrich in the pathway. The plot shows the top 10 pathways with
+#' top10 highest gene ratio.
 #'
 #' @param enrichOutputList A named list containing the named list of enrichment
 #'    analysis results from gprofiler2 and a processed data frame based on the
