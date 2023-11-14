@@ -31,10 +31,10 @@ set.seed(1) # for exact reproducibility
 ## Introduction to the package
 Measuring gene expression levels in different samples and linking the expression of genes of interest to a biological pathway helps scientists understand gene functions, biological processes and the genes that play important roles in regulations. It is common to perform the gene expression analysis for scientific purposes.
 
-'GEAnaly' is an R package developed to GEAnaly is an R package that implements a pipeline, which integrates gene differential expression analysis, gene enrichment analysis and gene correlation analysis, for the analysis of gene expression matrix data and visualization of the results of each analysis in the pipeline. The whole analysis pipeine can be executed in a single command efficiently.
+`GEAnaly` is an R package that implements a pipeline, which integrates gene differential expression analysis, gene enrichment analysis and gene correlation analysis together for the analysis of gene expression matrix data and visualization of the results of each analysis in the pipeline. The whole analysis pipeline can be executed in a single command efficiently.
 
 The pipeline of the package is basically:
-Gene expression matrix data → Gene differential expression analysis → Select genes that are differentially expressed → Enrichment analysis for those differentially expressed genes, correlation analysis would be aplplied on Gene expression matrix data.
+Gene expression matrix data → Gene differential expression analysis → Select genes that are differentially expressed → Enrichment analysis for those differentially expressed genes, correlation analysis would be applied on Gene expression matrix data.
 
 The package aims to make the analysis of gene expression data as easy as possible without adjusting file formats between different packages. Also, this package provides a very simplified data analysis experience for biologists with no programming experiences, eliminating the manual construction of workflows. In addition, users can use very simple commands to visualize the analysis results, once again simplifying the analysis process, and improving analysis efficiency.
 
