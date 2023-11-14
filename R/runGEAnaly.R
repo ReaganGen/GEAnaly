@@ -1,6 +1,7 @@
-#' Execute the whole gene expression pipeline in a single call of a function
+#' Execute the differential expression analysis and enrichment analysis and
+#' their visualizations in a single call of a function.
 #'
-#' This is a function that can execute the whole gene expression analysis
+#' This is a function that can execute the gene expression analysis
 #' pipeline. It accept a gene counts matrix and sample information, and perform
 #' differential expression analysis, after that, genes with significantly
 #' different expression levels are selected and labelled. Then a volcano plot is
@@ -114,7 +115,8 @@ runGEAnaly <- function(geneCounts = NULL,
   return(invisible(NULL))
 }
 
-#' Execute the gene correlation analysis pipeline in a single call of a function
+#' Execute the gene correlation analysis and its visualization in a single
+#' call of a function
 #'
 #' This is a function that can perform gene correlation analysis and visualize
 #' the result. It accepts a gene counts matrix, and perform gene correlation

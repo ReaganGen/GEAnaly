@@ -89,6 +89,13 @@ browseVignettes("GEAnaly")
 
 `GEAnaly` contains 11 functions:
 
+1.  ***runGEAnaly***: Execute the differential expression analysis and
+    enrichment analysis and their visualizations in a single call of a
+    function.
+
+2.  ***runGEAnalyCor***: Execute the gene correlation analysis and its
+    visualization in a single call of a function.
+
 3.  ***diffExpressionAnalysis***: Perform differential expression
     analysis on gene expression matrix data.
 
@@ -131,4 +138,93 @@ data(package = "GEAnaly")
 ```
 
 Refer to package vignettes for more details. An overview of the package
-is illustrated below:
+is illustrated below: ![](./inst/extdata/GEAnaly_Overview.png)
+
+## Contributions
+
+The author of the package is Gen Li. The author defined all functions
+used in the package, including `runGEAnaly`, `runGEAnalyCor`,
+`diffExpressionAnalysis`, `corrAnalysis`, `extractSignificantGene`,
+`labelGenes`, `enrichAnalysis`, `visDeAnaly`, `visCorrelationAnaly`,
+`visEnrichAnaly` and `visEnrichAnalyLollipop`. The main contribution of
+the author was integrate multiple analyses into a single function. Apart
+from that, the author also developed various visualization functions for
+different visualization choices.
+
+The author defined `runGEAnaly` to integrate differential expression
+analysis and enrichment analysis and their visualizations into a quick
+single call of a function. Also, the author defined `runGEAnalyCor` to
+integrate correlation analysis and its visualization into a single call
+of the function. Apart from that, `diffExpressionAnalysis` used
+functions `DESeqDataSetFromMatrix`, `DESeq` and `results` from the
+package `DESeq2` as the core for the differential expression analysis.
+The function `extractSignificantGene` applied the `filter` function from
+package `dplyr` to select genes with significant differences in
+expression levels in different samples. The function `labelGenes` used
+`mutate` function from package `dplyr` to filter and label genes.
+Furthermore, the function `enrichAnalysis` used the `gost` function from
+the package `gprofiler2` to implement the enrichment analysis. In
+addition, the function for correlation analysis, which is
+`corrAnalysis`, used the `cor` function from the package `stats` to
+calculate the correlation coefficient between pairs of genes. The
+functions for visualizations (`visDeAnaly`, `visCorrelationAnaly`,
+`visEnrichAnaly`, `visEnrichAnalyLollipop`), all used package `ggplot2`
+to create comprehensible figures. Specifically, `visCorrelationAnaly`
+made use of package `pheatmap` and `grDevices` to plot the visualization
+for the correlation analysis. Also, function `visEnrichAnaly` employed
+`gprofiler2::gostplot()` to assist in plotting of the Manhattan plot for
+the enrichment analysis, and used `htmlwidgets` to save the interactive
+version of the plot. Generative AI tool was never used during the
+development.
+
+## References
+
+- Geistlinger, L., Csaba, G., Zimmer, R. (2016). “Bioconductor’s
+  EnrichmentBrowser: seamless navigation through combined results of
+  set- & network-based enrichment analysis.” BMC Bioinformatics, 17, 45.
+  <doi:10.1186/s12859-016-0884-1>.
+
+- Kolberg, L., Raudvere, U., Kuzmin, I., Vilo, J., Peterson, H. (2020).
+  “gprofiler2-an R package for gene list functional enrichment analysis
+  and namespace conversion toolset g:Profiler.” F1000Research, 9
+  (ELIXIR)(709). R package version 0.2.2.
+
+- Kolde, R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12,
+  <https://CRAN.R-project.org/package=pheatmap>
+
+- Love, M. I., Huber, W., Anders, S. (2014). Moderated estimation of
+  fold change and dispersion for RNA-seq data with DESeq2. Genome
+  Biology, 15(12):550. <https://doi.org/10.1186/s13059-014-0550-8>
+
+- Overmyer, K. A., Shishkova, E., Miller, I. J., Balnis, J.,
+  Bernstein, M. N., Peters-Clarke, T. M., Meyer, J. G., Quan, Q.,
+  Muehlbauer, L. K., Trujillo, E. A., He, Y., Chopra, A., Chieng, H. C.,
+  Tiwari, A., Judson, M. A., Paulson, B., Brademan, D. R., Zhu, Y.,
+  Serrano, L. R., … Jaitovich, A. (2021). Large-scale multi-omic
+  analysis of COVID-19 severity. Cell Systems, 12(1).
+  <https://doi.org/10.1016/j.cels.2020.10.003>
+
+- Posit team (2023). RStudio: Integrated Development Environment for R.
+  Posit Software, PBC, Boston, MA. URL <http://www.posit.co/>.
+
+- R Core Team (2023). R: A Language and Environment for Statistical
+  Computing. R Foundation for Statistical Computing, Vienna, Austria.
+  <https://www.R-project.org/>
+
+- Vaidyanathan, R., Xie, Y., Allaire, J., Cheng, J., Sievert, C.,
+  Russell, K. (2023). htmlwidgets: HTML Widgets for R. R package version
+  1.6.2, <https://CRAN.R-project.org/package=htmlwidgets>
+
+- Wickham, H., François, R., Henry, L., Müller, K., Vaughan, D. (2023).
+  dplyr: A Grammar of Data Manipulation. R package version 1.1.3,
+  <https://CRAN.R-project.org/package=dplyr>
+
+- Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York. <https://CRAN.R-project.org/package=ggplot2>
+
+## Acknowledgements
+
+This package was developed as part of an assessment for 2023 BCB410H:
+Applied Bioinformatics course at the University of Toronto, Toronto,
+CANADA. GEAnaly welcomes issues, enhancement requests, and other
+contributions. To submit an issue, use the GitHub issues.

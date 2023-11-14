@@ -278,7 +278,7 @@ visCorrelationAnaly(corrResult,
 
 - Kolde, R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12, https://CRAN.R-project.org/package=pheatmap
 
-- Love, M. I., Huber, W., &amp; Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with deseq2. Genome Biology, 15(12). https://doi.org/10.1186/s13059-014-0550-8
+- Love, M. I., Huber, W., Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12):550. https://doi.org/10.1186/s13059-014-0550-8
   
 - Overmyer, K. A., Shishkova, E., Miller, I. J., Balnis, J., Bernstein, M. N., Peters-Clarke, T. M., Meyer, J. G., Quan, Q., Muehlbauer, L. K., Trujillo, E. A., He, Y., Chopra, A., Chieng, H. C., Tiwari, A., Judson, M. A., Paulson, B., Brademan, D. R., Zhu, Y., Serrano, L. R., … Jaitovich, A. (2021). Large-scale multi-omic analysis of COVID-19 severity. Cell Systems, 12(1). https://doi.org/10.1016/j.cels.2020.10.003 
 

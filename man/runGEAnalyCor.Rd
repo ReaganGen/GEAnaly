@@ -2,7 +2,8 @@
 % Please edit documentation in R/runGEAnaly.R
 \name{runGEAnalyCor}
 \alias{runGEAnalyCor}
-\title{Execute the gene correlation analysis pipeline in a single call of a function}
+\title{Execute the gene correlation analysis and its visualization in a single
+call of a function}
 \usage{
 runGEAnalyCor(geneCounts = NULL, filePath = NULL)
 }

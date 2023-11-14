@@ -2,7 +2,8 @@
 % Please edit documentation in R/runGEAnaly.R
 \name{runGEAnaly}
 \alias{runGEAnaly}
-\title{Execute the whole gene expression pipeline in a single call of a function}
+\title{Execute the differential expression analysis and enrichment analysis and
+their visualizations in a single call of a function.}
 \usage{
 runGEAnaly(geneCounts = NULL, sampleInfor = NULL, filePath = NULL)
 }
@@ -27,7 +28,7 @@ Default value is NULL. Should in the format: "/Path/to/the/directory".}
 A NULL, save the output files to "filePath"
 }
 \description{
-This is a function that can execute the whole gene expression analysis
+This is a function that can execute the gene expression analysis
 pipeline. It accept a gene counts matrix and sample information, and perform
 differential expression analysis, after that, genes with significantly
 different expression levels are selected and labelled. Then a volcano plot is
