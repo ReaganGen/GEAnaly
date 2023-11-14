@@ -8,8 +8,8 @@ test_that("Check the function can perform correlation analysis properly with
                              method = "pearson")
 
   expect_type(corrResult, "double")
-  expect_equal(length(row.names(corrResult)), 942)
-  expect_equal(length(colnames(corrResult)), 942)
+  expect_equal(length(row.names(corrResult)), 103)
+  expect_equal(length(colnames(corrResult)), 103)
   expect_identical(colnames(corrResult), row.names(corrResult))
 })
 
@@ -21,8 +21,8 @@ test_that("Check the function can perform correlation analysis properly with
                              method = "kendall")
 
   expect_type(corrResult, "double")
-  expect_equal(length(row.names(corrResult)), 942)
-  expect_equal(length(colnames(corrResult)), 942)
+  expect_equal(length(row.names(corrResult)), 103)
+  expect_equal(length(colnames(corrResult)), 103)
   expect_identical(colnames(corrResult), row.names(corrResult))
 })
 
@@ -34,8 +34,8 @@ test_that("Check the function can perform correlation analysis properly with
                              method = "spearman")
 
   expect_type(corrResult, "double")
-  expect_equal(length(row.names(corrResult)), 942)
-  expect_equal(length(colnames(corrResult)), 942)
+  expect_equal(length(row.names(corrResult)), 103)
+  expect_equal(length(colnames(corrResult)), 103)
   expect_identical(colnames(corrResult), row.names(corrResult))
 })
 

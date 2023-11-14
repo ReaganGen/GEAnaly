@@ -212,7 +212,7 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' for Statistical Computing, Vienna, Austria. https://www.R-project.org/
 #'
 #' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-#' dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+#' dplyr: A Grammar of Data Manipulation. R package version 1.1.3,
 #' https://CRAN.R-project.org/package=dplyr
 #'
 #' @export
