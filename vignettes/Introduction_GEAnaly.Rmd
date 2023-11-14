@@ -253,7 +253,7 @@ visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath)
 visEnrichAnalyLollipop(enrichOutputList, filePath = outPath)
 
 # You should see visualizations saved in the outPath,
-# named as enrich_analysis_vis.html and enrich_analysis_vis.png
+# named as enrich_analysis_vis.html and enrich_analysis_vis.png and enrich_analysis_vis_Lollipop.png
 ```
 <div style="text-align:center"><img src="enrich_analysis_vis_Lollipop.png" alt="enrich_analysis_vis_Lollipop" width="500"/>
 
