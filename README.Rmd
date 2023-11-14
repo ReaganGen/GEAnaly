@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 
 # GEAnaly
 
+Analyze gene expression matrix data within a well-constructed pipeline, integrating differential enpression analysis, enrichment analysis and gene correlation analysis into a single command
+
 <!-- badges: start -->
 <!-- https://www.codefactor.io/repository/github/ReaganGen/GEAnaly/issues -->
 [![GitHub issues](https://img.shields.io/github/issues/ReaganGen/GEAnaly)](https://github.com/ReaganGen/GEAnaly/issues)  [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) ![GitHub language count](https://img.shields.io/github/languages/count/ReaganGen/GEAnaly) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/y/ReaganGen/GEAnaly/master)

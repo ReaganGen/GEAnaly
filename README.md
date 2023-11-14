@@ -3,6 +3,10 @@
 
 # GEAnaly
 
+Analyze gene expression matrix data within a well-constructed pipeline,
+integrating differential enpression analysis, enrichment analysis and
+gene correlation analysis into a single command
+
 <!-- badges: start -->
 <!-- https://www.codefactor.io/repository/github/ReaganGen/GEAnaly/issues -->
 
