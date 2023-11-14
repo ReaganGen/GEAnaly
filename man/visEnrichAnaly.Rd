@@ -21,7 +21,8 @@ It is recommended to create a new directory to store the output .png/.html
 file. Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
-A NULL, save the output visualization plot to "filePath"
+Either a plotly object (if interactive = TRUE) or a ggplot object
+(if interactive = FALSE), save the output visualization plot to "filePath"
 }
 \description{
 This is a function that can visualize the enrichment analysis
@@ -48,17 +49,17 @@ visEnrichAnaly(enrichOutputList, filePath = getwd())
 \references{
 Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
 gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
-\emph{F1000Research}, \emph{9 (ELIXIR)}(709). R package version 0.2.2.
+F1000Research, 9 (ELIXIR)(709). R package version 0.2.2.
 
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
-\href{https://www.R-project.org/}{link}.
+https://www.R-project.org/
 
 Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
 Widgets for R. R package version 1.6.2,
-\href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
+https://CRAN.R-project.org/package=htmlwidgets
 
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
-\href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+https://CRAN.R-project.org/package=ggplot2
 }

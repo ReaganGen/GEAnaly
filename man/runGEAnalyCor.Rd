@@ -29,7 +29,7 @@ dun by default settings.
 # Example 1:
 # Using gene counts matrix (geneCountsCorrelation) available with the package
 \dontrun{
-dim(geneCountsCorrelation) # 1000 rows, 41 columns
+dim(geneCountsCorrelation) # 105 rows, 41 columns
 
 # Perform the gene correlation analysis pipeline on the input gene
 # counts matrix

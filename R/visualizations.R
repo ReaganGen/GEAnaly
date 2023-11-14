@@ -23,7 +23,8 @@
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
-#' @return A NULL, save the output visualization plot to "filePath"
+#' @return A ggplot object, which is the visualization and save the output
+#'    visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -32,7 +33,10 @@
 #' dim(labelledGenes) # 18309 rows, 7 columns
 #'
 #' # Plot a volcano plot for the differential expression analysis results
-#' visDeAnaly(labelledGenes, filePath = getwd())
+#' # with colorblind-friendly colors
+#' volcanoplot <- visDeAnaly(labelledGenes,
+#'                           filePath = getwd(),
+#'                           colorBlindF = TRUE)
 #'
 #' # You should see visualizations saved in the current working directory,
 #' # which is the path from getwd()
@@ -41,11 +45,10 @@
 #' @references
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
+#' https://www.R-project.org/
 #'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
-#' Springer-Verlag New York. ISBN 978-3-319-24277-4
-#' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+#' Springer-Verlag New York. https://CRAN.R-project.org/package=ggplot2
 #'
 #' @export
 #' @import ggplot2
@@ -99,7 +102,7 @@ visDeAnaly <- function(genes = NULL,
   ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
                   plot = volcanoPlot,
                   dpi = 300)
-  return(invisible(NULL))
+  return(volcanoPlot)
 }
 
 #' Generate a heatmap for the gene correlation analysis result
@@ -121,7 +124,7 @@ visDeAnaly <- function(genes = NULL,
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
-#' @return A NULL, save the output visualization plot to "filePath"
+#' @return A pheatmap object, and save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -138,23 +141,18 @@ visDeAnaly <- function(genes = NULL,
 #'
 #' @references
 #' Kolde R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12,
-#' \href{https://CRAN.R-project.org/package=pheatmap}{link}.
+#' https://CRAN.R-project.org/package=pheatmap
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
-#'
-#' Slowikowski K. (2023). ggrepel: Automatically Position Non-Overlapping Text Labels with
-#' ggplot2'. R package version 0.9.4,
-#' \href{https://CRAN.R-project.org/package=ggrepel}{link}.
+#' https://www.R-project.org/
 #'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
-#' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+#' https://CRAN.R-project.org/package=ggplot2
 #'
 #' @export
 #' @import ggplot2
-#' @import ggrepel
 #' @import grDevices
 #' @import pheatmap
 
@@ -193,7 +191,7 @@ visCorrelationAnaly <- function(corMatrix = NULL,
                                 border_color = NA,
                                 filename = savePath)
 
-  return(invisible(NULL))
+  return(heatmap)
 }
 
 #' Generate a Manhattan plot for the enrichment analysis result
@@ -214,7 +212,8 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #'    It is recommended to create a new directory to store the output .png/.html
 #'    file. Default value is NULL. Should in the format: "/Path/to/the/directory".
 #'
-#' @return A NULL, save the output visualization plot to "filePath"
+#' @return Either a plotly object (if interactive = TRUE) or a ggplot object
+#'    (if interactive = FALSE), save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -234,19 +233,19 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #' @references
 #' Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
 #' gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
-#' _F1000Research_, *9 (ELIXIR)*(709). R package version 0.2.2.
+#' F1000Research, 9 (ELIXIR)(709). R package version 0.2.2.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
+#' https://www.R-project.org/
 #'
 #' Vaidyanathan R, Xie Y, Allaire J, Cheng J, Sievert C, Russell K (2023). htmlwidgets: HTML
 #' Widgets for R. R package version 1.6.2,
-#' \href{https://CRAN.R-project.org/package=htmlwidgets}{link}.
+#' https://CRAN.R-project.org/package=htmlwidgets
 #'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
-#' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+#' https://CRAN.R-project.org/package=ggplot2
 #'
 #'
 #' @export
@@ -291,7 +290,7 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
                     dpi = 300)
   }
 
-  return(invisible(NULL))
+  return(plot)
 }
 
 #' Generate a Lollipop plot for the enrichment analysis result
@@ -310,7 +309,7 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
 #'
-#' @return A NULL, save the output visualization plot to "filePath"
+#' @return A ggplot object, and save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -330,11 +329,11 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #' @references
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
 #' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
+#' https://www.R-project.org/
 #'
 #' Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
-#' \href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+#' https://CRAN.R-project.org/package=ggplot2
 #'
 #' @export
 #' @import ggplot2
@@ -385,9 +384,11 @@ visEnrichAnalyLollipop <- function(enrichOutputList = NULL,
 
   ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis_Lollipop.png"),
                   plot = lollipopPlot,
-                  dpi = 300)
+                  dpi = 300,
+                  width=14,
+                  height=8,)
 
-  return(invisible(NULL))
+  return(lollipopPlot)
 }
 
 # [END]

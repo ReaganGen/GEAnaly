@@ -62,11 +62,11 @@
 #' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
-#' for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
+#' for Statistical Computing, Vienna, Austria. https://www.R-project.org/
 #'
 #' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
+#' dplyr: A Grammar of Data Manipulation. R package version 1.1.3,
+#' https://CRAN.R-project.org/package=dplyr
 #'
 #' @export
 #' @import dplyr
@@ -209,11 +209,11 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation
-#' for Statistical Computing, Vienna, Austria. \href{https://www.R-project.org/}{link}.
+#' for Statistical Computing, Vienna, Austria. https://www.R-project.org/
 #'
 #' Wickham H., François R., Henry L., Müller K., Vaughan D. (2023).
-#' \emph{dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
-#' \href{https://CRAN.R-project.org/package=dplyr}{link}.
+#' dplyr: A Grammar of Data Manipulation}. R package version 1.1.3,
+#' https://CRAN.R-project.org/package=dplyr
 #'
 #' @export
 #' @import dplyr

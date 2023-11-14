@@ -63,7 +63,7 @@ data(package = "GEAnaly")
 <br>
 
 ## Quick start
-To perform all differential expression analysis, enrichment analysis and correlation analysis in a single call of function, the function `runGEAnaly` should be used, more information could be viewed in `?runGEAnaly`:
+To perform all differential expression analysis, enrichment analysis and correlation analysis quickly, the function `runGEAnaly` and `runGEAnalyCor` should be used, more information could be viewed in `?runGEAnaly` and `?runGEAnalyCor`:
 ```{r}
 # Using gene counts matrix (geneCountsDiffExpression) and the sample
 # information (sampleInforDiffExpression) available with the package
@@ -88,18 +88,24 @@ if (file.exists(subDir)){
 
 # Perform the whole gene expression analysis pipeline on the input gene
 # counts matrix with default settings
+# You should see all visualizations and all results from each stage of the
+# pipeline in the outPath directory
 runGEAnaly(geneCountsDiffExpression,
           sampleInforDiffExpression,
           filePath = outPath)
 
-# You should see all visualizations and all results from each stage of the
-# pipeline in the outPath directory
+# Using gene counts matrix (geneCountsCorrelation) available with the package
+# For more information about the data, use '?geneCountsCorrelation' to check
+dim(geneCountsCorrelation) # 1000 rows, 41 columns
 
-# The output of each single functions would be discussed later
+# Perform the gene correlation analysis pipeline on geneCountsCorrelation
+# You should see visualizations and results for the corrrelation analysis in 
+# outPath defined before
+runGEAnalyCor(geneCountsCorrelation,
+              filePath = outPath)
 
 ```
-Here are example outputs of visualizations for the whole pipeline, which should be the same as the visualizations produced by above codes:
-<div style="text-align:center"><img src="SILVA_A_A1.png" alt="SILVA_A_A1" width="500"/>
+All output results files and visualizations will be discussed in detail later in the tutorial.
 
 <br>
 
@@ -125,7 +131,7 @@ head(deResult)
 
 <br>
 
-## Select genes show significantly different expression levels
+## Select genes that show significantly different expression levels
 After performing the differential expression analysis, genes are up-expressed or down-expressed or have significant changes in expression. To select genes that has significantly different expression levels in different samples, `extractSignificantGene` should be used. To label genes with "UP", "DOWN" and "NOCHANGE" labels, `labelGenes` should be used. More information could be viewed in `?extractSignificantGene` and `?labelGenes`:
 ```{r}
 # Using differential expression analysis result
@@ -138,6 +144,8 @@ significantGenesE <- extractSignificantGene(deResult,
                                             filePath = outPath,
                                             pValue = 0.05,
                                             foldChange = 2)
+
+# significantGenesE is saved to significant_de_genes.csv
 head(significantGenesE)
 
 # Using differential expression analysis result label genes based on the input threshold
@@ -149,15 +157,18 @@ labelGenesE <- labelGenes(deResult,
                           filePath = outPath,
                           pValue = 0.05,
                           foldChange = 2)
-head(labelGenesE)
+
 # Genes with labels are used for visualization of the differential expression analysis
+# labelGenesE is saved to de_genes_with_label.csv 
+head(labelGenesE)
+
 
 ```
 
 <br>
 
 ## Enrichment analysis
-After we got the genes with significantly different expression levels, they will be sent for an enrichment analysis to check if these genes enrich in the regulation of some pathways. To Perform the enrichment analysis, function `enrichAnalysis` should be used, More information could be viewed in `?enrichAnalysis`:
+After we got the genes with significantly different expression levels, they will be sent for an enrichment analysis to check if these genes enrich in the regulation of some pathways. To Perform the enrichment analysis, function `enrichAnalysis` should be used, more information could be viewed in `?enrichAnalysis`:
 ```{r}
 # Perform enrichment analysis and save the output as a 
 # enrich_analysis_result.tsv file in the in the outPath defined before
@@ -167,13 +178,118 @@ enrichOutputListE <- enrichAnalysis(significantGenesE,
                                    filePath = outPath)
 
 # Access the results stored in the list returned
-enrichOutputListE$gProfilerResult
+dim(enrichOutputListE$gProfilerResult$result)
+enrichOutputListE$gProfilerResult$result[1:5, 1:5]
+colnames(enrichOutputListE$gProfilerResult$result)
+
 print("===================================================")
-enrichOutputListE$enrichmentVis
+
+# enrichOutputListE$enrichmentVis is saved to enrich_analysis_result.tsv
+head(enrichOutputListE$enrichmentVis)
+
+# Both enrichOutputListE$gProfilerResult and enrichOutputListE$enrichmentVis 
+# are used for visualizations
+
 ```
 
 ## Gene correlation analysis 
-We can perform the correlation analysis at anytime as long as we have the gene expression matrix data.
+We can perform the correlation analysis at anytime as long as we have the gene expression matrix data, which is in the same format as the input matrix for differential expression analysis. Function `corrAnalysis` should be used, more information could be viewed in `?corrAnalysis`:
+```{r}
+# Use the gene expression data geneCountsCorrelation available with the package
+dim(geneCountsCorrelation) # 1000 rows, 41 columns
+
+# Perform gene correlation analysis on the input gene counts matrix 
+# This creates a correlation_analysis_result.csv file that stores the result
+# in the outPath defined before
+corrResult <- corrAnalysis(geneCountsCorrelation,
+                           filePath = outPath,
+                           method = "pearson")
+
+# corrResult is saved to correlation_analysis_result.csv
+dim(corrResult)
+corrResult[1:5, 1:5]
+```
 
 
+## Visualizations
+The package visualizes the results of differential expression analysis, enrichment analysis and correlation analysis. 
 
+### Visualization for differential expression analysis
+For the differential expression analysis, a volcano plot is used for the visualization. To generate the plot, function `visDeAnaly` should be used. More information could be viewed in `?visDeAnaly`:
+```{r}
+# Use labelled genes (labelGenesE) generated by the labelGenes function
+# Can also use labelled genes (labelledGenes) available with the package
+dim(labelGenesE) # 10393 rows 7 columns
+
+# Plot a volcano plot for the differential expression analysis results
+# with colorblind-friendly colors
+visDeAnaly(labelledGenes, colorBlindF = TRUE, filePath = outPath)
+
+# You should see visualizations saved in outPath, 
+# named as DiffExpresion_volcano_plot.png
+
+```
+
+### Visualization for enrichment analysis
+For the enrichment analysis, an interactive or non-interactive Manhattan plot and a Lollipop plot are generated for visualization. Function `visEnrichAnaly` and `visEnrichAnalyLollipop` are used. Use `?visEnrichAnaly` and `?visEnrichAnalyLollipop` for more information:
+```{r}
+# Use enrichment analysis result generated by enrichAnalysis
+# Can also use enrichment analysis output (enrichOutputList) available with the
+# package
+# Plot a Manhattan plot for the enrichment analysis results 
+# (both interactive and non-interactive)
+visEnrichAnaly(enrichOutputListE, interactive = TRUE, filePath = outPath)
+visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath)
+
+# You should see visualizations saved in the outPath,
+# named as enrich_analysis_vis.html and enrich_analysis_vis.png
+```
+
+### Visualization for correlation analysis
+For the correlation analysis, a heatmap is generated to show the correlation coefficient between pairs of genes. Function `visCorrelationAnaly` should be used, `?visCorrelationAnaly` for more information:
+```{r}
+# Use the correlation analysis result corrResult generated by corrAnalysis
+# Can also use correlation result (geneCorResult) available with the package
+dim(corrResult) # 942 rows, 942 columns
+
+# Plot a heatmap for the correlation analysis results
+# Can input customized colors
+visCorrelationAnaly(corrResult, 
+                    colors = c("steelblue","white","brown"), 
+                    filePath = outPath)
+
+# You should see visualizations saved in outPath,
+# named as correlation_analysis_vis.png
+
+```
+
+## Package References
+- Li, G. (2023) GEAnaly: An R Package For Analysis Of Gene Expression Matrix. Unpublished. URL
+  https://github.com/ReaganGen/GEAnaly
+  
+## Other References
+- Geistlinger, L., Csaba, G., Zimmer, R. (2016). “Bioconductor's EnrichmentBrowser: seamless navigation through combined results of set- & network-based enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
+
+- Kolberg, L., Raudvere, U., Kuzmin, I., Vilo, J., Peterson, H. (2020). “gprofiler2-an R package for gene list functional enrichment analysis and namespace conversion toolset g:Profiler.” F1000Research, 9 (ELIXIR)(709). R package version 0.2.2.
+
+- Kolde, R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12, https://CRAN.R-project.org/package=pheatmap
+
+- Love, M. I., Huber, W., &amp; Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with deseq2. Genome Biology, 15(12). https://doi.org/10.1186/s13059-014-0550-8
+  
+- Overmyer, K. A., Shishkova, E., Miller, I. J., Balnis, J., Bernstein, M. N., Peters-Clarke, T. M., Meyer, J. G., Quan, Q., Muehlbauer, L. K., Trujillo, E. A., He, Y., Chopra, A., Chieng, H. C., Tiwari, A., Judson, M. A., Paulson, B., Brademan, D. R., Zhu, Y., Serrano, L. R., … Jaitovich, A. (2021). Large-scale multi-omic analysis of COVID-19 severity. Cell Systems, 12(1). https://doi.org/10.1016/j.cels.2020.10.003 
+
+- Posit team (2023). RStudio: Integrated Development Environment for R. Posit Software, PBC, Boston, MA. URL http://www.posit.co/.
+  
+- R Core Team (2023). R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
+
+- Vaidyanathan, R., Xie, Y., Allaire, J., Cheng, J., Sievert, C., Russell, K. (2023). htmlwidgets: HTML Widgets for R. R package version 1.6.2, https://CRAN.R-project.org/package=htmlwidgets
+
+- Wickham, H., François, R., Henry, L., Müller, K., Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.3, https://CRAN.R-project.org/package=dplyr
+
+- Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://CRAN.R-project.org/package=ggplot2
+
+----
+
+```{r}
+sessionInfo()
+```

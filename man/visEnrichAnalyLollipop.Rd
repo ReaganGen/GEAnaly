@@ -18,7 +18,7 @@ It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory/".}
 }
 \value{
-A NULL, save the output visualization plot to "filePath"
+A ggplot object, and save the output visualization plot to "filePath"
 }
 \description{
 This is a function that can visualize the enrichment analysis
@@ -45,9 +45,9 @@ visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
 \references{
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
-\href{https://www.R-project.org/}{link}.
+https://www.R-project.org/
 
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
-\href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+https://CRAN.R-project.org/package=ggplot2
 }

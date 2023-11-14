@@ -27,7 +27,7 @@ It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
-A NULL, save the output visualization plot to "filePath"
+A pheatmap object, and save the output visualization plot to "filePath"
 }
 \description{
 This is a function that can visualize the gene correlation analysis result
@@ -50,17 +50,13 @@ visCorrelationAnaly(geneCorResult, filePath = getwd())
 }
 \references{
 Kolde R. (2019). pheatmap: Pretty Heatmaps. R package version 1.0.12,
-\href{https://CRAN.R-project.org/package=pheatmap}{link}.
+https://CRAN.R-project.org/package=pheatmap
 
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
-\href{https://www.R-project.org/}{link}.
-
-Slowikowski K. (2023). ggrepel: Automatically Position Non-Overlapping Text Labels with
-ggplot2'. R package version 0.9.4,
-\href{https://CRAN.R-project.org/package=ggrepel}{link}.
+https://www.R-project.org/
 
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
-\href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+https://CRAN.R-project.org/package=ggplot2
 }

@@ -5,7 +5,7 @@
 \alias{geneCountsCorrelation}
 \title{The gene expression matrix data for genes in different samples}
 \format{
-A matrix with 1000 rows and 41 columns, row names are gene names,
+A matrix with 105 rows and 41 columns, row names are gene names,
 column names are sample IDs:
 \describe{
 \item{Column names}{Columns starting with C are sample with Covid. Samples
@@ -25,8 +25,8 @@ counts of gene expression data, normally obtained from RNA-seq or other
 sequencing experiments. The count numbers in the matrix are
 non-negative integers. The row names of the matrix are the genes,
 and the column names are the sample IDs. This is a subset of
-geneCountsDiffExpression, selecting only the first 1000 genes and 41 samples,
-since the original data is too large for the correlatin analysis, which takes
+geneCountsDiffExpression, selecting only the first 105 genes and 41 samples,
+since the original data is too large for the correlation analysis, which takes
 too long for an example.
 }
 \examples{

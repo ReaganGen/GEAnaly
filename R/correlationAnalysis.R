@@ -29,9 +29,10 @@
 #' # Example 1:
 #' # Using gene counts matrix (geneCountsCorrelation) available with the package
 #' \dontrun{
-#' dim(geneCountsCorrelation) # 1000 rows, 41 columns
+#' dim(geneCountsCorrelation) # 105 rows, 41 columns
 #'
-#' # Perform gene correlation analysis on the input gene counts matrix
+#' # Perform gene correlation analysis on the input gene counts matrix available
+#' # with the package
 #' # This creates a correlation_analysis_result.csv file stores the result
 #' # in the current working directory
 #' corrResult <- corrAnalysis(geneCountsCorrelation,
@@ -65,8 +66,7 @@
 #' doi:10.1186/s12859-016-0884-1.
 #'
 #' R Core Team (2023). R: A Language and Environment for Statistical Computing.
-#' R Foundation for Statistical Computing, Vienna, Austria.
-#' \href{https://www.R-project.org/}{link}.
+#' R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
 #'
 #' @export
 #' @import utils

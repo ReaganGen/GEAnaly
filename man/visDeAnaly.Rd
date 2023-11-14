@@ -37,7 +37,8 @@ It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
 }
 \value{
-A NULL, save the output visualization plot to "filePath"
+A ggplot object, which is the visualization and save the output
+visualization plot to "filePath"
 }
 \description{
 This is a function that can visualize the differential expression analysis
@@ -53,7 +54,10 @@ expression differences between samples are.
 dim(labelledGenes) # 18309 rows, 7 columns
 
 # Plot a volcano plot for the differential expression analysis results
-visDeAnaly(labelledGenes, filePath = getwd())
+# with colorblind-friendly colors
+volcanoplot <- visDeAnaly(labelledGenes,
+                          filePath = getwd(),
+                          colorBlindF = TRUE)
 
 # You should see visualizations saved in the current working directory,
 # which is the path from getwd()
@@ -63,9 +67,8 @@ visDeAnaly(labelledGenes, filePath = getwd())
 \references{
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
 R Foundation for Statistical Computing, Vienna, Austria.
-\href{https://www.R-project.org/}{link}.
+https://www.R-project.org/
 
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
-Springer-Verlag New York. ISBN 978-3-319-24277-4
-\href{ https://CRAN.R-project.org/package=ggplot2}{Link}.
+Springer-Verlag New York. https://CRAN.R-project.org/package=ggplot2
 }

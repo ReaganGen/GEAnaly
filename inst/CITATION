@@ -7,6 +7,6 @@ citEntry(entry = "Unpublished",
   year         = "2023",
 
   textVersion  =
-  paste("Li, G. (2023) GEAnaly: An R Package For Analysis Of Gene Expression Matrix.
-        Unpublished. URL https://github.com/ReaganGen/GEAnaly.")
+  paste("Li, G. (2023) GEAnaly: An R Package For Analysis Of Gene Expression
+         Matrix. Unpublished. URL https://github.com/ReaganGen/GEAnaly")
 )

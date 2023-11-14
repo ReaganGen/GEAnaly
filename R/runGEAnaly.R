@@ -94,20 +94,20 @@ runGEAnaly <- function(geneCounts = NULL,
             quote = FALSE)
 
   # Filter out the genes that have significantly different expression levels
-  significantGenes <- extractSignificantGene(deResult, filePath = filePath)
+  sigGenes <- extractSignificantGene(deResult, filePath = filePath)
 
   # Label genes with "UP", "DOWN" and "NOCHANGE"
-  labelledGenes <- labelGenes(deResult, filePath = filePath)
+  labelGenes <- labelGenes(deResult, filePath = filePath)
 
   # Visualize the differential expression analysis
-  visDeAnaly(labelledGenes, filePath = filePath)
+  visDeAnaly(labelGenes, filePath = filePath)
 
   # Perform enrichment analysis
-  enrichOutputList <- enrichAnalysis(significantGenes, filePath = filePath)
+  enrichOutputListE <- enrichAnalysis(sigGenes, filePath = filePath)
 
   # Visualize enrichment analysis result as Manhattan plot and Lollipop plot
-  visEnrichAnaly(enrichOutputList, filePath = filePath)
-  visEnrichAnalyLollipop(enrichOutputList, filePath = filePath)
+  visEnrichAnaly(enrichOutputListE, filePath = filePath)
+  visEnrichAnalyLollipop(enrichOutputListE, filePath = filePath)
 
   message("The whole pipeline has been finished!")
 
@@ -135,7 +135,7 @@ runGEAnaly <- function(geneCounts = NULL,
 #' # Example 1:
 #' # Using gene counts matrix (geneCountsCorrelation) available with the package
 #' \dontrun{
-#' dim(geneCountsCorrelation) # 1000 rows, 41 columns
+#' dim(geneCountsCorrelation) # 105 rows, 41 columns
 #'
 #' # Perform the gene correlation analysis pipeline on the input gene
 #' # counts matrix
@@ -170,11 +170,11 @@ runGEAnalyCor <- function(geneCounts = NULL,
   }
 
   # Perform gene correlation analysis
-  geneCorResult <- corrAnalysis(geneCounts,
+  geneCor <- corrAnalysis(geneCounts,
                                 filePath = filePath)
 
   # Visualize the correlation analysis result as a heatmap
-  visCorrelationAnaly(geneCorResult, filePath = filePath)
+  visCorrelationAnaly(geneCor, filePath = filePath)
 
   message("The correlation analysis has been finished!")
 

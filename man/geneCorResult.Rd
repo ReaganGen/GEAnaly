@@ -5,7 +5,7 @@
 \alias{geneCorResult}
 \title{A correlation matrix recording the correlation coefficient between genes}
 \format{
-A matrix with 942 rows and 942 columns, row names and column names
+A matrix with 103 rows and 103 columns, row names and column names
 are same gene names. Each cell records the correlation coefficient of
 corresponding genes on the x and y axis
 }

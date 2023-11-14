@@ -56,6 +56,6 @@ seamless navigation through combined results of set- & network-based
 enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 
 Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold
-change and dispersion for RNA-seq data with deseq2. \emph{Genome Biology}, 15(12).
-\href{https://doi.org/10.1186/s13059-014-0550-8}{link}
+change and dispersion for RNA-seq data with deseq2. Genome Biology, 15(12).
+https://doi.org/10.1186/s13059-014-0550-8
 }

@@ -94,9 +94,8 @@ enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-
 
 Kolberg L, Raudvere U, Kuzmin I, Vilo J, Peterson H (2020). “gprofiler2-an R package for
 gene list functional enrichment analysis and namespace conversion toolset g:Profiler.”
-\emph{F1000Research}, \emph{9 (ELIXIR)}(709). R package version 0.2.2.
+F1000Research, 9 (ELIXIR)(709). R package version 0.2.2.
 
 R Core Team (2023). R: A Language and Environment for Statistical Computing.
-R Foundation for Statistical Computing, Vienna, Austria.
-\href{https://www.R-project.org/}{link}.
+R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
 }
