@@ -32,7 +32,7 @@ at the file path. If set to TRUE, the output would be stored at the
 filePath. Default value is FALSE.}
 }
 \value{
-A pheatmap object, and save the output visualization plot to "filePath"
+A ggplot object, and save the output visualization plot to "filePath"
 }
 \description{
 This is a function that can visualize the gene correlation analysis result
@@ -64,4 +64,7 @@ https://www.R-project.org/
 Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3-319-24277-4
 https://CRAN.R-project.org/package=ggplot2
+
+Yu G. (2023). ggplotify: Convert Plot to 'grob' or 'ggplot' Object.
+R package version 0.1.2, \url{https://CRAN.R-project.org/package=ggplotify}.
 }

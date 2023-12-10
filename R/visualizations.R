@@ -135,7 +135,7 @@ visDeAnaly <- function(genes = NULL,
 #'    at the file path. If set to TRUE, the output would be stored at the
 #'    filePath. Default value is FALSE.
 #'
-#' @return A pheatmap object, and save the output visualization plot to "filePath"
+#' @return A ggplot object, and save the output visualization plot to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -162,10 +162,14 @@ visDeAnaly <- function(genes = NULL,
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4
 #' https://CRAN.R-project.org/package=ggplot2
 #'
+#' Yu G. (2023). ggplotify: Convert Plot to 'grob' or 'ggplot' Object.
+#' R package version 0.1.2, <https://CRAN.R-project.org/package=ggplotify>.
+#'
 #' @export
 #' @import ggplot2
 #' @import grDevices
 #' @import pheatmap
+#' @import ggplotify
 
 visCorrelationAnaly <- function(corMatrix = NULL,
                                 colors = c("steelblue","white","brown"),
@@ -214,7 +218,8 @@ visCorrelationAnaly <- function(corMatrix = NULL,
                                   border_color = NA)
   }
 
-  return(heatmap)
+  ggheatMap <- ggplotify::as.ggplot(heatmap)
+  return(ggheatMap)
 }
 
 #' Generate a Manhattan plot for the enrichment analysis result

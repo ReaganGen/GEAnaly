@@ -240,6 +240,9 @@ development.
 - Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
   Springer-Verlag New York. <https://CRAN.R-project.org/package=ggplot2>
 
+- Yu G. (2023). ggplotify: Convert Plot to ‘grob’ or ‘ggplot’ Object. R
+  package version 0.1.2, <https://CRAN.R-project.org/package=ggplotify>
+
 ## Acknowledgements
 
 This package was developed as part of an assessment for 2023 BCB410H:
