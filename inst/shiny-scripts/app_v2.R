@@ -117,10 +117,6 @@ server <- function(input, output) {
     }
   })
 
-
-
-
-
   sampleInDiff <- reactive({
     if (! is.null(input$sampleInDiff)) {
       read.csv(input$sampleInDiff$datapath)
@@ -133,17 +129,55 @@ server <- function(input, output) {
     }
   })
 
+  output$expressionDiffData <- DT::renderDataTable(
+    DT::datatable({as.data.frame(geneExpressionDataDiff())}))
+  output$sampleDiff <- DT::renderDataTable(
+    DT::datatable({as.data.frame(sampleInDiff())
+      }
+    )
+  )
 
-  output$expressionDiffData <- DT::renderDataTable(DT::datatable({as.data.frame(geneExpressionDataDiff())}))
-  output$sampleDiff <- DT::renderDataTable(DT::datatable({as.data.frame(sampleInDiff())}))
+  deResult <- reactive(
+    {GEAnaly::diffExpressionAnalysis(geneExpressionDataDiff(),
+                                                 sampleInDiff())}
+  )
+
 
 
   output$labelResult <- DT::renderDataTable(
     DT::datatable({
-      as.data.frame(deResult <- GEAnaly::diffExpressionAnalysis(geneExpressionDataDiff(), sampleInDiff())
-                    labelGenes(deResult, filePath = filePath)
+      labelGenes <- labelGenes(deResult(),
+                               save = FALSE,
+                               pValue = as.double(input$pValue),
+                               foldChange = as.double(input$fdchange))
+      as.data.frame(labelGenes)}
+      )
+    )
 
-                    )}))
+  output$sigGenes <- DT::renderDataTable(
+    DT::datatable({
+      sigGenes <- extractSignificantGene(deResult(),
+                                         save = FALSE,
+                                         pValue = as.double(input$pValue),
+                                         foldChange = as.double(input$fdchange))
+      as.data.frame(sigGenes)}
+    )
+  )
+
+  output$volcanoPlot <- renderPlot(
+    {
+      labelGenes <- labelGenes(deResult(),
+                              save = FALSE,
+                              pValue = as.double(input$pValue),
+                              foldChange = as.double(input$fdchange))
+      visDeAnaly(labelGenes,
+                 logFCT = as.double(input$fdchange),
+                 padjT = as.double(input$pValue)
+                 )}
+  )
+
+
+
   # output$plot <- renderPlot({
   #
   #
