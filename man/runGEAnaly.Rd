@@ -5,7 +5,7 @@
 \title{Execute the differential expression analysis and enrichment analysis and
 their visualizations in a single call of a function.}
 \usage{
-runGEAnaly(geneCounts = NULL, sampleInfor = NULL, filePath = NULL)
+runGEAnaly(geneCounts = NULL, sampleInfor = NULL, filePath = NULL, save = TRUE)
 }
 \arguments{
 \item{geneCounts}{A data frame containing the matrix of un-normalized read
@@ -23,6 +23,10 @@ is the group that the sample belongs to. First column name shoud be
 \item{filePath}{A character string path to the directory that the user want
 to store the output files. It is recommended to create a new directory.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A NULL, save the output files to "filePath"
@@ -49,7 +53,8 @@ dim(sampleInforDiffExpression) # 126 rows, 2 columns
 # counts matrix
 runGEAnaly(geneCountsDiffExpression,
            sampleInforDiffExpression,
-           filePath = getwd())
+           filePath = getwd(),
+           save = TRUE)
 # You should see all visualizations and all results from each stage of the
 # pipeline in the current working directory, which is the path from getwd()
 }

@@ -23,6 +23,9 @@
 #' @param filePath A character string path to the directory that the user want
 #'    to store the output files. It is recommended to create a new directory.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A NULL, save the output files to "filePath"
 #'
@@ -38,7 +41,8 @@
 #' # counts matrix
 #' runGEAnaly(geneCountsDiffExpression,
 #'            sampleInforDiffExpression,
-#'            filePath = getwd())
+#'            filePath = getwd(),
+#'            save = TRUE)
 #' # You should see all visualizations and all results from each stage of the
 #' # pipeline in the current working directory, which is the path from getwd()
 #' }
@@ -47,10 +51,11 @@
 
 runGEAnaly <- function(geneCounts = NULL,
                        sampleInfor = NULL,
-                       filePath = NULL) {
+                       filePath = NULL,
+                       save = TRUE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
@@ -68,7 +73,7 @@ runGEAnaly <- function(geneCounts = NULL,
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -90,25 +95,30 @@ runGEAnaly <- function(geneCounts = NULL,
   # Perform differential expression analysis and save the output
   deResult <- diffExpressionAnalysis(geneCounts, sampleInfor)
   message("Saving differential expression analysis output to ", filePath)
-  write.csv(deResult,
-            file = file.path(filePath, "diffExpression_analysis_result.csv"),
-            quote = FALSE)
+  if (save == TRUE) {
+    write.csv(deResult,
+              file = file.path(filePath, "diffExpression_analysis_result.csv"),
+              quote = FALSE)
+  } else {
+    ;
+  }
+
 
   # Filter out the genes that have significantly different expression levels
-  sigGenes <- extractSignificantGene(deResult, filePath = filePath)
+  sigGenes <- extractSignificantGene(deResult, filePath = filePath, save = save)
 
   # Label genes with "UP", "DOWN" and "NOCHANGE"
-  labelGenes <- labelGenes(deResult, filePath = filePath)
+  labelGenes <- labelGenes(deResult, filePath = filePath, save = save)
 
   # Visualize the differential expression analysis
-  visDeAnaly(labelGenes, filePath = filePath)
+  visDeAnaly(labelGenes, filePath = filePath, save = save)
 
   # Perform enrichment analysis
-  enrichOutputListE <- enrichAnalysis(sigGenes, filePath = filePath)
+  enrichOutputListE <- enrichAnalysis(sigGenes, filePath = filePath, save = save)
 
   # Visualize enrichment analysis result as Manhattan plot and Lollipop plot
-  visEnrichAnaly(enrichOutputListE, filePath = filePath)
-  visEnrichAnalyLollipop(enrichOutputListE, filePath = filePath)
+  visEnrichAnaly(enrichOutputListE, filePath = filePath, save = save)
+  visEnrichAnalyLollipop(enrichOutputListE, filePath = filePath, save = save)
 
   message("The whole pipeline has been finished!")
 
@@ -130,8 +140,12 @@ runGEAnaly <- function(geneCounts = NULL,
 #' @param filePath A character string path to the directory that the user want
 #'    to store the output files. It is recommended to create a new directory.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
-#' @return A NULL, save the output files to "filePath"
+#' @return The correlation analysis result as a heatmap, if the save set as TRUE,
+#'    save the output files to "filePath"
 #'
 #' @examples
 #' # Example 1:
@@ -142,7 +156,8 @@ runGEAnaly <- function(geneCounts = NULL,
 #' # Perform the gene correlation analysis pipeline on the input gene
 #' # counts matrix
 #' runGEAnalyCor(geneCountsCorrelation,
-#'               filePath = getwd())
+#'               filePath = getwd(),
+#'               save = TRUE)
 #' # You should see visualizations and results from each stage of the
 #' # pipeline in the current working directory, which is the path from getwd()
 #' }
@@ -150,7 +165,8 @@ runGEAnaly <- function(geneCounts = NULL,
 #' @export
 
 runGEAnalyCor <- function(geneCounts = NULL,
-                          filePath = NULL) {
+                          filePath = NULL,
+                          save = TRUE) {
 
   # Performing checks of user input
   if (is.null(geneCounts) == TRUE) {
@@ -159,13 +175,13 @@ runGEAnalyCor <- function(geneCounts = NULL,
     ;
   }
 
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -173,14 +189,14 @@ runGEAnalyCor <- function(geneCounts = NULL,
 
   # Perform gene correlation analysis
   geneCor <- corrAnalysis(geneCounts,
-                                filePath = filePath)
+                                filePath = filePath, save = save)
 
   # Visualize the correlation analysis result as a heatmap
-  visCorrelationAnaly(geneCor, filePath = filePath)
+  corPlot <- visCorrelationAnaly(geneCor, filePath = filePath, save = save)
 
   message("The correlation analysis has been finished!")
 
-  return(invisible(NULL))
+  return(corPlot)
 }
 
 # [END]

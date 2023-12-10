@@ -5,7 +5,7 @@
 \title{Execute the gene correlation analysis and its visualization in a single
 call of a function}
 \usage{
-runGEAnalyCor(geneCounts = NULL, filePath = NULL)
+runGEAnalyCor(geneCounts = NULL, filePath = NULL, save = TRUE)
 }
 \arguments{
 \item{geneCounts}{A data frame containing the matrix of gene expression data,
@@ -16,9 +16,14 @@ should be the sample IDs. Default value is NULL.}
 \item{filePath}{A character string path to the directory that the user want
 to store the output files. It is recommended to create a new directory.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
-A NULL, save the output files to "filePath"
+The correlation analysis result as a heatmap, if the save set as TRUE,
+save the output files to "filePath"
 }
 \description{
 This is a function that can perform gene correlation analysis and visualize
@@ -35,7 +40,8 @@ dim(geneCountsCorrelation) # 105 rows, 41 columns
 # Perform the gene correlation analysis pipeline on the input gene
 # counts matrix
 runGEAnalyCor(geneCountsCorrelation,
-              filePath = getwd())
+              filePath = getwd(),
+              save = TRUE)
 # You should see visualizations and results from each stage of the
 # pipeline in the current working directory, which is the path from getwd()
 }

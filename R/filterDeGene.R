@@ -19,6 +19,9 @@
 #'    threshold. It is recommended to create a new directory to store the output
 #'    .csv file. Default value is NULL. Should in the format:
 #'    "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #' @param pValue A positive double, which is the threshold set by the
 #'    users used to filter genes that are differentially expressed in different
 #'    samples. Only genes that has smaller p values than the threshold would be
@@ -51,6 +54,7 @@
 #' # in the current working directory
 #' significantGenesE <- extractSignificantGene(diffExpressionResult,
 #'                                             filePath = getwd(),
+#'                                             save = TRUE,
 #'                                             pValue = 0.05,
 #'                                             foldChange = 2)
 #' significantGenesE
@@ -74,11 +78,12 @@
 
 extractSignificantGene <- function(diffExpressionResult = NULL,
                                    filePath = NULL,
+                                   save = FALSE,
                                    pValue = 0.05,
                                    foldChange = 2) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
@@ -103,7 +108,7 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -132,13 +137,15 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
     dplyr::filter(padj < pValue & abs(log2FoldChange) > foldChange)
 
   # Save the output as a file and return the output
-  utils::write.csv(significantGenes,
-                   file = file.path(filePath, "significant_de_genes.csv"),
-                   quote = FALSE)
-
+  if (save == TRUE) {
+    utils::write.csv(significantGenes,
+                     file = file.path(filePath, "significant_de_genes.csv"),
+                     quote = FALSE)
+    return(significantGenes)
+  } else {
+    return(significantGenes)
+  }
   message("Extraction finished!")
-
-  return(significantGenes)
 }
 
 #' Label genes with "UP", "DOWN" and "NOCHANGE" according to the pValue and
@@ -164,6 +171,9 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #'    to store the labelled genes based on the p value and fold change threshold.
 #'    It is recommended to create a new directory to store the output .csv file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #' @param pValue A positive double, which is the threshold set by the users used
 #'    to decide if the gene UP or DOWN expressed in different samples. Only
 #'    genes that has smaller p values than the threshold would be regarded as
@@ -198,6 +208,7 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' # in the current working directory
 #' labelGenesE <- labelGenes(diffExpressionResult,
 #'                           filePath = getwd(),
+#'                           save = TRUE,
 #'                           pValue = 0.05,
 #'                           foldChange = 2)
 #' labelGenesE
@@ -221,11 +232,12 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #'
 labelGenes <- function(diffExpressionResult = NULL,
                        filePath = NULL,
+                       save = FALSE,
                        pValue = 0.05,
                        foldChange = 2) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
@@ -250,7 +262,7 @@ labelGenes <- function(diffExpressionResult = NULL,
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -282,9 +294,13 @@ labelGenes <- function(diffExpressionResult = NULL,
     ))
 
   # Save the output as a file or return the output
-  utils::write.csv(differentialExpressionResultlabel,
-                   file = file.path(filePath, "de_genes_with_label.csv"),
-                   quote = FALSE)
+  if (save == TRUE) {
+    utils::write.csv(differentialExpressionResultlabel,
+                     file = file.path(filePath, "de_genes_with_label.csv"),
+                     quote = FALSE)
+  } else {
+    ;
+  }
 
   message("Labeling finished!")
 

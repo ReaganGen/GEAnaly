@@ -10,7 +10,8 @@ visDeAnaly(
   padjT = 0.05,
   maxOverlap = 8,
   colorBlindF = FALSE,
-  filePath = NULL
+  filePath = NULL,
+  save = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,10 @@ colors. Default is FALSE.}
 to store the visualization of the differential expression analysis result.
 It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A ggplot object, which is the visualization and save the output
@@ -56,7 +61,6 @@ dim(labelledGenes) # 18309 rows, 7 columns
 # Plot a volcano plot for the differential expression analysis results
 # with colorblind-friendly colors
 volcanoplot <- visDeAnaly(labelledGenes,
-                          filePath = getwd(),
                           colorBlindF = TRUE)
 
 # You should see visualizations saved in the current working directory,

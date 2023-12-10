@@ -10,7 +10,8 @@ enrichAnalysis(
   significantGenes = NULL,
   pvalueCutoff = 0.05,
   correctionMethod = "g_SCS",
-  filePath = NULL
+  filePath = NULL,
+  save = FALSE
 )
 }
 \arguments{
@@ -32,6 +33,10 @@ If you are not sure choose which one, just use g_SCS}
 to store the enrichment analysis result. It is recommended to create a
 new directory to store the output .tsv file. Default value is NULL.
 Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A named list containing the named list of results from
@@ -63,8 +68,7 @@ dim(significantGenes) # 1299 rows, 6 columns
 # current working directory (enrich_analysis_result.tsv)
 enrichOutputListE <- enrichAnalysis(significantGenes,
                                    pvalueCutoff = 0.05,
-                                   correctionMethod = "g_SCS",
-                                   filePath = getwd())
+                                   correctionMethod = "g_SCS")
 
 # Access the results stored in the list returned
 enrichOutputListE$gProfilerResult
@@ -78,8 +82,7 @@ enrichOutputListE$enrichmentVis
 # current working directory (enrich_analysis_result.tsv)
 enrichOutputListE2 <- enrichAnalysis(significantGenes,
                                    pvalueCutoff = 0.1,
-                                   correctionMethod = "fdr",
-                                   filePath = getwd())
+                                   correctionMethod = "fdr")
 
 # Access the results stored in the list returned
 enrichOutputListE2$gProfilerResult

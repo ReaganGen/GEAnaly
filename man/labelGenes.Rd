@@ -8,6 +8,7 @@ foldChange thresholds.}
 labelGenes(
   diffExpressionResult = NULL,
   filePath = NULL,
+  save = FALSE,
   pValue = 0.05,
   foldChange = 2
 )
@@ -23,6 +24,10 @@ of function diffExpressionAnalysis. Default value is NULL.}
 to store the labelled genes based on the p value and fold change threshold.
 It is recommended to create a new directory to store the output .csv file.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 
 \item{pValue}{A positive double, which is the threshold set by the users used
 to decide if the gene UP or DOWN expressed in different samples. Only
@@ -72,6 +77,7 @@ dim(diffExpressionResult) # 18309 rows, 6 columns
 # in the current working directory
 labelGenesE <- labelGenes(diffExpressionResult,
                           filePath = getwd(),
+                          save = TRUE,
                           pValue = 0.05,
                           foldChange = 2)
 labelGenesE

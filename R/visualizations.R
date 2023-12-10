@@ -22,6 +22,9 @@
 #'    to store the visualization of the differential expression analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A ggplot object, which is the visualization and save the output
 #'    visualization plot to "filePath"
@@ -35,7 +38,6 @@
 #' # Plot a volcano plot for the differential expression analysis results
 #' # with colorblind-friendly colors
 #' volcanoplot <- visDeAnaly(labelledGenes,
-#'                           filePath = getwd(),
 #'                           colorBlindF = TRUE)
 #'
 #' # You should see visualizations saved in the current working directory,
@@ -58,10 +60,11 @@ visDeAnaly <- function(genes = NULL,
                        padjT = 0.05,
                        maxOverlap = 8,
                        colorBlindF = FALSE,
-                       filePath = NULL) {
+                       filePath = NULL,
+                       save = FALSE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.
          Use ?visDeAnaly to check arguments.")
   } else {
@@ -99,9 +102,14 @@ visDeAnaly <- function(genes = NULL,
     ggplot2::labs(title = "Volcano Plot For Differential Expression Analysis")
 
   # Save the volcano plot
-  ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
-                  plot = volcanoPlot,
-                  dpi = 300)
+  if (save == TRUE) {
+    ggplot2::ggsave(file.path(filePath, "DiffExpresion_volcano_plot.png"),
+                    plot = volcanoPlot,
+                    dpi = 300)
+  } else {
+    ;
+  }
+
   return(volcanoPlot)
 }
 
@@ -123,6 +131,9 @@ visDeAnaly <- function(genes = NULL,
 #'    to store the visualization of the correlation analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A pheatmap object, and save the output visualization plot to "filePath"
 #'
@@ -133,7 +144,7 @@ visDeAnaly <- function(genes = NULL,
 #' dim(geneCorResult) # 103 rows, 103 columns
 #'
 #' # Plot a heatmap for the correlation analysis results
-#' visCorrelationAnaly(geneCorResult, filePath = getwd())
+#' visCorrelationAnaly(geneCorResult)
 #'
 #' # You should see visualizations saved in the current working directory,
 #' # which is the path from getwd()
@@ -158,10 +169,11 @@ visDeAnaly <- function(genes = NULL,
 
 visCorrelationAnaly <- function(corMatrix = NULL,
                                 colors = c("steelblue","white","brown"),
-                                filePath = NULL) {
+                                filePath = NULL,
+                                save =FALSE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.
          Use ?visCorrelationAnaly to check arguments.")
   } else {
@@ -179,17 +191,28 @@ visCorrelationAnaly <- function(corMatrix = NULL,
   message("Plotting and saving gene correlation analysis result to ", filePath)
 
   # Generate the saving path
-  savePath <- file.path(filePath, "correlation_analysis_vis.png")
+  if (save == TRUE) {
+    savePath <- file.path(filePath, "correlation_analysis_vis.png")
 
-  # Create the color palette and plot the heatmap
-  colorPalette <- grDevices::colorRampPalette(colors)(100)
-  heatmap <- pheatmap::pheatmap(corMatrix,
-                                cluster_rows = FALSE,
-                                fontsize_row = 5,
-                                fontsize_col = 5,
-                                color = colorPalette,
-                                border_color = NA,
-                                filename = savePath)
+    # Create the color palette and plot the heatmap
+    colorPalette <- grDevices::colorRampPalette(colors)(100)
+    heatmap <- pheatmap::pheatmap(corMatrix,
+                                  cluster_rows = FALSE,
+                                  fontsize_row = 5,
+                                  fontsize_col = 5,
+                                  color = colorPalette,
+                                  border_color = NA,
+                                  filename = savePath)
+  } else {
+    # Create the color palette and plot the heatmap
+    colorPalette <- grDevices::colorRampPalette(colors)(100)
+    heatmap <- pheatmap::pheatmap(corMatrix,
+                                  cluster_rows = FALSE,
+                                  fontsize_row = 5,
+                                  fontsize_col = 5,
+                                  color = colorPalette,
+                                  border_color = NA)
+  }
 
   return(heatmap)
 }
@@ -211,6 +234,9 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #'    to store the visualization of the enrichment analysis result.
 #'    It is recommended to create a new directory to store the output .png/.html
 #'    file. Default value is NULL. Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return Either a plotly object (if interactive = TRUE) or a ggplot object
 #'    (if interactive = FALSE), save the output visualization plot to "filePath"
@@ -224,7 +250,7 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #' enrichOutputList$enrichmentVis
 #'
 #' # Plot a Manhattan plot for the enrichment analysis results
-#' visEnrichAnaly(enrichOutputList, filePath = getwd())
+#' visEnrichAnaly(enrichOutputList)
 #'
 #' # You should see visualizations saved in the current working directory,
 #' # which is the path from getwd()
@@ -255,10 +281,11 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 
 visEnrichAnaly <- function(enrichOutputList = NULL,
                            interactive = TRUE,
-                           filePath = NULL) {
+                           filePath = NULL,
+                           save = FALSE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.
          Use ?visEnrichAnaly to check arguments.")
   } else {
@@ -280,16 +307,19 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
   plot <- gprofiler2::gostplot(gProfilerResult, interactive = interactive)
 
   # Decide if the plot is interactive or not
-  if (interactive == TRUE) {
-    htmlwidgets::saveWidget(plot,
-                            file = file.path(filePath,
-                                             "enrich_analysis_vis.html"))
+  if (save == TRUE) {
+    if (interactive == TRUE) {
+      htmlwidgets::saveWidget(plot,
+                              file = file.path(filePath,
+                                               "enrich_analysis_vis.html"))
+    } else {
+      ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis.png"),
+                      plot = plot,
+                      dpi = 300)
+    }
   } else {
-    ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis.png"),
-                    plot = plot,
-                    dpi = 300)
+    ;
   }
-
   return(plot)
 }
 
@@ -309,6 +339,9 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #'    to store the visualization of the enrichment analysis result.
 #'    It is recommended to create a new directory to store the output .png file.
 #'    Default value is NULL. Should in the format: "/Path/to/the/directory/".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A ggplot object, and save the output visualization plot to "filePath"
 #'
@@ -321,7 +354,7 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #' enrichOutputList$enrichmentVis
 #'
 #' # Plot a Lollipop plot for the enrichment analysis results
-#' visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
+#' visEnrichAnalyLollipop(enrichOutputList)
 #'
 #' # You should see visualizations saved in the current working directory,
 #' # which is the path from getwd()
@@ -340,10 +373,11 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #' @import ggplot2
 
 visEnrichAnalyLollipop <- function(enrichOutputList = NULL,
-                                   filePath = NULL) {
+                                   filePath = NULL,
+                                   save = FALSE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.
          Use ?visEnrichAnalyLollipop to check arguments.")
   } else {
@@ -383,11 +417,15 @@ visEnrichAnalyLollipop <- function(enrichOutputList = NULL,
     ggplot2::scale_y_continuous(breaks = seq(1, 10),
                                 label = enrichDf2[1:10, ]$Description)
 
-  ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis_Lollipop.png"),
-                  plot = lollipopPlot,
-                  dpi = 300,
-                  width=14,
-                  height=8,)
+  if (save == TRUE) {
+    ggplot2::ggsave(file.path(filePath, "enrich_analysis_vis_Lollipop.png"),
+                    plot = lollipopPlot,
+                    dpi = 300,
+                    width=14,
+                    height=8,)
+  } else {
+    ;
+  }
 
   return(lollipopPlot)
 }

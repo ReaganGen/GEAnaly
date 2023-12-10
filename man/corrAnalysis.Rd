@@ -5,7 +5,12 @@
 \title{Perform gene correlation analysis on the gene expression matrix data, using
 method indicated by users}
 \usage{
-corrAnalysis(geneCounts = NULL, method = "pearson", filePath = NULL)
+corrAnalysis(
+  geneCounts = NULL,
+  method = "pearson",
+  filePath = NULL,
+  save = FALSE
+)
 }
 \arguments{
 \item{geneCounts}{A data frame containing the matrix of gene expression data,
@@ -23,6 +28,10 @@ coefficient}}
 to store the correlation analysis result. It is recommended to create a
 new directory to store the output .csv file. Default value is NULL.
 Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A correlation coefficient matrix that has n * n dimensions (n is the
@@ -47,7 +56,6 @@ dim(geneCountsCorrelation) # 105 rows, 41 columns
 # This creates a correlation_analysis_result.csv file stores the result
 # in the current working directory
 corrResult <- corrAnalysis(geneCountsCorrelation,
-                           filePath = getwd(),
                            method = "pearson")
 corrResult[1:5, 1:5]
 }
@@ -56,7 +64,6 @@ corrResult[1:5, 1:5]
 # Use a different correlation coefficient
 \dontrun{
 corrResult2 <- corrAnalysis(geneCountsCorrelation,
-                           filePath = getwd(),
                            method = "kendall")
 corrResult2[1:5, 1:5]
 }
@@ -65,7 +72,6 @@ corrResult2[1:5, 1:5]
 # Use a different correlation coefficient
 \dontrun{
 corrResult3 <- corrAnalysis(geneCountsCorrelation,
-                           filePath = getwd(),
                            method = "spearman")
 corrResult3[1:5, 1:5]
 }

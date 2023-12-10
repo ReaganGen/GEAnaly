@@ -4,7 +4,12 @@
 \alias{visEnrichAnaly}
 \title{Generate a Manhattan plot for the enrichment analysis result}
 \usage{
-visEnrichAnaly(enrichOutputList = NULL, interactive = TRUE, filePath = NULL)
+visEnrichAnaly(
+  enrichOutputList = NULL,
+  interactive = TRUE,
+  filePath = NULL,
+  save = FALSE
+)
 }
 \arguments{
 \item{enrichOutputList}{A named list containing the named list of enrichment
@@ -19,6 +24,10 @@ Default as TRUE.}
 to store the visualization of the enrichment analysis result.
 It is recommended to create a new directory to store the output .png/.html
 file. Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 Either a plotly object (if interactive = TRUE) or a ggplot object
@@ -39,7 +48,7 @@ enrichOutputList$gProfilerResult
 enrichOutputList$enrichmentVis
 
 # Plot a Manhattan plot for the enrichment analysis results
-visEnrichAnaly(enrichOutputList, filePath = getwd())
+visEnrichAnaly(enrichOutputList)
 
 # You should see visualizations saved in the current working directory,
 # which is the path from getwd()

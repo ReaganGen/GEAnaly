@@ -20,6 +20,9 @@
 #'    to store the correlation analysis result. It is recommended to create a
 #'    new directory to store the output .csv file. Default value is NULL.
 #'    Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A correlation coefficient matrix that has n * n dimensions (n is the
 #'    number of genes). Each cell contains the correlation coefficient between
@@ -36,7 +39,6 @@
 #' # This creates a correlation_analysis_result.csv file stores the result
 #' # in the current working directory
 #' corrResult <- corrAnalysis(geneCountsCorrelation,
-#'                            filePath = getwd(),
 #'                            method = "pearson")
 #' corrResult[1:5, 1:5]
 #' }
@@ -45,7 +47,6 @@
 #' # Use a different correlation coefficient
 #' \dontrun{
 #' corrResult2 <- corrAnalysis(geneCountsCorrelation,
-#'                            filePath = getwd(),
 #'                            method = "kendall")
 #' corrResult2[1:5, 1:5]
 #' }
@@ -54,7 +55,6 @@
 #' # Use a different correlation coefficient
 #' \dontrun{
 #' corrResult3 <- corrAnalysis(geneCountsCorrelation,
-#'                            filePath = getwd(),
 #'                            method = "spearman")
 #' corrResult3[1:5, 1:5]
 #' }
@@ -74,7 +74,8 @@
 
 corrAnalysis <- function(geneCounts = NULL,
                          method = "pearson",
-                         filePath = NULL) {
+                         filePath = NULL,
+                         save = FALSE) {
 
   # Performing checks of user input
   if (is.null(geneCounts) == TRUE) {
@@ -83,13 +84,13 @@ corrAnalysis <- function(geneCounts = NULL,
     ;
   }
 
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -110,10 +111,12 @@ corrAnalysis <- function(geneCounts = NULL,
   diag(geneCor) <- 0
 
   # Save the output as a file or return the output
-  message("Saving correlation analysis output to ", filePath)
-  utils::write.csv(geneCor,
-                   file = file.path(filePath, "correlation_analysis_result.csv"),
-                   quote = FALSE)
+  if (save == TRUE) {
+    message("Saving correlation analysis output to ", filePath)
+    utils::write.csv(geneCor,
+                     file = file.path(filePath, "correlation_analysis_result.csv"),
+                     quote = FALSE)
+  }
 
   return(geneCor)
 }

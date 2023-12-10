@@ -7,7 +7,8 @@
 visCorrelationAnaly(
   corMatrix = NULL,
   colors = c("steelblue", "white", "brown"),
-  filePath = NULL
+  filePath = NULL,
+  save = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,10 @@ relatively "brown" color. 0 is marked as "white".}
 to store the visualization of the correlation analysis result.
 It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A pheatmap object, and save the output visualization plot to "filePath"
@@ -41,7 +46,7 @@ heatmap indicates the correlation coefficient of corresponding genes.
 dim(geneCorResult) # 103 rows, 103 columns
 
 # Plot a heatmap for the correlation analysis results
-visCorrelationAnaly(geneCorResult, filePath = getwd())
+visCorrelationAnaly(geneCorResult)
 
 # You should see visualizations saved in the current working directory,
 # which is the path from getwd()

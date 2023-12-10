@@ -23,6 +23,9 @@
 #'    to store the enrichment analysis result. It is recommended to create a
 #'    new directory to store the output .tsv file. Default value is NULL.
 #'    Should in the format: "/Path/to/the/directory".
+#' @param save A boolean value to indicate if store the result into a file
+#'    at the file path. If set to TRUE, the output would be stored at the
+#'    filePath. Default value is FALSE.
 #'
 #' @return A named list containing the named list of results from
 #'    gprofiler2 and a processed data frame based on the results from
@@ -46,8 +49,7 @@
 #' # current working directory (enrich_analysis_result.tsv)
 #' enrichOutputListE <- enrichAnalysis(significantGenes,
 #'                                    pvalueCutoff = 0.05,
-#'                                    correctionMethod = "g_SCS",
-#'                                    filePath = getwd())
+#'                                    correctionMethod = "g_SCS")
 #'
 #' # Access the results stored in the list returned
 #' enrichOutputListE$gProfilerResult
@@ -61,8 +63,7 @@
 #' # current working directory (enrich_analysis_result.tsv)
 #' enrichOutputListE2 <- enrichAnalysis(significantGenes,
 #'                                    pvalueCutoff = 0.1,
-#'                                    correctionMethod = "fdr",
-#'                                    filePath = getwd())
+#'                                    correctionMethod = "fdr")
 #'
 #' # Access the results stored in the list returned
 #' enrichOutputListE2$gProfilerResult
@@ -88,10 +89,11 @@
 enrichAnalysis <- function(significantGenes = NULL,
                            pvalueCutoff = 0.05,
                            correctionMethod = "g_SCS",
-                           filePath = NULL) {
+                           filePath = NULL,
+                           save =FALSE) {
 
   # Performing checks of user input
-  if (is.null(filePath) == TRUE) {
+  if (save == TRUE & is.null(filePath) == TRUE) {
     stop("Please input a file path to store the output files.")
   } else {
     ;
@@ -112,7 +114,7 @@ enrichAnalysis <- function(significantGenes = NULL,
     ;
   }
 
-  if (typeof(filePath) != "character") {
+  if (save == TRUE & typeof(filePath) != "character") {
     stop("Please input a character string as the path.e.g./Path/to/the/directory")
   } else {
     ;
@@ -154,12 +156,15 @@ enrichAnalysis <- function(significantGenes = NULL,
   gem$geneRatio <- gem$intersectSize / gem$querySize
 
   # Save the enrichment analysis result and return the result for visualization
-  filePathCombined <- file.path(filePath, "enrich_analysis_result.tsv")
-  utils::write.table(gem,
-                     file = filePathCombined,
-                     sep="\t",
-                     quote = F,
-                     row.names=FALSE)
+  if (save == TRUE) {
+    filePathCombined <- file.path(filePath, "enrich_analysis_result.tsv")
+    utils::write.table(gem,
+                       file = filePathCombined,
+                       sep="\t",
+                       quote = F,
+                       row.names=FALSE)
+  }
+
   enrichOutputList <- list(gProfilerResult = enrichOutput,
                            enrichmentVis = gem)
 

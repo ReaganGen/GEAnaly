@@ -8,6 +8,7 @@ the user-customized threshold}
 extractSignificantGene(
   diffExpressionResult = NULL,
   filePath = NULL,
+  save = FALSE,
   pValue = 0.05,
   foldChange = 2
 )
@@ -24,6 +25,10 @@ to store the significant genes selected by the p value and fold change
 threshold. It is recommended to create a new directory to store the output
 .csv file. Default value is NULL. Should in the format:
 "/Path/to/the/directory".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 
 \item{pValue}{A positive double, which is the threshold set by the
 users used to filter genes that are differentially expressed in different
@@ -68,6 +73,7 @@ dim(diffExpressionResult) # 18309 rows, 6 columns
 # in the current working directory
 significantGenesE <- extractSignificantGene(diffExpressionResult,
                                             filePath = getwd(),
+                                            save = TRUE,
                                             pValue = 0.05,
                                             foldChange = 2)
 significantGenesE

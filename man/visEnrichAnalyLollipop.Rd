@@ -4,7 +4,7 @@
 \alias{visEnrichAnalyLollipop}
 \title{Generate a Lollipop plot for the enrichment analysis result}
 \usage{
-visEnrichAnalyLollipop(enrichOutputList = NULL, filePath = NULL)
+visEnrichAnalyLollipop(enrichOutputList = NULL, filePath = NULL, save = FALSE)
 }
 \arguments{
 \item{enrichOutputList}{A named list containing the named list of enrichment
@@ -16,6 +16,10 @@ results from gprofiler2 for visualization. The output of function
 to store the visualization of the enrichment analysis result.
 It is recommended to create a new directory to store the output .png file.
 Default value is NULL. Should in the format: "/Path/to/the/directory/".}
+
+\item{save}{A boolean value to indicate if store the result into a file
+at the file path. If set to TRUE, the output would be stored at the
+filePath. Default value is FALSE.}
 }
 \value{
 A ggplot object, and save the output visualization plot to "filePath"
@@ -36,7 +40,7 @@ enrichOutputList$gProfilerResult
 enrichOutputList$enrichmentVis
 
 # Plot a Lollipop plot for the enrichment analysis results
-visEnrichAnalyLollipop(enrichOutputList, filePath = getwd())
+visEnrichAnalyLollipop(enrichOutputList)
 
 # You should see visualizations saved in the current working directory,
 # which is the path from getwd()
