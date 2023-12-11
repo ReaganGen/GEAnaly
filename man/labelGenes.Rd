@@ -73,11 +73,7 @@ thresholds set by users. The rest of genes are labelled as "NOCHANGE".
 dim(diffExpressionResult) # 18309 rows, 6 columns
 
 # label genes based on the input threshold
-# This creates a de_genes_with_label.csv file stores the result
-# in the current working directory
 labelGenesE <- labelGenes(diffExpressionResult,
-                          filePath = getwd(),
-                          save = TRUE,
                           pValue = 0.05,
                           foldChange = 2)
 labelGenesE

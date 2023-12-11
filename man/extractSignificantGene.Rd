@@ -59,7 +59,7 @@ fold change provided by the users. As long as the gene has smaller p value
 than the p value threshold and has larger fold change value than the
 fold change threshold inputted by the users, these genes are regarded as
 genes with significantly different expression levels in different samples.
-The function save these significant genes into a .csv file.
+The function save these significant genes into a .csv file if save is TRUE.
 }
 \examples{
 # Example 1:
@@ -69,11 +69,7 @@ The function save these significant genes into a .csv file.
 dim(diffExpressionResult) # 18309 rows, 6 columns
 
 # Filter out genes with significantly different expression levels
-# This creates a significant_de_genes.csv file stores the result
-# in the current working directory
 significantGenesE <- extractSignificantGene(diffExpressionResult,
-                                            filePath = getwd(),
-                                            save = TRUE,
                                             pValue = 0.05,
                                             foldChange = 2)
 significantGenesE

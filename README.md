@@ -72,20 +72,6 @@ devtools::install_github("ReaganGen/GEAnaly", build_vignettes = TRUE)
 library("GEAnaly")
 ```
 
-When installing the `GEAnaly` package, sometimes there exists an error.
-The error indicates that “Package DESeq2 is not available for this
-version of R”, to solve it, run the following codes:
-
-``` r
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-# install DESeq2 manually
-BiocManager::install("DESeq2")
-```
-
-Then repeat the installation codes above.
-
 To run the Shiny app:
 
 ``` r

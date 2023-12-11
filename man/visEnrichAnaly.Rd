@@ -32,6 +32,7 @@ filePath. Default value is FALSE.}
 \value{
 Either a plotly object (if interactive = TRUE) or a ggplot object
 (if interactive = FALSE), save the output visualization plot to "filePath"
+if save is TRUE
 }
 \description{
 This is a function that can visualize the enrichment analysis
@@ -49,9 +50,6 @@ enrichOutputList$enrichmentVis
 
 # Plot a Manhattan plot for the enrichment analysis results
 visEnrichAnaly(enrichOutputList)
-
-# You should see visualizations saved in the current working directory,
-# which is the path from getwd()
 }
 
 }

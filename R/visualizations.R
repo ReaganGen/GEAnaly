@@ -27,7 +27,7 @@
 #'    filePath. Default value is FALSE.
 #'
 #' @return A ggplot object, which is the visualization and save the output
-#'    visualization plot to "filePath"
+#'    visualization plot to "filePath" if save is TRUE.
 #'
 #' @examples
 #' # Example 1:
@@ -39,9 +39,6 @@
 #' # with colorblind-friendly colors
 #' volcanoplot <- visDeAnaly(labelledGenes,
 #'                           colorBlindF = TRUE)
-#'
-#' # You should see visualizations saved in the current working directory,
-#' # which is the path from getwd()
 #' }
 #'
 #' @references
@@ -81,7 +78,7 @@ visDeAnaly <- function(genes = NULL,
   }
 
   # Select genes that have significantly different expression for labelling
-  message("Plotting and saving Differential Expression analysis result to ", filePath)
+  message("Plotting Differential Expression analysis Result")
 
   if (colorBlindF == TRUE){
     colors <- c("#56B4E9", "#999999", "#E69F00")
@@ -138,6 +135,7 @@ visDeAnaly <- function(genes = NULL,
 #'    filePath. Default value is FALSE.
 #'
 #' @return A ggplot object, and save the output visualization plot to "filePath"
+#'    if save is TRUE
 #'
 #' @examples
 #' # Example 1:
@@ -148,8 +146,6 @@ visDeAnaly <- function(genes = NULL,
 #' # Plot a heatmap for the correlation analysis results
 #' visCorrelationAnaly(geneCorResult)
 #'
-#' # You should see visualizations saved in the current working directory,
-#' # which is the path from getwd()
 #' }
 #'
 #' @references
@@ -196,7 +192,7 @@ visCorrelationAnaly <- function(corMatrix = NULL,
     ;
   }
 
-  message("Plotting and saving gene correlation analysis result to ", filePath)
+  message("Plotting gene correlation analysis result")
 
   # Generate the saving path
   if (save == TRUE) {
@@ -249,6 +245,7 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #'
 #' @return Either a plotly object (if interactive = TRUE) or a ggplot object
 #'    (if interactive = FALSE), save the output visualization plot to "filePath"
+#'    if save is TRUE
 #'
 #' @examples
 #' # Example 1:
@@ -260,9 +257,6 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 #'
 #' # Plot a Manhattan plot for the enrichment analysis results
 #' visEnrichAnaly(enrichOutputList)
-#'
-#' # You should see visualizations saved in the current working directory,
-#' # which is the path from getwd()
 #' }
 #'
 #' @references
@@ -311,7 +305,7 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
     ;
   }
 
-  message("Plotting and saving enrichment analysis result to ", filePath)
+  message("Plotting enrichment analysis result")
 
   # Get the gprofiler2 result and plot the enrichment analysis result
   gProfilerResult <- enrichOutputList$gProfilerResult
@@ -367,8 +361,6 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 #' # Plot a Lollipop plot for the enrichment analysis results
 #' visEnrichAnalyLollipop(enrichOutputList)
 #'
-#' # You should see visualizations saved in the current working directory,
-#' # which is the path from getwd()
 #' }
 #'
 #' @references
@@ -405,7 +397,7 @@ visEnrichAnalyLollipop <- function(enrichOutputList = NULL,
     ;
   }
 
-  message("Plotting and saving enrichment analysis result to ", filePath)
+  message("Plotting enrichment analysis result")
 
   # Get the data for visualization and convert to a data frame
   enrichVis <- enrichOutputList$enrichmentVis

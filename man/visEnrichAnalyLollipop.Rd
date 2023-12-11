@@ -42,8 +42,6 @@ enrichOutputList$enrichmentVis
 # Plot a Lollipop plot for the enrichment analysis results
 visEnrichAnalyLollipop(enrichOutputList)
 
-# You should see visualizations saved in the current working directory,
-# which is the path from getwd()
 }
 
 }

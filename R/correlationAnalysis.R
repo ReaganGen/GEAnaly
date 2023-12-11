@@ -26,7 +26,8 @@
 #'
 #' @return A correlation coefficient matrix that has n * n dimensions (n is the
 #'    number of genes). Each cell contains the correlation coefficient between
-#'    corresponding genes. The function would save the matrix into a .csv file.
+#'    corresponding genes. The function would save the matrix into a .csv file
+#'    if save is TRUE.
 #'
 #' @examples
 #' # Example 1:
@@ -36,8 +37,6 @@
 #'
 #' # Perform gene correlation analysis on the input gene counts matrix available
 #' # with the package
-#' # This creates a correlation_analysis_result.csv file stores the result
-#' # in the current working directory
 #' corrResult <- corrAnalysis(geneCountsCorrelation,
 #'                            method = "pearson")
 #' corrResult[1:5, 1:5]

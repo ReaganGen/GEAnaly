@@ -33,6 +33,7 @@ filePath. Default value is FALSE.}
 }
 \value{
 A ggplot object, and save the output visualization plot to "filePath"
+if save is TRUE
 }
 \description{
 This is a function that can visualize the gene correlation analysis result
@@ -48,8 +49,6 @@ dim(geneCorResult) # 103 rows, 103 columns
 # Plot a heatmap for the correlation analysis results
 visCorrelationAnaly(geneCorResult)
 
-# You should see visualizations saved in the current working directory,
-# which is the path from getwd()
 }
 
 }

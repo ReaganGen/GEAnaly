@@ -64,8 +64,7 @@ sources for the enrichment analysis.
 \dontrun{
 dim(significantGenes) # 1299 rows, 6 columns
 
-# Perform enrichment analysis and save the output as a .tsv file in the
-# current working directory (enrich_analysis_result.tsv)
+# Perform enrichment analysis
 enrichOutputListE <- enrichAnalysis(significantGenes,
                                    pvalueCutoff = 0.05,
                                    correctionMethod = "g_SCS")
@@ -78,8 +77,7 @@ enrichOutputListE$enrichmentVis
 # Example 2:
 # P value can be adjusted and correction method can also be changed
 \dontrun{
-# Perform enrichment analysis and save the output as a .tsv file in the
-# current working directory (enrich_analysis_result.tsv)
+# Perform enrichment analysis
 enrichOutputListE2 <- enrichAnalysis(significantGenes,
                                    pvalueCutoff = 0.1,
                                    correctionMethod = "fdr")

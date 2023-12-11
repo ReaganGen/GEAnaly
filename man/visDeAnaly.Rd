@@ -43,7 +43,7 @@ filePath. Default value is FALSE.}
 }
 \value{
 A ggplot object, which is the visualization and save the output
-visualization plot to "filePath"
+visualization plot to "filePath" if save is TRUE.
 }
 \description{
 This is a function that can visualize the differential expression analysis
@@ -62,9 +62,6 @@ dim(labelledGenes) # 18309 rows, 7 columns
 # with colorblind-friendly colors
 volcanoplot <- visDeAnaly(labelledGenes,
                           colorBlindF = TRUE)
-
-# You should see visualizations saved in the current working directory,
-# which is the path from getwd()
 }
 
 }

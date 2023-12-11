@@ -7,7 +7,7 @@
 #' than the p value threshold and has larger fold change value than the
 #' fold change threshold inputted by the users, these genes are regarded as
 #' genes with significantly different expression levels in different samples.
-#' The function save these significant genes into a .csv file.
+#' The function save these significant genes into a .csv file if save is TRUE.
 #'
 #' @param diffExpressionResult A DESeqResults object, a simple subclass of
 #'    DataFrame defined by DESeq2. It contains the columns: baseMean,
@@ -50,11 +50,7 @@
 #' dim(diffExpressionResult) # 18309 rows, 6 columns
 #'
 #' # Filter out genes with significantly different expression levels
-#' # This creates a significant_de_genes.csv file stores the result
-#' # in the current working directory
 #' significantGenesE <- extractSignificantGene(diffExpressionResult,
-#'                                             filePath = getwd(),
-#'                                             save = TRUE,
 #'                                             pValue = 0.05,
 #'                                             foldChange = 2)
 #' significantGenesE
@@ -212,11 +208,7 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 #' dim(diffExpressionResult) # 18309 rows, 6 columns
 #'
 #' # label genes based on the input threshold
-#' # This creates a de_genes_with_label.csv file stores the result
-#' # in the current working directory
 #' labelGenesE <- labelGenes(diffExpressionResult,
-#'                           filePath = getwd(),
-#'                           save = TRUE,
 #'                           pValue = 0.05,
 #'                           foldChange = 2)
 #' labelGenesE
