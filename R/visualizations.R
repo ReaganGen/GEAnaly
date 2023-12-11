@@ -37,8 +37,7 @@
 #'
 #' # Plot a volcano plot for the differential expression analysis results
 #' # with colorblind-friendly colors
-#' volcanoplot <- visDeAnaly(labelledGenes,
-#'                           colorBlindF = TRUE)
+#' visDeAnaly(labelledGenes, colorBlindF = TRUE)
 #' }
 #'
 #' @references
