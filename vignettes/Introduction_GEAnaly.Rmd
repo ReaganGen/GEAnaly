@@ -44,13 +44,8 @@ Use `help(package = "GEAnaly")` for more information about the package and `cita
 To download **GEAnaly**, use the following commands:
 
 ```{r}
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-# install DESeq2 manually
-BiocManager::install("DESeq2")
-
-require("devtools")
+install.packages("devtools")
+library("devtools")
 devtools::install_github("ReaganGen/GEAnaly", build_vignettes = TRUE)
 library("GEAnaly")
 ```

@@ -156,7 +156,7 @@ ui <- fluidPage(
                             DT::dataTableOutput("sampleDiff")
                             ),
                    tabPanel("Differential Expression Analysis",
-                            h3("The result for Differential Expression Anslysis
+                            h3("The result for Differential Expression Analysis
                                (Note: The result requires 30s to 1 min to be
                                prepared after you open the subtab):"),
                             h4("Visualization for differentialy expressed genes:"),
@@ -165,7 +165,7 @@ ui <- fluidPage(
                             DT::dataTableOutput("labelResult")
                             ),
                    tabPanel("Enrichment Analysis",
-                            h3("The result for Enrichment Anslysis on
+                            h3("The result for Enrichment Analysis on
                                significantly differentialy expressed genes
                                (Note: The result requires 30s to 1 min to be
                                prepared after you open the subtab):"),
@@ -212,9 +212,9 @@ ui <- fluidPage(
                           DT::dataTableOutput("expressionCorData")
                           ),
                  tabPanel("Gene Correlation Analysis",
-                          h3("The result for Correlation Anslysis on
+                          h3("The result for Correlation Analysis on
                                gene expression matrix:"),
-                          h4("Visualization for Correlation Anslysis Result:"),
+                          h4("Visualization for Correlation Analysis Result:"),
                           plotOutput('heatMap'),
                           lineBreaks(26),
                           h4("Data used for the Heatmap:"),
