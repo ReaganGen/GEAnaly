@@ -44,8 +44,7 @@ Use `help(package = "GEAnaly")` for more information about the package and `cita
 To download **GEAnaly**, use the following commands:
 
 ```{r}
-install.packages("devtools")
-library("devtools")
+require("devtools")
 devtools::install_github("ReaganGen/GEAnaly", build_vignettes = TRUE)
 library("GEAnaly")
 ```
