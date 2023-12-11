@@ -17,6 +17,7 @@
 # URL: https://stackoverflow.com/questions/46559251/how-to-add-multiple-line-breaks-conveniently-in-shiny
 
 library(shiny)
+library(GEAnaly)
 
 lineBreaks <- function(n) {
   HTML(strrep(br(), n))
@@ -268,7 +269,7 @@ server <- function(input, output) {
   # label genes with group labels
   output$labelResult <- DT::renderDataTable(
     DT::datatable({
-      labelGenes <- labelGenes(deResult(),
+      labelGenes <- GEAnaly::labelGenes(deResult(),
                                save = FALSE,
                                pValue = as.double(input$pValue),
                                foldChange = as.double(input$fdchange))
@@ -279,7 +280,7 @@ server <- function(input, output) {
   # Filter to obtain the significant genes
   output$sigGenes <- DT::renderDataTable(
     DT::datatable({
-      sigGenes <- extractSignificantGene(deResult(),
+      sigGenes <- GEAnaly::extractSignificantGene(deResult(),
                                          save = FALSE,
                                          pValue = as.double(input$pValue),
                                          foldChange = as.double(input$fdchange))
@@ -290,11 +291,11 @@ server <- function(input, output) {
   # show the visualization of differential expression analysis
   output$volcanoPlot <- renderPlot(
     {
-      labelGenes <- labelGenes(deResult(),
+      labelGenes <- GEAnaly::labelGenes(deResult(),
                                save = FALSE,
                                pValue = as.double(input$pValue),
                                foldChange = as.double(input$fdchange))
-      visDeAnaly(labelGenes,
+      GEAnaly::visDeAnaly(labelGenes,
                  logFCT = as.double(input$fdchange),
                  padjT = as.double(input$pValue)
       )}
@@ -303,32 +304,32 @@ server <- function(input, output) {
   # show the visualization for enrichment analysis
   output$manPlot <- renderPlot(
     {
-      sigGenes <- extractSignificantGene(deResult(),
+      sigGenes <- GEAnaly::extractSignificantGene(deResult(),
                                          save = FALSE,
                                          pValue = as.double(input$pValue),
                                          foldChange = as.double(input$fdchange))
 
-      enrichOutputListE <- enrichAnalysis(sigGenes,
+      enrichOutputListE <- GEAnaly::enrichAnalysis(sigGenes,
                                           pvalueCutoff = input$pValueEn,
                                           correctionMethod = input$correctMethod)
 
-      visEnrichAnaly(enrichOutputListE, interactive = FALSE)
+      GEAnaly::visEnrichAnaly(enrichOutputListE, interactive = FALSE)
 
     }
   )
 
   output$loPlot <- renderPlot(
     {
-      sigGenes <- extractSignificantGene(deResult(),
+      sigGenes <- GEAnaly::extractSignificantGene(deResult(),
                                          save = FALSE,
                                          pValue = as.double(input$pValue),
                                          foldChange = as.double(input$fdchange))
 
-      enrichOutputListE <- enrichAnalysis(sigGenes,
+      enrichOutputListE <- GEAnaly::enrichAnalysis(sigGenes,
                                           pvalueCutoff = input$pValueEn,
                                           correctionMethod = input$correctMethod)
 
-      visEnrichAnalyLollipop(enrichOutputListE)
+      GEAnaly::visEnrichAnalyLollipop(enrichOutputListE)
 
     }
   )
@@ -343,16 +344,16 @@ server <- function(input, output) {
   # show result of correlation analysis
   output$corMatrix <- DT::renderDataTable(
     DT::datatable({
-      corMatrix <- corrAnalysis(corExpressionData(),
+      corMatrix <- GEAnaly::corrAnalysis(corExpressionData(),
                                 method = input$corco)
       as.data.frame(corMatrix)}
     )
   )
 
   output$heatMap <- renderPlot(
-    {corMatrix <- corrAnalysis(corExpressionData(),
+    {corMatrix <- GEAnaly::corrAnalysis(corExpressionData(),
                                method = input$corco)
-    visCorrelationAnaly(corMatrix)},
+    GEAnaly::visCorrelationAnaly(corMatrix)},
     width = 900,
     height = 900
   )
