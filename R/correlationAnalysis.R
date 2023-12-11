@@ -79,7 +79,8 @@ corrAnalysis <- function(geneCounts = NULL,
 
   # Performing checks of user input
   if (is.null(geneCounts) == TRUE) {
-    stop("Please input a gene count matrix as the input.")
+    message("Please input a gene count matrix as the input.")
+    return(invisible(NULL))
   } else {
     ;
   }

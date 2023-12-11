@@ -94,34 +94,39 @@ enrichAnalysis <- function(significantGenes = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.")
+    message("Please input a file path to store the output files.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(significantGenes) == TRUE) {
-    stop("Please input a  data frame, using the genes names as row names of
+    message("Please input a  data frame, using the genes names as row names of
     the data frame. Make sure that row.names(significantGenes)
     is the vector that contains the genes for the enrichment analysis,
     which could be the output of function 'extractSignificantGene'")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (typeof(pvalueCutoff) != "double") {
-    stop("Please input a p value which is a double type number.")
+    message("Please input a p value which is a double type number.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (save == TRUE & typeof(filePath) != "character") {
-    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+    message("Please input a character string as the path.e.g./Path/to/the/directory")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (pvalueCutoff >= 1 | pvalueCutoff <= 0) {
-    stop("Please input a p value which is between 0 and 1.")
+    message("Please input a p value which is between 0 and 1.")
+    return(invisible(NULL))
   } else {
     ;
   }

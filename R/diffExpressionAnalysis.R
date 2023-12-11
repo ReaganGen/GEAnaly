@@ -56,26 +56,30 @@ diffExpressionAnalysis <- function(geneCounts = NULL,
 
   # Performing checks of user input
   if (is.null(geneCounts) == TRUE) {
-    stop("Please input a gene count matrix as the input.")
+    message("Please input a gene count matrix as the input.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(sampleInfor) == TRUE) {
-    stop("Please input a sample information table as the input.")
+    message("Please input a sample information table as the input.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (identical(colnames(geneCounts), sampleInfor$sample) != TRUE) {
-    stop("The content and order of the sample names in Gene Counts table
+    message("The content and order of the sample names in Gene Counts table
     and Sample Infotmation table should be the same.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (all((geneCounts - floor(geneCounts)) == 0) == FALSE) {
-    stop("The count in your Gene Count table should be integers.")
+    message("The count in your Gene Count table should be integers.")
+    return(invisible(NULL))
   } else {
     ;
   }

@@ -65,15 +65,17 @@ visDeAnaly <- function(genes = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.
+    message("Please input a file path to store the output files.
          Use ?visDeAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(genes) == TRUE) {
-    stop("Please input the output from function 'labelGenes'.
+    message("Please input the output from function 'labelGenes'.
          Use ?visDeAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
@@ -178,16 +180,18 @@ visCorrelationAnaly <- function(corMatrix = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.
+    message("Please input a file path to store the output files.
          Use ?visCorrelationAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(corMatrix) == TRUE) {
-    stop("Please input the correlation matrix for visualization. Output of
+    message("Please input the correlation matrix for visualization. Output of
          function corrAnalysis could be the input.
          Use ?visCorrelationAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
@@ -291,16 +295,18 @@ visEnrichAnaly <- function(enrichOutputList = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.
+    message("Please input a file path to store the output files.
          Use ?visEnrichAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(enrichOutputList) == TRUE) {
-    stop("Please input the correlation matrix for visualization. Output of
+    message("Please input the correlation matrix for visualization. Output of
          function corrAnalysis could be the input.
          Use ?visEnrichAnaly to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
@@ -383,16 +389,18 @@ visEnrichAnalyLollipop <- function(enrichOutputList = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.
+    message("Please input a file path to store the output files.
          Use ?visEnrichAnalyLollipop to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(enrichOutputList) == TRUE) {
-    stop("Please input the correlation matrix for visualization. Output of
+    message("Please input the correlation matrix for visualization. Output of
          function corrAnalysis could be the input.
          Use ?visEnrichAnalyLollipop to check arguments.")
+    return(invisible(NULL))
   } else {
     ;
   }

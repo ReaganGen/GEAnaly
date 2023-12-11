@@ -84,44 +84,52 @@ extractSignificantGene <- function(diffExpressionResult = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.")
+    message("Please input a file path to store the output files.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(diffExpressionResult) == TRUE) {
-    stop("Please input a differential expression analysis result as the input,
+    message("Please input a differential expression analysis result as the input,
          which should be the output of function \"diffExpressionAnalysis\"")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (typeof(pValue) != "double") {
-    stop("Please input a p value which is a double type number.")
+    message("Please input a p value which is a double type number.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (typeof(foldChange) != "double") {
-    stop("Please input a foldChange which is a double type number.")
+    message("Please input a foldChange which is a double type number.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (save == TRUE & typeof(filePath) != "character") {
-    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+    message("Please input a character string as the
+            path.e.g./Path/to/the/directory")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (foldChange <= 0) {
-    stop("Please input a positive foldChange.")
+    message("Please input a positive foldChange.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (pValue >= 1 | pValue <= 0) {
-    stop("Please input a p value which is between 0 and 1.")
+    message("Please input a p value which is between 0 and 1.")
+    return(invisible(NULL))
   } else {
     ;
   }
@@ -238,38 +246,45 @@ labelGenes <- function(diffExpressionResult = NULL,
 
   # Performing checks of user input
   if (save == TRUE & is.null(filePath) == TRUE) {
-    stop("Please input a file path to store the output files.")
+    message("Please input a file path to store the output files.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (is.null(diffExpressionResult) == TRUE) {
-    stop("Please input a differential expression analysis result as the input,
+    message("Please input a differential expression analysis result as the input,
          which should be the output of function \"diffExpressionAnalysis\"")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (typeof(pValue) != "double") {
-    stop("Please input a p value which is a double type number.")
+    message("Please input a p value which is a double type number.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (typeof(foldChange) != "double") {
-    stop("Please input a foldChange which is a double type number.")
+    message("Please input a foldChange which is a double type number.")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (save == TRUE & typeof(filePath) != "character") {
-    stop("Please input a character string as the path.e.g./Path/to/the/directory")
+    message("Please input a character string as the
+            path.e.g./Path/to/the/directory")
+    return(invisible(NULL))
   } else {
     ;
   }
 
   if (foldChange <= 0) {
-    stop("Please input a positive foldChange.")
+    message("Please input a positive foldChange.")
+    return(invisible(NULL))
   } else {
     ;
   }
