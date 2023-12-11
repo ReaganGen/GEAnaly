@@ -25,16 +25,16 @@ test_that("Checking for invalid input", {
   invalidDEMatrix2[1, 1] <- 2.5
 
   # Information in the comparison table not match expression data
-  expect_error(diffExpressionAnalysis(invalidDEMatrix1,
+  expect_message(diffExpressionAnalysis(invalidDEMatrix1,
                                       sampleInforDiffExpression))
 
   # Counts in the expression matrix are not integers
-  expect_error(diffExpressionAnalysis(invalidDEMatrix2,
+  expect_message(diffExpressionAnalysis(invalidDEMatrix2,
                                       sampleInforDiffExpression))
 
   # Missing input data
-  expect_error(diffExpressionAnalysis(sampleInfor = sampleInforDiffExpression))
-  expect_error(diffExpressionAnalysis(geneCounts = geneCountsDiffExpression))
+  expect_message(diffExpressionAnalysis(sampleInfor = sampleInforDiffExpression))
+  expect_message(diffExpressionAnalysis(geneCounts = geneCountsDiffExpression))
 })
 
 # [END]

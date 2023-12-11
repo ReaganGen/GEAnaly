@@ -41,7 +41,7 @@ test_that("Check if runGEAnalyCor works properly", {
   pipelineResultC <- runGEAnalyCor(geneCountsCorrelation,
                                    filePath = getwd())
 
-  expect_identical(pipelineResultC, NULL)
+  expect_equal(typeof(pipelineResultC), "list")
 })
 
 test_that("Checking for invalid input", {

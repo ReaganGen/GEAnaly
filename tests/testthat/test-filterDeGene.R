@@ -14,29 +14,27 @@ test_that("Check if extractSignificantGene function perform filtering properly",
 
 test_that("Checking for invalid input", {
 
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(filePath = getwd(),
                                       pValue = 0.05,
                                       foldChange = 2))
-  expect_error(extractSignificantGene(filePath = getwd(),
-                                      pValue = 0.05,
-                                      foldChange = 2))
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(diffExpressionResult,
                                       filePath = 1,
+                                      save = TRUE,
                                       pValue = 0.05,
                                       foldChange = 2))
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(diffExpressionResult,
                                       filePath = getwd(),
                                       pValue = "0.05",
                                       foldChange = 2))
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(diffExpressionResult,
                                       filePath = getwd(),
                                       pValue = 12,
                                       foldChange = 2))
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(diffExpressionResult,
                                       filePath = getwd(),
                                       pValue = 0.05,
                                       foldChange = "A"))
-  expect_error(extractSignificantGene(diffExpressionResult,
+  expect_message(extractSignificantGene(diffExpressionResult,
                                       filePath = getwd(),
                                       pValue = 0.05,
                                       foldChange = -2))
@@ -56,17 +54,17 @@ test_that("Check if labelGenes function labelling properly", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(labelGenes(diffExpressionResult,
+  expect_message(labelGenes(diffExpressionResult,
                           pValue = 0.05,
                           foldChange = 2))
-  expect_error(labelGenes(filePath = getwd(),
+  expect_message(labelGenes(filePath = getwd(),
                           pValue = 0.05,
                           foldChange = 2))
-  expect_error(labelGenes(diffExpressionResult,
+  expect_message(labelGenes(diffExpressionResult,
                           filePath = 1,
                           pValue = 0.05,
                           foldChange = 2))
-  expect_error(labelGenes(diffExpressionResult,
+  expect_message(labelGenes(diffExpressionResult,
                           filePath = getwd(),
                           pValue = "0.05",
                           foldChange = 2))
@@ -74,11 +72,11 @@ test_that("Checking for invalid input", {
                           filePath = getwd(),
                           pValue = 12,
                           foldChange = 2))
-  expect_error(labelGenes(diffExpressionResult,
+  expect_message(labelGenes(diffExpressionResult,
                           filePath = getwd(),
                           pValue = 0.05,
                           foldChange = "A"))
-  expect_error(labelGenes(diffExpressionResult,
+  expect_message(labelGenes(diffExpressionResult,
                           filePath = getwd(),
                           pValue = 0.05,
                           foldChange = -2))

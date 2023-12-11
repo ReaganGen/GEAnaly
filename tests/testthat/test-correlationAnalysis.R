@@ -4,7 +4,6 @@ test_that("Check the function can perform correlation analysis properly with
           pearson correlation coefficient", {
 
   corrResult <- corrAnalysis(geneCountsCorrelation,
-                             filePath = getwd(),
                              method = "pearson")
 
   expect_type(corrResult, "double")
@@ -17,7 +16,6 @@ test_that("Check the function can perform correlation analysis properly with
           kendall correlation coefficient", {
 
   corrResult <- corrAnalysis(geneCountsCorrelation,
-                             filePath = getwd(),
                              method = "kendall")
 
   expect_type(corrResult, "double")
@@ -30,7 +28,6 @@ test_that("Check the function can perform correlation analysis properly with
           spearman correlation coefficient", {
 
   corrResult <- corrAnalysis(geneCountsCorrelation,
-                             filePath = getwd(),
                              method = "spearman")
 
   expect_type(corrResult, "double")
@@ -42,10 +39,11 @@ test_that("Check the function can perform correlation analysis properly with
 test_that("Checking for invalid input", {
 
   # Missing input data
-  expect_error(corrAnalysis(filePath = getwd()))
-  expect_error(corrAnalysis(geneCounts = geneCountsCorrelation))
+  expect_message(corrAnalysis())
+  expect_message(corrAnalysis(geneCounts = geneCountsCorrelation))
   expect_error(corrAnalysis(geneCountsCorrelation,
                             filePath = 2,
+                            save = TRUE,
                             method = "spearman"))
 })
 

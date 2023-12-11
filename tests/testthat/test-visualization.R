@@ -11,8 +11,8 @@ test_that("Check visDeAnaly works properly", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(visDeAnaly(filePath = getwd()))
-  expect_error(visDeAnaly(labelledGenes))
+  expect_message(visDeAnaly(filePath = getwd()))
+  expect_message(visDeAnaly(labelledGenes, save = TRUE))
 })
 
 test_that("Check visCorrelationAnaly works properly", {
@@ -26,8 +26,8 @@ test_that("Check visCorrelationAnaly works properly", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(visCorrelationAnaly(geneCorResult))
-  expect_error(visCorrelationAnaly(filePath = getwd()))
+  expect_message(visCorrelationAnaly(geneCorResult, save = TRUE))
+  expect_message(visCorrelationAnaly(filePath = getwd()))
 })
 
 test_that("Check visEnrichAnaly works properly", {
@@ -42,8 +42,8 @@ test_that("Check visEnrichAnaly works properly", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(visEnrichAnaly(enrichOutputList))
-  expect_error(visEnrichAnaly(filePath = getwd()))
+  expect_message(visEnrichAnaly(enrichOutputList, save = TRUE))
+  expect_message(visEnrichAnaly(filePath = getwd()))
 })
 
 test_that("Check visEnrichAnalyLollipop works properly", {
@@ -57,8 +57,8 @@ test_that("Check visEnrichAnalyLollipop works properly", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(visEnrichAnalyLollipop(enrichOutputList))
-  expect_error(visEnrichAnalyLollipop(filePath = getwd()))
+  expect_message(visEnrichAnalyLollipop(enrichOutputList, save = TRUE))
+  expect_message(visEnrichAnalyLollipop(filePath = getwd()))
 })
 
 # [END]

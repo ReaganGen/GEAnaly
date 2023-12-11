@@ -108,6 +108,9 @@ The author defined `runGEAnaly` to integrate differential expression analysis an
 
 ## References
 
+- Chang, W., Cheng, J., Allaire, J., Sievert, C., Schloerke, B., Xie, Y., Allen, J.,
+McPherson J., Dipert A., Borges B. (2023). shiny: Web Application Framework for R. R package version 1.8.0, https://CRAN.R-project.org/package=shiny.
+
 - Geistlinger, L., Csaba, G., Zimmer, R. (2016). “Bioconductor's EnrichmentBrowser: seamless navigation through combined results of set- & network-based enrichment analysis.” BMC Bioinformatics, 17, 45. doi:10.1186/s12859-016-0884-1.
 
 - Kolberg, L., Raudvere, U., Kuzmin, I., Vilo, J., Peterson, H. (2020). “gprofiler2-an R package for gene list functional enrichment analysis and namespace conversion toolset g:Profiler.” F1000Research, 9 (ELIXIR)(709). R package version 0.2.2.
@@ -126,9 +129,9 @@ The author defined `runGEAnaly` to integrate differential expression analysis an
 
 - Wickham, H., François, R., Henry, L., Müller, K., Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.3, https://CRAN.R-project.org/package=dplyr
 
-- Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://CRAN.R-project.org/package=ggplot2
+- Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://CRAN.R-project.org/package=ggplot2
 
-- Yu G. (2023). ggplotify: Convert Plot to 'grob' or 'ggplot' Object.
+- Yu, G. (2023). ggplotify: Convert Plot to 'grob' or 'ggplot' Object.
 R package version 0.1.2, https://CRAN.R-project.org/package=ggplotify
 
 

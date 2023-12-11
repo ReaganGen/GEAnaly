@@ -4,8 +4,7 @@ test_that("The function perform enrichment analysis properly with g_SCS", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.05,
-                                     correctionMethod = "g_SCS",
-                                     filePath = getwd())
+                                     correctionMethod = "g_SCS")
 
   expect_type(enrichOutputListE, "list")
   expect_type(enrichOutputListE$enrichmentVis, "list")
@@ -19,8 +18,7 @@ test_that("The function perform enrichment analysis properly with fdr", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.1,
-                                     correctionMethod = "fdr",
-                                     filePath = getwd())
+                                     correctionMethod = "fdr")
 
   expect_type(enrichOutputListE, "list")
   expect_type(enrichOutputListE$enrichmentVis, "list")
@@ -34,8 +32,7 @@ test_that("The function perform enrichment analysis properly with bonferroni", {
 
   enrichOutputListE <- enrichAnalysis(significantGenes,
                                      pvalueCutoff = 0.1,
-                                     correctionMethod = "bonferroni",
-                                     filePath = getwd())
+                                     correctionMethod = "bonferroni")
 
   expect_type(enrichOutputListE, "list")
   expect_type(enrichOutputListE$enrichmentVis, "list")
@@ -47,13 +44,14 @@ test_that("The function perform enrichment analysis properly with bonferroni", {
 
 test_that("Checking for invalid input", {
 
-  expect_error(enrichAnalysis(significantGenes,
+  expect_message(enrichAnalysis(significantGenes,
                               pvalueCutoff = 0.05,
-                              correctionMethod = "g_SCS"))
-  expect_error(enrichAnalysis(pvalueCutoff = 0.1,
+                              correctionMethod = "g_SCS",
+                              save = TRUE))
+  expect_message(enrichAnalysis(pvalueCutoff = 0.1,
                               correctionMethod = "bonferroni",
                               filePath = getwd()))
-  expect_error(enrichAnalysis(significantGenes,
+  expect_message(enrichAnalysis(significantGenes,
                               pvalueCutoff = "a",
                               correctionMethod = "bonferroni",
                               filePath = getwd()))
@@ -61,7 +59,7 @@ test_that("Checking for invalid input", {
                               pvalueCutoff = 0.05,
                               correctionMethod = 3,
                               filePath = getwd()))
-  expect_error(enrichAnalysis(significantGenes,
+  expect_message(enrichAnalysis(significantGenes,
                               pvalueCutoff = 10,
                               correctionMethod = "g_SCS",
                               filePath = getwd()))

@@ -183,6 +183,11 @@ development.
 
 ## References
 
+- Chang, W., Cheng, J., Allaire, J., Sievert, C., Schloerke, B., Xie,
+  Y., Allen, J., McPherson J., Dipert A., Borges B. (2023). shiny: Web
+  Application Framework for R. R package version 1.8.0,
+  <https://CRAN.R-project.org/package=shiny>.
+
 - Geistlinger, L., Csaba, G., Zimmer, R. (2016). “Bioconductor’s
   EnrichmentBrowser: seamless navigation through combined results of
   set- & network-based enrichment analysis.” BMC Bioinformatics, 17, 45.
@@ -223,10 +228,10 @@ development.
   dplyr: A Grammar of Data Manipulation. R package version 1.1.3,
   <https://CRAN.R-project.org/package=dplyr>
 
-- Wickham H. (2016). ggplot2: Elegant Graphics for Data Analysis.
+- Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis.
   Springer-Verlag New York. <https://CRAN.R-project.org/package=ggplot2>
 
-- Yu G. (2023). ggplotify: Convert Plot to ‘grob’ or ‘ggplot’ Object. R
+- Yu, G. (2023). ggplotify: Convert Plot to ‘grob’ or ‘ggplot’ Object. R
   package version 0.1.2, <https://CRAN.R-project.org/package=ggplotify>
 
 ## Acknowledgements
