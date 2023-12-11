@@ -103,7 +103,8 @@ dim(geneCountsCorrelation) # 105 rows, 41 columns
 # You should see visualizations and results for the corrrelation analysis in 
 # outPath defined before
 runGEAnalyCor(geneCountsCorrelation,
-              filePath = outPath)
+              filePath = outPath,
+              save = TRUE)
 
 ```
 All output results files and visualizations will be discussed in detail later in the tutorial.
@@ -144,7 +145,8 @@ After performing the differential expression analysis, genes are up-expressed or
 significantGenesE <- extractSignificantGene(deResult,
                                             filePath = outPath,
                                             pValue = 0.05,
-                                            foldChange = 2)
+                                            foldChange = 2,
+                                            save = TRUE)
 
 # significantGenesE is saved to significant_de_genes.csv
 head(significantGenesE)
@@ -157,7 +159,8 @@ head(significantGenesE)
 labelGenesE <- labelGenes(deResult,
                           filePath = outPath,
                           pValue = 0.05,
-                          foldChange = 2)
+                          foldChange = 2,
+                          save = TRUE)
 
 # Genes with labels are used for visualization of the differential expression analysis
 # labelGenesE is saved to de_genes_with_label.csv 
@@ -176,7 +179,8 @@ After we got the genes with significantly different expression levels, they will
 enrichOutputListE <- enrichAnalysis(significantGenesE,
                                    pvalueCutoff = 0.05,
                                    correctionMethod = "g_SCS",
-                                   filePath = outPath)
+                                   filePath = outPath,
+                                   save = TRUE)
 
 # Access the results stored in the list returned
 dim(enrichOutputListE$gProfilerResult$result)
@@ -204,7 +208,8 @@ dim(geneCountsCorrelation) # 105 rows, 41 columns
 # in the outPath defined before
 corrResult <- corrAnalysis(geneCountsCorrelation,
                            filePath = outPath,
-                           method = "pearson")
+                           method = "pearson",
+                           save = TRUE)
 
 # corrResult is saved to correlation_analysis_result.csv
 dim(corrResult)
@@ -224,7 +229,7 @@ dim(labelGenesE) # 10393 rows 7 columns
 
 # Plot a volcano plot for the differential expression analysis results
 # with colorblind-friendly colors
-visDeAnaly(labelledGenes, colorBlindF = TRUE, filePath = outPath)
+visDeAnaly(labelledGenes, colorBlindF = TRUE, filePath = outPath, save = TRUE)
 
 # You should see visualizations saved in outPath, 
 # named as DiffExpresion_volcano_plot.png
@@ -239,12 +244,12 @@ For the enrichment analysis, an interactive or non-interactive Manhattan plot an
 # package
 # Plot a Manhattan plot for the enrichment analysis results 
 # (both interactive and non-interactive)
-visEnrichAnaly(enrichOutputListE, interactive = TRUE, filePath = outPath)
-visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath)
+visEnrichAnaly(enrichOutputListE, interactive = TRUE, filePath = outPath, save = TRUE)
+visEnrichAnaly(enrichOutputListE, interactive = FALSE, filePath = outPath, save = TRUE)
 
 # Plot a Lollipop plot for the enrichment analysis results, the plot shows the 
 # top 10 pathways with top10 highest gene ratio. 
-visEnrichAnalyLollipop(enrichOutputList, filePath = outPath)
+visEnrichAnalyLollipop(enrichOutputList, filePath = outPath, save = TRUE)
 
 # You should see visualizations saved in the outPath,
 # named as enrich_analysis_vis.html and enrich_analysis_vis.png and enrich_analysis_vis_Lollipop.png
@@ -263,7 +268,8 @@ dim(corrResult) # 103 rows, 103 columns
 # Can input customized colors
 visCorrelationAnaly(corrResult, 
                     colors = c("steelblue","white","brown"), 
-                    filePath = outPath)
+                    filePath = outPath,
+                    save = TRUE)
 
 # You should see visualizations saved in outPath,
 # named as correlation_analysis_vis.png
