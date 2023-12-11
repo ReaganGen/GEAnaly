@@ -91,7 +91,7 @@ data(package = "GEAnaly")
 browseVignettes("GEAnaly")
 ```
 
-`GEAnaly` contains 11 functions:
+`GEAnaly` contains 12 functions:
 
 1.  ***runGEAnaly***: Execute the differential expression analysis and
     enrichment analysis and their visualizations in a single call of a
@@ -131,6 +131,11 @@ browseVignettes("GEAnaly")
     enrichment analysis result (show the top 10 biological pathways with
     top 10 highest gene ratio values).
 
+12. ***runGEAnalyShiny***: Launches the Shiny app for GEAnaly. The
+    purpose of this app is providing a shiny app page with user-friendly
+    UI that assists users without programming experience to perform the
+    analyses easily and efficiently.
+
 The package also contains 8 datasets.
 
 ``` r
@@ -147,31 +152,33 @@ is illustrated below: ![](./inst/extdata/GEAnaly_Overview.png)
 ## Contributions
 
 The author of the package is Gen Li. The author defined all functions
-used in the package, including `runGEAnaly`, `runGEAnalyCor`,
-`diffExpressionAnalysis`, `corrAnalysis`, `extractSignificantGene`,
-`labelGenes`, `enrichAnalysis`, `visDeAnaly`, `visCorrelationAnaly`,
-`visEnrichAnaly` and `visEnrichAnalyLollipop`. The main contribution of
-the author was integrate multiple analyses into a single function. Apart
-from that, the author also developed various visualization functions for
-different visualization choices.
+used in the package, including `runGEAnaly`,
+`runGEAnalyShiny`,`runGEAnalyCor`, `diffExpressionAnalysis`,
+`corrAnalysis`, `extractSignificantGene`, `labelGenes`,
+`enrichAnalysis`, `visDeAnaly`, `visCorrelationAnaly`, `visEnrichAnaly`
+and `visEnrichAnalyLollipop`. The main contribution of the author was
+integrate multiple analyses into a single function and develope the
+shiny app. Apart from that, the author also developed various
+visualization functions for different visualization choices.
 
 The author defined `runGEAnaly` to integrate differential expression
 analysis and enrichment analysis and their visualizations into a quick
-single call of a function. Also, the author defined `runGEAnalyCor` to
-integrate correlation analysis and its visualization into a single call
-of the function. Apart from that, `diffExpressionAnalysis` used
-functions `DESeqDataSetFromMatrix`, `DESeq` and `results` from the
-package `DESeq2` as the core for the differential expression analysis.
-The function `extractSignificantGene` applied the `filter` function from
-package `dplyr` to select genes with significant differences in
-expression levels in different samples. The function `labelGenes` used
-`mutate` function from package `dplyr` to filter and label genes.
-Furthermore, the function `enrichAnalysis` used the `gost` function from
-the package `gprofiler2` to implement the enrichment analysis. In
-addition, the function for correlation analysis, which is
-`corrAnalysis`, used the `cor` function from the package `stats` to
-calculate the correlation coefficient between pairs of genes. The
-functions for visualizations (`visDeAnaly`, `visCorrelationAnaly`,
+single call of a function. The `runGEAnalyShiny` used `runApp` function
+from package `shiny` to lauch the shiny app. Also, the author defined
+`runGEAnalyCor` to integrate correlation analysis and its visualization
+into a single call of the function. Apart from that,
+`diffExpressionAnalysis` used functions `DESeqDataSetFromMatrix`,
+`DESeq` and `results` from the package `DESeq2` as the core for the
+differential expression analysis. The function `extractSignificantGene`
+applied the `filter` function from package `dplyr` to select genes with
+significant differences in expression levels in different samples. The
+function `labelGenes` used `mutate` function from package `dplyr` to
+filter and label genes. Furthermore, the function `enrichAnalysis` used
+the `gost` function from the package `gprofiler2` to implement the
+enrichment analysis. In addition, the function for correlation analysis,
+which is `corrAnalysis`, used the `cor` function from the package
+`stats` to calculate the correlation coefficient between pairs of genes.
+The functions for visualizations (`visDeAnaly`, `visCorrelationAnaly`,
 `visEnrichAnaly`, `visEnrichAnalyLollipop`), all used package `ggplot2`
 to create comprehensible figures. Specifically, `visCorrelationAnaly`
 made use of package `pheatmap` and `grDevices` to plot the visualization
