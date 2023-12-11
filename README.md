@@ -89,7 +89,7 @@ Then repeat the installation codes above.
 To run the Shiny app:
 
 ``` r
-Under construction
+GEAnaly::runGEAnalyShiny()
 ```
 
 ## Overview
